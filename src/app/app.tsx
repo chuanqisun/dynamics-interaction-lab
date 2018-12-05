@@ -21,14 +21,14 @@ export class App extends React.Component<any, any> {
 
   render() {
     return <BrowserRouter>
-        <div className="demos-content">
+        <React.Fragment>
           <Route exact path="/" component={() => <div>
             <NavLink className="link" activeClassName="link--active" to="/demos">Demos</NavLink>
             <NavLink className="link" activeClassName="link--active" to="/experiments">Experiments</NavLink>
           </div>}/>
           <Route path="/demos" component={() => <Suspense fallback="loading..."><Demos/></Suspense>}/>
           <Route path="/experiments" component={() => <Suspense fallback="loading..."><Experiments/></Suspense>}/>
-        </div>
+        </React.Fragment>
     </BrowserRouter>
   }
 }
