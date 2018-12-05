@@ -3,9 +3,9 @@ import * as ReactDOM from "react-dom";
 import './styles/typography/segoe-ui.css';
 import './styles/icon/full-mdl2.css';
 
-import {DemoApp} from './demo-app/demo-app';
+import {App} from './app/app';
 
 ReactDOM.render(
-    <DemoApp />,
-    document.getElementById("demo-app")
+    <App />,
+    document.getElementById("app")
 );

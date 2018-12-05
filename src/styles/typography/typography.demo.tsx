@@ -1,6 +1,6 @@
 import * as React from 'React';
 import styled from "styled-components";
-import {contentEditable} from '../../demo-app/util';
+import {contentEditable} from '../../utils/content-editable';
 import './typography.css';
 
 export class TypographyDemo extends React.Component<any, any> {

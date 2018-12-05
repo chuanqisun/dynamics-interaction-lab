@@ -7,9 +7,10 @@ import {Route, BrowserRouter, NavLink} from 'react-router-dom'
 // so new world use export default Class not module.exports anymore
 // module.exports -> we can't do name import we can just only do import *, but if we do export default class we can import name
 
-const FluentDynamics = lazy(() => import('./fluent-dynamics'));
+const Demos = lazy(() => import('./demos'));
+const Experiments = lazy(() => import('./experiments'));
 
-export class DemoApp extends React.Component<any, any> {
+export class App extends React.Component<any, any> {
   // <any, any> -> type script requires you to declare the property and states 
   constructor(props: any) {
     // interit props from parent components.
@@ -22,9 +23,11 @@ export class DemoApp extends React.Component<any, any> {
     return <BrowserRouter>
         <div className="demos-content">
           <Route exact path="/" component={() => <div>
-            <NavLink className="link" activeClassName="link--active" to="/library">Library</NavLink>
+            <NavLink className="link" activeClassName="link--active" to="/demos">Demos</NavLink>
+            <NavLink className="link" activeClassName="link--active" to="/experiments">Experiments</NavLink>
           </div>}/>
-          <Route path="/library" component={() => <Suspense fallback="loading..."><FluentDynamics/></Suspense>}/>
+          <Route path="/demos" component={() => <Suspense fallback="loading..."><Demos/></Suspense>}/>
+          <Route path="/experiments" component={() => <Suspense fallback="loading..."><Experiments/></Suspense>}/>
         </div>
     </BrowserRouter>
   }
