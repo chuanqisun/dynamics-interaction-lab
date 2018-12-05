@@ -1,0 +1,11 @@
+body[data-design-language="fluent-dynamics"] .tf {
+  border: 0;
+  border-bottom: var(--tf-border-rest);
+  color: var(--tf-fg);
+  font: var(--tf-font);
+  letter-spacing: var(--tf-letter-spacing);
+}
+
+body[data-design-language="fluent-dynamics"] .tf:hover {
+  border-bottom: var(--tf-border-hover);
+}

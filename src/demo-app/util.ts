@@ -1,0 +1,1 @@
+export const contentEditable = (e:any) => e && (e.contentEditable=true) && (e.spellcheck=false);

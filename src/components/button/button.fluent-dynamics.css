@@ -1,0 +1,33 @@
+body[data-design-language="fluent-dynamics"] .btn {
+  border-radius: var(--btn-border-radius);
+  border: none;
+  height: var(--btn-height);
+  font: var(--btn-font);
+  letter-spacing: var(--btn-letter-spacing);
+  padding: 0 var(--btn-padding-side);
+  box-shadow: var(--btn-shadow-rest);
+}
+
+body[data-design-language="fluent-dynamics"] .btn:hover {
+  box-shadow: var(--btn-shadow-hover);
+}
+
+body[data-design-language="fluent-dynamics"] .btn--primary {
+  color: var(--btn-primary-fg-rest);
+  background-color: var(--btn-primary-bg-rest);
+}
+
+body[data-design-language="fluent-dynamics"] .btn--primary:hover {
+  color: var(--btn-primary-fg-hover);
+  background-color: var(--btn-primary-bg-hover);
+}
+
+body[data-design-language="fluent-dynamics"] .btn--secondary {
+  color: var(--btn-secondary-fg-rest);
+  background-color: var(--btn-secondary-bg-rest);
+}
+
+body[data-design-language="fluent-dynamics"] .btn--secondary:hover {
+  color: var(--btn-secondary-fg-hover);
+  background-color: var(--btn-secondary-bg-hover);
+}

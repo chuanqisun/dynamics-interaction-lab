@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": true, // help map the ts to js script 
+      "strict": true,
+      "module": "esnext", // edge and chrome already supported it now
+      "target": "es5", // javascript syntax will be complied in this level
+      "jsx": "react",
+      "lib": ["dom", "es6"] 
+  },
+  "include": [
+      "./src/**/*"   // ** = go as deep as it can to in the directory, * means just one level of directory
+  ]
+}
