@@ -8,7 +8,6 @@ import {Route, BrowserRouter, NavLink} from 'react-router-dom'
 // module.exports -> we can't do name import we can just only do import *, but if we do export default class we can import name
 
 const FluentDynamics = lazy(() => import('./fluent-dynamics'));
-const FluentPowerPlatform = lazy(() => import('./fluent-power-platform'));
 
 export class DemoApp extends React.Component<any, any> {
   // <any, any> -> type script requires you to declare the property and states 
@@ -23,13 +22,9 @@ export class DemoApp extends React.Component<any, any> {
     return <BrowserRouter>
         <div className="demos-content">
           <Route exact path="/" component={() => <div>
-            <h1>Choose a design system</h1>
-            <NavLink className="link" activeClassName="link--active" to="/dynamics">Fluent for Dynamics</NavLink>
-            <br/>
-            <NavLink className="link" activeClassName="link--active" to="/powerplatform">Fluent for Power platform</NavLink>
+            <NavLink className="link" activeClassName="link--active" to="/library">Library</NavLink>
           </div>}/>
-          <Route path="/dynamics" component={() => <Suspense fallback="loading..."><FluentDynamics/></Suspense>}/>
-          <Route path="/powerplatform" component={() => <Suspense fallback="loading..."><FluentPowerPlatform/></Suspense>}/>
+          <Route path="/library" component={() => <Suspense fallback="loading..."><FluentDynamics/></Suspense>}/>
         </div>
     </BrowserRouter>
   }

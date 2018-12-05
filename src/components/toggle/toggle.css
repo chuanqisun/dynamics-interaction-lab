@@ -1,15 +1,15 @@
-body[data-design-language="fluent-dynamics"] .tg {
+.tg {
   width: var(--tg-track-width);
   height: var(--tg-track-height);
   margin: 0;
   vertical-align: bottom;
 }
 
-body[data-design-language="fluent-dynamics"] .tg::-ms-check {
+.tg::-ms-check {
   opacity: 0; /* Edge checkbox would leak outside the track by 0.1px */
 }
 
-body[data-design-language="fluent-dynamics"] .tg-label {
+.tg-label {
   margin-left: calc(var(--tg-track-width) * -1);
   padding-left: calc(var(--tg-track-width) + var(--tg-track-label-gutter));
   height: var(--tg-track-height);
@@ -19,7 +19,7 @@ body[data-design-language="fluent-dynamics"] .tg-label {
   display: inline-block;
 }
 
-body[data-design-language="fluent-dynamics"] .tg-label::before { /* track */
+.tg-label::before { /* track */
   background-color: var(--tg-off-track-bg-rest);
   content: '';
   position: absolute;
@@ -32,11 +32,11 @@ body[data-design-language="fluent-dynamics"] .tg-label::before { /* track */
   transition: all var(--tg-transition-duration);
 }
 
-body[data-design-language="fluent-dynamics"] .tg-label:hover::before { /* track */
+.tg-label:hover::before { /* track */
   border: 1px solid var(--tg-off-track-border-hover);
 }
 
-body[data-design-language="fluent-dynamics"] .tg-label::after { /* knob */
+.tg-label::after { /* knob */
   background-color: var(--tg-off-knob-bg);
   content: '';
   position: absolute;
@@ -48,12 +48,12 @@ body[data-design-language="fluent-dynamics"] .tg-label::after { /* knob */
   transition: all var(--tg-transition-duration);
 }
 
-body[data-design-language="fluent-dynamics"] .tg:checked+.tg-label::before { /* track */
+.tg:checked+.tg-label::before { /* track */
   background-color: var(--tg-on-track-bg-rest);
   border-color: var(--tg-on-track-border-rest);
 }
 
-body[data-design-language="fluent-dynamics"] .tg:checked+.tg-label::after { /* knob */
+.tg:checked+.tg-label::after { /* knob */
   transform: translateX(var(--tg-knob-translate));
   background-color: var(--tg-on-knob-bg);
 }

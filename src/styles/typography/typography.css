@@ -1,52 +1,52 @@
-body[data-design-language="fluent-dynamics"] .t-header-48 {
+.t-header-48 {
   font: var(--fw-semibold) var(--scale-48)/var(--scale-60) var(--ff-segoe-ui);
   letter-spacing: var(--ls-m-0006);
 }
 
-body[data-design-language="fluent-dynamics"] .t-subheader-34 {
+.t-subheader-34 {
   font: var(--fw-semibold) var(--scale-34)/var(--scale-40) var(--ff-segoe-ui);
   letter-spacing: var(--ls-m-0006);
 }
 
-body[data-design-language="fluent-dynamics"] .t-pageheader-24 {
+.t-pageheader-24 {
   font: var(--fw-semibold) var(--scale-24)/var(--scale-28) var(--ff-segoe-ui);
 }
 
-body[data-design-language="fluent-dynamics"] .t-sectiontitle-20 {
+.t-sectiontitle-20 {
   font: var(--fw-semibold) var(--scale-20)/var(--scale-24) var(--ff-segoe-ui);
 }
 
-body[data-design-language="fluent-dynamics"] .t-largebodysb-16 {
+.t-largebodysb-16 {
   font: var(--fw-semibold) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
 }
 
-body[data-design-language="fluent-dynamics"] .t-largebody-16 {
+.t-largebody-16 {
   font: var(--fw-normal) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
 }
 
-body[data-design-language="fluent-dynamics"] .t-cardtitle-14 {
+.t-cardtitle-14 {
   font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
 }
 
-body[data-design-language="fluent-dynamics"] .t-bodysb-14 {
+.t-bodysb-14 {
   font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
 }
 
-body[data-design-language="fluent-dynamics"] .t-body-14 {
+.t-body-14 {
   font: var(--fw-normal) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
 }
 
-body[data-design-language="fluent-dynamics"] .t-capsb-12 {
+.t-capsb-12 {
   font: var(--fw-semibold) var(--scale-12)/var(--scale-16) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-002);
 }
 
-body[data-design-language="fluent-dynamics"] .t-cap-12 {
+.t-cap-12 {
   font: var(--fw-normal) var(--scale-12)/var(--scale-16) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-002);
 }

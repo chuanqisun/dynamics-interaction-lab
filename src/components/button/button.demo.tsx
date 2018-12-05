@@ -1,5 +1,5 @@
 import * as React from 'React';
-import './button.fluent-dynamics.css';
+import './button.css';
 
 export class ButtonDemo extends React.Component<any, any> {
   render() {

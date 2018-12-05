@@ -1,6 +1,6 @@
 import * as React from 'React';
-import './text-field.fluent-dynamics.css';
-import '../label/label.fluent-dynamics.css';
+import './text-field.css';
+import '../label/label.css';
 
 export class TextFieldDemo extends React.Component<any, any> {
   render() {

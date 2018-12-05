@@ -7,24 +7,17 @@ import '../design-systems/fluent-dynamics.css';
 
 // TODO move this up to demo-app
 const pages = [
-  { type: 'style', name: 'Color', route: '/dynamics/color', component: lazy(() => import('../styles/color/color.fluent-dynamics.demo'))},
-  { type: 'style', name: 'Depth', route: '/dynamics/depth', component: lazy(() => import('../styles/depth/depth.fluent-dynamics.demo'))},
-  { type: 'style', name: 'Icon', route: '/dynamics/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
-  { type: 'style', name: 'Typography', route: '/dynamics/typography', component: lazy(() => import('../styles/typography/typography.fluent-dynamics.demo'))},
-  { type: 'component', name: 'Button', route: '/dynamics/button', component: lazy(() => import('../components/button/button.fluent-dynamics.demo'))},
-  { type: 'component', name: 'Text field', route: '/dynamics/text-field', component: lazy(() => import('../components/text-field/text-field.fluent-dynamics.demo'))},
-  { type: 'component', name: 'Toggle', route: '/dynamics/toggle', component: lazy(() => import('../components/toggle/toggle.fluent-dynamics.demo'))},
-  { type: 'component', name: 'Top nav', route: '/dynamics/top-nav', component: lazy(() => import('../components/top-nav/top-nav.fluent-dynamics.demo'))},
+  { type: 'style', name: 'Color', route: '/library/color', component: lazy(() => import('../styles/color/color.demo'))},
+  { type: 'style', name: 'Depth', route: '/library/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
+  { type: 'style', name: 'Icon', route: '/library/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
+  { type: 'style', name: 'Typography', route: '/library/typography', component: lazy(() => import('../styles/typography/typography.demo'))},
+  { type: 'component', name: 'Button', route: '/library/button', component: lazy(() => import('../components/button/button.demo'))},
+  { type: 'component', name: 'Text field', route: '/library/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
+  { type: 'component', name: 'Toggle', route: '/library/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
+  { type: 'component', name: 'Top nav', route: '/library/top-nav', component: lazy(() => import('../components/top-nav/top-nav.demo'))},
 ];
 
 export class FluentDynamics extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-
-    document.body.dataset.designLanguage = 'fluent-dynamics';
-    document.body.dataset.theme = 'blue';
-  }
-
   render() {
     return <StyledNav>
       <nav className="demos-nav">
@@ -35,7 +28,7 @@ export class FluentDynamics extends React.Component<any, any> {
         {pages.filter(page => page.type==="component").map(page => <NavLink key={page.route} className="link" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
       </nav>
       <div className="demos-content">
-        <Route exact path="/dynamics" component={() => <h1>Fluent for Dynamics</h1>}/>
+        <Route exact path="/library" component={() => <h1>Library</h1>}/>
         {pages.map(page => <Route key={page.route} path={page.route} component={() => <Suspense fallback="loading..."><page.component/></Suspense>}></Route>)}
       </div>
     </StyledNav>

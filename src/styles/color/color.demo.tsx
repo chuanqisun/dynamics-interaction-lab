@@ -39,9 +39,7 @@ export class ColorDemo extends React.Component<any, any> {
       <form onSubmit={e => e.preventDefault()}>
         <fieldset>
         <legend>Choose a theme</legend>
-        <label><input type="radio" name="theme" value="flow" checked={this.state.selectedTheme === 'flow'} onChange={this.onThemeChange}/>Flow</label>
-        <label><input type="radio" name="theme" value="powerapps" checked={this.state.selectedTheme === 'powerapps'} onChange={this.onThemeChange}/>PowerApps</label>
-        <label><input type="radio" name="theme" value="powerbi" checked={this.state.selectedTheme === 'powerbi'} onChange={this.onThemeChange}/>PowerBI</label>
+        <label><input type="radio" name="theme" value="digital-blue" checked={this.state.selectedTheme === 'digital-blue'} onChange={this.onThemeChange}/>Digital blue</label>
         </fieldset>
       </form>
       <StyledDl>

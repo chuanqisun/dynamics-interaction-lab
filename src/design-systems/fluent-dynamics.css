@@ -2,7 +2,7 @@
  * --<component>-[<subcomponent>]-[<variant>|<mode>]-[fg|bg|border]-[rest|hover|focus|pressed|disabled]
 */
 
-body[data-design-language="fluent-dynamics"] {
+body {
     /* Button */
     --btn-font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
     --btn-height: 2rem;
@@ -107,18 +107,7 @@ body[data-design-language="fluent-dynamics"] {
     --t-200: 200ms;
 }
 
-
-body[data-design-language="fluent-dynamics"][data-theme="yellow"] {
-    --color-primary: #F2C811;
-    --color-primary-contrast: black;
-}
-
-body[data-design-language="fluent-dynamics"][data-theme="blue"] {
+body[data-theme="digital-blue"] {
     --color-primary: #2266E3;
-    --color-primary-contrast: white;
-}
-
-body[data-design-language="fluent-dynamics"][data-theme="purple"] {
-    --color-primary: #742774;
     --color-primary-contrast: white;
 }

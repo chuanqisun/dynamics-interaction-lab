@@ -1,5 +1,5 @@
 import * as React from 'React';
-import './toggle.fluent-dynamics.css';
+import './toggle.css';
 
 export class ToggleDemo extends React.Component<any, any> {
   constructor(props: any) {

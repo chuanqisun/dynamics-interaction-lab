@@ -1,7 +1,7 @@
 import * as React from 'React';
 import styled from "styled-components";
 import {contentEditable} from '../../demo-app/util';
-import './typography.fluent-dynamics.css';
+import './typography.css';
 
 export class TypographyDemo extends React.Component<any, any> {
   render() {
