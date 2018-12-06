@@ -1,5 +1,4 @@
 import * as React from "react";
-import {Suspense} from "react";
 import styled from "styled-components";
 import {Route, NavLink} from 'react-router-dom';
 import {demos} from './app';
