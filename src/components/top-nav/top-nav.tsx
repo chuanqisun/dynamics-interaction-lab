@@ -125,39 +125,39 @@ export class TopNav extends React.Component<TopNavProps, TopNavState> {
   render() {
     return (
       <StyledHeader>
-        <button className="shell-icon-button shell-icon-button--waffle mdl2">{FullMdl2.WaffleOffice365}</button>
+        <button className="shell-icon-button shell-icon-button--waffle">{FullMdl2.WaffleOffice365}</button>
         <div className="shell-title" ref={this.editable}>Sales</div>
-        <button className="shell-icon-button mdl2">{FullMdl2.Search}</button>
+        <button className="shell-icon-button">{FullMdl2.Search}</button>
         {this.state.dynamicsDisplayStack.map(item => 
-        (<button key={item.label} className="shell-icon-button mdl2">
+        (<button key={item.label} className="shell-icon-button">
         {item.icon}
         </button>)
         )}
         {this.getOverflowItems(this.state).length > 1 ? 
-        <button onClick={this.toggleOverflowMenu} className="shell-icon-button shell-icon-button--more mdl2">
+        <button onClick={this.toggleOverflowMenu} className="shell-icon-button shell-icon-button--more">
           {FullMdl2.More}
           {this.state.showOverflowMenu ?
-          <div className="overflow-menu segoe">
+          <div className="overflow-menu">
             {[...this.state.dynamicsOverflowStack, ...this.state.customOverflowStack].map(item => 
             <div key={item.label} className="menu-row">
-              <span className="menu-row__icon mdl2">{item.icon}</span>
+              <span className="menu-row__icon">{item.icon}</span>
               <span className="menu-row__text">{item.label}</span>
             </div>)}
             {this.state.systemOverflowStack.length ? <div className="menu-divider"></div> : null}
             {this.state.systemOverflowStack.map(item => 
             <div key={item.label} className="menu-row">
-              <span className="menu-row__icon mdl2">{item.icon}</span>
+              <span className="menu-row__icon">{item.icon}</span>
               <span className="menu-row__text">{item.label}</span>
             </div>)}
           </div> : null}
         </button> : this.getOverflowItems(this.state).length > 0 ?
-        <button className="shell-icon-button mdl2">
+        <button className="shell-icon-button">
         {this.state.customOverflowStack[0].icon}
         </button> : null
         }
         {this.state.systemDisplayStack.length ? <div className="shell-divider"></div> : null}
         {this.state.systemDisplayStack.map(item => 
-        (<button key={item.label} className="shell-icon-button mdl2">
+        (<button key={item.label} className="shell-icon-button">
         {item.icon}
         </button>)
         )}
@@ -180,6 +180,7 @@ const StyledHeader = styled.header`
   .overflow-menu {
     background-color: white;
     color: black;
+    font-family: var(--ff-segoe-ui);
     position: absolute;
     top: ${constants.shellHeight}px;
     right: 0;
@@ -197,6 +198,7 @@ const StyledHeader = styled.header`
   }
 
   .menu-row__icon {
+    font-family: var(--ff-mdl2);
     flex: 0 0 16px;
     margin-right: 16px;
   }
@@ -228,6 +230,7 @@ const StyledHeader = styled.header`
     color: white;
     border: none;
     font-size: 16px;
+    font-family: var(--ff-mdl2);
     display: flex;
     align-items: center;
     justify-content: center;

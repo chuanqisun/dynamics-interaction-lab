@@ -80,7 +80,8 @@ body {
     --fw-semibold: 600;
 
     /* Font families */
-    --ff-segoe-ui: "Segoe UI";
+    --ff-segoe-ui: 'Segoe UI',Segoe,Tahoma,Arial,Verdana,sans-serif;
+    --ff-mdl2: 'Full MDL2 Assets';
 
     /* Geometry */
     --border-radius: 2px;

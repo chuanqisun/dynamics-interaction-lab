@@ -37,7 +37,8 @@ export class IconDemo extends React.Component<any, any> {
           <datalist id="exampleList">
             {this.getMatchingOptions(this.state.iconName).map(key => <option key={key} value={key}/>)}
           </datalist>
-          <li>Code <code>{`<div className="mdl2">{FullDML2.${this.state.iconName}}</div>`}</code></li>
+          <li>Code <code>{`<div style="font-family: var(--ff-mdl2)">{FullDML2.${this.state.iconName}}</div>`}</code></li>
+          <li>Or code <code>{`<div class="mdl2">{FullDML2.${this.state.iconName}}</div>`}</code></li>
         </ul>
       </section>
     </React.Fragment>;
