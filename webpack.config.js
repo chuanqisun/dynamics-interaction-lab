@@ -18,6 +18,7 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: '/dist/',
+    chunkFilename: "[name].[chunkhash].js",
   },
   externals: {
     "react": "React",
