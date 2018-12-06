@@ -5,7 +5,6 @@ import {Route, NavLink} from 'react-router-dom';
 
 import '../styles/fluent-for-dynamics.css';
 
-// TODO move this up to demo-app
 const pages = [
   { type: 'style', name: 'Color', route: '/demos/color', component: lazy(() => import('../styles/color/color.demo'))},
   { type: 'style', name: 'Depth', route: '/demos/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
@@ -21,11 +20,11 @@ export class Demos extends React.Component<any, any> {
   render() {
     return <StyledNav>
       <nav className="demos-nav">
-        <NavLink className="link" activeClassName="link--active" exact to="/">Home</NavLink>
+        <NavLink className="link link--vertical-list" activeClassName="link--active" exact to="/">Home</NavLink>
         <br/>
-        {pages.filter(page => page.type==="style").map(page => <NavLink key={page.route} className="link" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
+        {pages.filter(page => page.type==="style").map(page => <NavLink key={page.route} className="link link--vertical-list" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
         <br/>
-        {pages.filter(page => page.type==="component").map(page => <NavLink key={page.route} className="link" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
+        {pages.filter(page => page.type==="component").map(page => <NavLink key={page.route} className="link link--vertical-list" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
       </nav>
       <div className="demos-content">
         <Route exact path="/demos" component={() => <h1>Demos</h1>}/>
@@ -48,22 +47,6 @@ const StyledNav = styled.div`
 
   .demos-content {
     flex: 1 1 auto;
-  }
-
-  .link {
-    margin: 0 4px;
-    color: grey;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .link--active {
-    color: black;
-    font-weight: 600;
-  }
-  
-  .link:hover {
-    font-weight: 600;
   }
 `;
 

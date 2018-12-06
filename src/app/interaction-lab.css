@@ -1,0 +1,19 @@
+.link {
+  text-decoration: none;
+  color: #666;
+}
+
+.link--active {
+  color: #333;
+  font-weight: 600;
+}
+
+.link--active.link--vertical-list::before {
+  content: '▸';
+  line-height: 0;
+}
+
+.link--vertical-list:hover::before {
+  content: '▸';
+  line-height: 0;
+}
