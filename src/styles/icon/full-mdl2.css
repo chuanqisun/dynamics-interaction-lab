@@ -1,5 +1,8 @@
 @font-face {
   font-family: 'Full MDL2 Assets';
   src: url('./FullMDL2.woff2');
-  unicode-range: U+D, U+20, U+3012, U+E001-F855; /* get the range by inspecting the font with https://wakamaifondue.com/ */
+}
+
+.mdl2 {
+  font-family: 'Full MDL2 Assets';
 }

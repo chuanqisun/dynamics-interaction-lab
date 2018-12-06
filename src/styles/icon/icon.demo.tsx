@@ -25,7 +25,7 @@ export class IconDemo extends React.Component<any, any> {
     return <React.Fragment>
       <section>
         <h2>Sample</h2>
-        <div>{(FullMdl2 as any)[this.state.iconName]}</div>
+        <div className="mdl2">{(FullMdl2 as any)[this.state.iconName]}</div>
       </section>
       <section>
         <h2>Usage</h2>
@@ -37,7 +37,7 @@ export class IconDemo extends React.Component<any, any> {
           <datalist id="exampleList">
             {this.getMatchingOptions(this.state.iconName).map(key => <option key={key} value={key}/>)}
           </datalist>
-          <li>Code <code>{`<div>{FullDML2.${this.state.iconName}}</div>`}</code></li>
+          <li>Code <code>{`<div className="mdl2">{FullDML2.${this.state.iconName}}</div>`}</code></li>
         </ul>
       </section>
     </React.Fragment>;
