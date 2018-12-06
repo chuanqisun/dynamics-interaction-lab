@@ -1,5 +1,5 @@
 {
-  "name": "pbi-prototype",
+  "name": "dynamics-interaction-lab",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -28,7 +28,7 @@
     "react-svg-loader": "^2.1.0",
     "style-loader": "^0.23.1",
     "ts-loader": "^4.5.0",
-    "typescript": "^3.2.1",
+    "typescript": "3.1.4",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
