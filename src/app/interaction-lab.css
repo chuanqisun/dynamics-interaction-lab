@@ -1,6 +1,30 @@
 :root {
   --lab-link-rest-color: #777;
   --lab-link-active-color: #2266E3;
+  --page-side-padding: 1rem;
+  --left-nav-width: 10rem;
+}
+
+.lab-demo-browser {
+  display: flex;
+}
+
+.lab-demo-browser__nav {
+  flex: 0 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  width: var(--left-nav-width);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem var(--page-side-padding);
+  border-right: 1px solid #DDD;
+  box-sizing: border-box;
+}
+
+.lab-demo-browser__content {
+  flex: 1 1 auto;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .lab-link {
@@ -32,13 +56,23 @@
   line-height: 0;
 }
 
+.lab-h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #2266E3;
+  padding: 0 var(--page-side-padding);
+  font-weight: 300;
+}
+
 .lab-h2 {
   margin: 0;
   color: #EEE;
   background-color: #222;
+  display: inline-block;
   font-size: 0.75rem;
   font-weight: 400;
   text-transform: uppercase;
+  padding: 0 var(--page-side-padding);
 }
 
 .lab-h3 {
@@ -47,7 +81,14 @@
   font-size: 1rem;
 }
 
+.lab-section {
+  padding: 0 var(--page-side-padding);
+}
+
 /* spacer */
+.lab-s50 {
+  height: .5rem;
+}
 .lab-s100 {
   height: 1rem;
 }

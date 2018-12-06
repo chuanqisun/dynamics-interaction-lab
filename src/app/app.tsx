@@ -33,19 +33,27 @@ export class App extends React.Component<any, any> {
   render() {
     return <BrowserRouter>
         <React.Fragment>
-          <Route exact path="/" component={() => <div>
+          <Route exact path="/" component={() => <main>
+            <h1 className="lab-h1">Dynamics Interaction Lab</h1>
+            <div className="lab-s50"></div>
             <h2 className="lab-h2">Demos</h2>
-            <h3 className='lab-h3'>Styles</h3>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
-            <br/>
-            <h3 className='lab-h3'>Components</h3>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
-            <div className="lab-s100"></div>
+            <div className="lab-s50"></div>
+            <section className="lab-section">
+              <h3 className='lab-h3'>Styles</h3>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
+              <br/>
+              <h3 className='lab-h3'>Components</h3>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
+              <div className="lab-s100"></div>
+            </section>
             <h2 className="lab-h2">Experiments</h2>
+            <div className="lab-s50"></div>
+            <section className="lab-section">
             {experiments.map(experiment => <div title={`${experiment.started}: ${experiment.description}`} key={experiment.series}>
               <h3 className='lab-h3'>{experiment.series}</h3>
               {experiment.iterations.map(iteration => <NavLink target="_blank" key={iteration.subRoute} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
               </div>
             )}
-          </div>}/>
+            </section>
+          </main>}/>
           <Route path="/demos" component={() => <Suspense fallback="loading..."><DemoBrowser/></Suspense>}/>
           {experiments.map(experiment => experiment.iterations.map(iteration => <Route key={iteration.subRoute} path={`${experiment.baseRoute}/${iteration.subRoute}`} component={() => <Suspense fallback="loading..."><iteration.component/></Suspense>}></Route>))}
           {demos.map(demo => <Route key={demo.route} path={`/embed${demo.route}`} component={() => <Suspense fallback="loading..."><demo.component/></Suspense>}></Route>)}
