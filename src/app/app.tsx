@@ -34,15 +34,15 @@ export class App extends React.Component<any, any> {
     return <BrowserRouter>
         <React.Fragment>
           <Route exact path="/" component={() => <div>
-            <h2 className="il-h2">Demos</h2>
-            <h3 className='il-h3'>Styles</h3>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="il-link il-link--horizontal-list" activeClassName="il-link--active" to={demo.route}>{demo.name}</NavLink>)}
+            <h2 className="lab-h2">Demos</h2>
+            <h3 className='lab-h3'>Styles</h3>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
             <br/>
-            <h3 className='il-h3'>Components</h3>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="il-link il-link--horizontal-list" activeClassName="il-link--active" to={demo.route}>{demo.name}</NavLink>)}
-            <div className="il-s100"></div>
-            <h2 className="il-h2">Experiments</h2>
+            <h3 className='lab-h3'>Components</h3>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
+            <div className="lab-s100"></div>
+            <h2 className="lab-h2">Experiments</h2>
             {experiments.map(experiment => <div title={`${experiment.started}: ${experiment.description}`} key={experiment.series}>
-              <h3 className='il-h3'>{experiment.series}</h3>
-              {experiment.iterations.map(iteration => <NavLink target="_blank" key={iteration.subRoute} className="il-link il-link--horizontal-list" activeClassName="il-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
+              <h3 className='lab-h3'>{experiment.series}</h3>
+              {experiment.iterations.map(iteration => <NavLink target="_blank" key={iteration.subRoute} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
               </div>
             )}
           </div>}/>

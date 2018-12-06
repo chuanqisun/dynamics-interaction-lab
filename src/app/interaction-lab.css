@@ -1,38 +1,38 @@
 :root {
-  --link-rest-color: #777;
-  --link-active-color: #222;
+  --lab-link-rest-color: #777;
+  --lab-link-active-color: #222;
 }
 
-.il-link {
+.lab-link {
   text-decoration: none;
-  color: var(--link-rest-color);
+  color: var(--lab-link-rest-color);
 }
 
-.il-link--active {
-  color: var(--link-active-color);
+.lab-link--active {
+  color: var(--lab-link-active-color);
   font-weight: 600;
 }
 
-.il-link--horizontal-list:hover {
-  color: var(--link-active-color);
+.lab-link--horizontal-list:hover {
+  color: var(--lab-link-active-color);
 }
 
-.il-link--horizontal-list + .il-link--horizontal-list::before {
+.lab-link--horizontal-list + .lab-link--horizontal-list::before {
   content: '\00a0·\00a0';
 }
 
 
-.il-link--vertical-list.il-link--active::before {
+.lab-link--vertical-list.lab-link--active::before {
   content: '▸';
   line-height: 0;
 }
 
-.il-link--vertical-list:hover::before {
+.lab-link--vertical-list:hover::before {
   content: '▸';
   line-height: 0;
 }
 
-.il-h2 {
+.lab-h2 {
   margin: 0;
   color: #EEE;
   background-color: #222;
@@ -41,13 +41,13 @@
   text-transform: uppercase;
 }
 
-.il-h3 {
+.lab-h3 {
   display: inline;
   margin-right: 0.5em;
   font-size: 1rem;
 }
 
 /* spacer */
-.il-s100 {
+.lab-s100 {
   height: 1rem;
 }
