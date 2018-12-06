@@ -16,7 +16,7 @@ export class Demos extends React.Component<any, any> {
         {demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--vertical-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
       </nav>
       <div className="demos-content">
-        {demos.map(demo => <Route key={demo.route} path={demo.route} component={() => <Suspense fallback="loading..."><demo.component/></Suspense>}></Route>)}
+        {demos.map(demo => <Route key={demo.route} path={demo.route} component={() => <iframe width="100%" height="100%" frameBorder="0" src={`/embed${demo.route}`}/>}></Route>)}
       </div>
     </StyledNav>
   }
@@ -27,7 +27,8 @@ const StyledNav = styled.div`
 
   .demos-nav {
     flex: 0 0 auto;
-    height: 100%;
+    height: 100vh;
+    overflow-y: auto;
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -35,6 +36,8 @@ const StyledNav = styled.div`
 
   .demos-content {
     flex: 1 1 auto;
+    height: 100vh;
+    overflow: hidden;
   }
 `;
 

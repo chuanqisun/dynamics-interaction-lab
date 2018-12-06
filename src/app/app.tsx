@@ -48,6 +48,7 @@ export class App extends React.Component<any, any> {
           </div>}/>
           <Route path="/demos" component={() => <Suspense fallback="loading..."><Demos/></Suspense>}/>
           {experiments.map(experiment => experiment.iterations.map(iteration => <Route key={iteration.subRoute} path={`${experiment.baseRoute}/${iteration.subRoute}`} component={() => <Suspense fallback="loading..."><iteration.component/></Suspense>}></Route>))}
+          {demos.map(demo => <Route key={demo.route} path={`/embed${demo.route}`} component={() => <Suspense fallback="loading..."><demo.component/></Suspense>}></Route>)}
         </React.Fragment>
     </BrowserRouter>
   }
