@@ -13,6 +13,7 @@ export const demos = [
   { type: 'style', name: 'Icon', route: '/demos/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
   { type: 'style', name: 'Typography', route: '/demos/typography', component: lazy(() => import('../styles/typography/typography.demo'))},
   { type: 'component', name: 'Button', route: '/demos/button', component: lazy(() => import('../components/button/button.demo'))},
+  { type: 'component', name: 'Form header', route: '/demos/form-header', component: lazy(() => import('../components/form-header/form-header.demo'))},
   { type: 'component', name: 'Text field', route: '/demos/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
   { type: 'component', name: 'Toggle', route: '/demos/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
   { type: 'component', name: 'Top nav', route: '/demos/top-nav', component: lazy(() => import('../components/top-nav/top-nav.demo'))},
