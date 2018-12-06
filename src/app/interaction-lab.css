@@ -70,7 +70,7 @@
   background-color: #222;
   display: inline-block;
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   padding: 0 var(--page-side-padding);
 }
@@ -78,6 +78,7 @@
 .lab-h3 {
   display: inline;
   margin-right: 0.5em;
+  font-weight: 600;
   font-size: 1rem;
 }
 
