@@ -1,10 +1,9 @@
 import * as React from "react";
+import { NavLink, Route } from 'react-router-dom';
 import styled from "styled-components";
-import {Route, NavLink} from 'react-router-dom';
-import {demos} from './app';
+import { demos } from './app';
 
-
-export class Demos extends React.Component<any, any> {
+export class DemoBrowser extends React.Component<any, any> {
   render() {
     return <StyledNav>
       <nav className="demos-nav">
@@ -40,4 +39,4 @@ const StyledNav = styled.div`
   }
 `;
 
-export default Demos;
+export default DemoBrowser;

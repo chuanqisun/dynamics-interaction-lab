@@ -41,7 +41,7 @@ interface TopNavProps {
   customOverflowStack: Item[];
 }
 
-export class TopNav extends React.Component<TopNavProps, TopNavState> {
+export class AppShell extends React.Component<TopNavProps, TopNavState> {
   constructor(props: TopNavProps) {
     super(props);
 
