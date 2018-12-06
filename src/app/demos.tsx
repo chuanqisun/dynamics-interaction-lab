@@ -27,7 +27,6 @@ export class Demos extends React.Component<any, any> {
         {pages.filter(page => page.type==="component").map(page => <NavLink key={page.route} className="link link--vertical-list" activeClassName="link--active" to={page.route}>{page.name}</NavLink>)}
       </nav>
       <div className="demos-content">
-        <Route exact path="/demos" component={() => <h1>Demos</h1>}/>
         {pages.map(page => <Route key={page.route} path={page.route} component={() => <Suspense fallback="loading..."><page.component/></Suspense>}></Route>)}
       </div>
     </StyledNav>
