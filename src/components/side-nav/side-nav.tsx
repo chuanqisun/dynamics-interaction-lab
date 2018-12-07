@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, {StyledComponent} from 'styled-components';
 import {FullMdl2} from '../../styles/icon/full-mdl2';
 
 export interface SideNavItem {
@@ -9,47 +9,56 @@ export interface SideNavItem {
 }
 
 export interface SideNavProps {
+  expanded: boolean;
   className: string;
   selectedItemId: string;
   items: SideNavItem[];
   onSelect: (id: string) => any;
+  onToggleExpanded: () => any;
 }
 
-export const SideNav = (props: SideNavProps) => <StyledNav className={props.className}>
+export interface StyledNavProps extends Partial<SideNavProps> {};
+
+export const SideNav = (props: SideNavProps) => <StyledNav className={props.className} expanded={props.expanded}>
   <div className="row">
-    <button className="row__left button--main">
-      <span className="button-icon">{FullMdl2.GlobalNavButton}</span>
+    <button className="row__left row-button" onClick={props.onToggleExpanded}>
+      <span className="row-button__icon">{FullMdl2.GlobalNavButton}</span>
     </button>
   </div>
   <div className="row">
-    <button className="row__left button--main">
-      <span className="button-icon">{FullMdl2.Home}</span>
-      <span className="button-text">Home</span>
+    <button className="row__left row-button">
+      <span className="row-button__icon">{FullMdl2.Home}</span>
+      <span className="row-button__text">Home</span>
     </button>
   </div>
   <div className="row">
-    <button className="row__left button--main">
-      <span className="button-icon">{FullMdl2.Recent}</span>
-      <span className="button-text">Recent</span>
+    <button className="row__left row-button">
+      <span className="row-button__icon">{FullMdl2.Recent}</span>
+      <span className="row-button__text">Recent</span>
+      <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
     </button>
-    <button className="row__right button--aux chevron mdl2">{FullMdl2.ChevronDownSmall}</button>
   </div>
   <div className="row">
-    <button className="row__left button--main">
-      <span className="button-icon">{FullMdl2.Pinned}</span>
-      <span className="button-text">Pinned</span>
+    <button className="row__left row-button">
+      <span className="row-button__icon">{FullMdl2.Pinned}</span>
+      <span className="row-button__text">Pinned</span>
+      <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
     </button>
-    <button className="row__right button--aux chevron mdl2">{FullMdl2.ChevronDownSmall}</button>
   </div>
-  {props.items.map(item => <div key={item.id} className={`row${item.id === props.selectedItemId ? ' row--selected':''}`}><button className="row__left button--main" onClick={() => props.onSelect(item.id)}><span className="button-icon">{item.icon}</span><span className="row__middle">{item.name}</span></button></div>)}
+  {props.items.map(item => <div key={item.id} className={`row${item.id === props.selectedItemId ? ' row--selected':''}`}>
+    <button className="row__left row-button" onClick={() => props.onSelect(item.id)}>
+      <span className="row-button__icon">{item.icon}</span>
+      <span className="row-button__text">{item.name}</span>
+    </button>
+  </div>)}
 </StyledNav>;
 
-
-const StyledNav = styled.nav`
-  width: 199px;
+const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
+  width: ${(props: StyledNavProps) => props.expanded ? 'var(--sn-expanded-width)' : 'var(--sn-collapsed-width)'};
   border-right: 1px solid var(--color-grey-30);
   background-color: var(--color-grey-20);
   height: 100%;
+  overflow-y: ${(props: StyledNavProps) => props.expanded ? 'auto' : 'hidden'};
 
   .row {
     display: flex;
@@ -72,58 +81,55 @@ const StyledNav = styled.nav`
 
   .row--selected::before {
     content: '';
-    height: 24px;
-    width: 4px;
-    border-radius: 2px;
+    height: var(--sn-select-indicator-height);
+    width: var(--sn-select-indicator-width);
+    border-radius: calc(var(--sn-select-indicator-width) / 2);
     background-color: var(--sn-select-indicator-color);
     position: absolute;
-    left: 4px;
-    top: 8px;
+    left: var(--sn-select-indicator-to-left-edge-gap);
+    top: calc((var(--sn-row-height) - var(--sn-select-indicator-height)) / 2);
   }
 
-  .button--main {
-    padding: 0;
+  .row-button {
+    align-items: center;
     background: none;
     border: 0;
+    display: flex;
+    flex: 1 0 auto;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
-    display: flex;
-    align-items: center;
+    padding: 0;
+    width: 100%;
   }
 
-  .button-icon {
+  .row-button__icon {
     width: var(--sn-collapsed-width);
     font-family: var(--ff-mdl2);
     font-size: 16px;
     font-weight: initial;
-  }
-
-  .button-text {
-    font: inherit;
-  }
-
-  .button--aux {
-    background: none;
-    border: 0;
-  }
-
-  .row__left {
-    display: flex;
-    flex: 1 0 auto;
-  }
-
-  .row__left--solid {
-    flex-grow: 0;
-  }
-  
-  .row__right {
-    width: var(--sn-right-slot-width);
     flex: 0 0 auto;
-    align-self: stretch;
   }
 
-  .chevron {
-    font-size: 8px;
+  .row-button__text {
+    font: inherit;
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: ${(props: StyledNavProps) => props.expanded ? 'initial' : 'none'}
+  }
+
+  .row-button__text:last-child {
+    padding-right: calc((var(--sn-right-slot-width) - var(--sn-chevron-font-size)) / 2); /* align with chevron right edge */
+  }
+
+  .row-button__chevron {
+    flex: 0 0 auto;
+    width: var(--sn-right-slot-width);
+    font-family: var(--ff-mdl2);
+    font-size: var(--sn-chevron-font-size);
+    display: ${(props: StyledNavProps) => props.expanded ? 'initial' : 'none'}
   }
 `;

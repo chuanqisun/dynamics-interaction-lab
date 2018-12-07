@@ -8,6 +8,7 @@ export class SideNavDemo extends React.Component<any, any> {
     super(props);
 
     this.state = {
+      expanded: true,
       selectedItemId: '5',
       sitemapItems: [
         {id: '0', icon: FullMdl2.SummaryChart, name: 'Dashbaord'},
@@ -32,10 +33,22 @@ export class SideNavDemo extends React.Component<any, any> {
     this.setState({selectedItemId: id});
   }
 
+  onToggleExpanded = () => {
+    this.setState({expanded: !this.state.expanded})
+  }
+
   render() {
     return <React.Fragment>
     <StyledSection>
-      <SideNav className="no-shrink" selectedItemId={this.state.selectedItemId} items={this.state.sitemapItems} onSelect={this.onSelect}></SideNav>
+      <SideNav
+        className="no-shrink"
+        expanded={this.state.expanded}
+        selectedItemId={this.state.selectedItemId}
+        items={this.state.sitemapItems}
+        onSelect={this.onSelect}
+        onToggleExpanded={this.onToggleExpanded}
+      >
+      </SideNav>
       <h2 className="lab-demo-h2">Sample</h2>
     </StyledSection>
     </React.Fragment>
