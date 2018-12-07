@@ -20,6 +20,16 @@ body {
     --btn-shadow-hover: var(--depth-2);
     --btn-shadow-rest: var(--depth-1);
 
+    /* Sitemap */
+    --sn-collapsed-width: 44px;
+    --sn-row-height: 40px;
+    --sn-right-slot-width: 32px;
+    --sn-row-font-rest: var(--fw-normal) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    --sn-row-font-selected: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    --sn-row-background-selected: white;
+    --sn-row-background-hover: white;
+    --sn-select-indicator-color: #2266E3;
+
     /* Text field */
     --tf-border-rest: var(--border-width) solid var(--color-grey-130);
     --tf-border-hover: var(--border-width) solid var(--color-primary);
@@ -106,6 +116,9 @@ body {
 
     /* Timing */
     --t-200: 200ms;
+
+    /* Z-index */
+    --z-sm-row-hover: 100;
 }
 
 body[data-theme="digital-blue"] {

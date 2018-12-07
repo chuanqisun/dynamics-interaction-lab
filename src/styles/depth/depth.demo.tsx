@@ -5,7 +5,7 @@ export class DepthDemo extends React.Component<any, any> {
   render() {
     return <React.Fragment>
     <section>
-      <h2>Sample</h2>
+      <h2 className="lab-demo-h2">Sample</h2>
       <StyledDl>
         <Tile cssVar="--depth-1"/>
         <Tile cssVar="--depth-2"/>

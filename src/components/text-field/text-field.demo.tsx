@@ -6,7 +6,7 @@ export class TextFieldDemo extends React.Component<any, any> {
   render() {
     return <React.Fragment>
     <section>
-      <h2>Sample</h2>
+      <h2 className="lab-demo-h2">Sample</h2>
       <label className="lb">Label</label>
       <input className="tf" placeholder="placeholder"></input>
       <br/>

@@ -7,7 +7,7 @@ export class TypographyDemo extends React.Component<any, any> {
   render() {
     return <React.Fragment>
     <section>
-      <h2>Sample</h2>
+      <h2 className="lab-demo-h2">Sample</h2>
       <StyledDiv>
         <SampleRow className="t-header-48">The quick brown fox jumps over the lazy dog</SampleRow>
         <SampleRow className="t-subheader-34">The quick brown fox jumps over the lazy dog</SampleRow>

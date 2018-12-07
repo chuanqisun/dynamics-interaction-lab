@@ -24,11 +24,11 @@ export class IconDemo extends React.Component<any, any> {
   render() {
     return <React.Fragment>
       <section>
-        <h2>Sample</h2>
+        <h2 className="lab-demo-h2">Sample</h2>
         <div className="mdl2">{(FullMdl2 as any)[this.state.iconName]}</div>
       </section>
       <section>
-        <h2>Usage</h2>
+        <h2 className="lab-demo-h2">Usage</h2>
         <ul>
           <li>Include <code>full-mdl2.css</code> in your project</li>
           <li>Find the name for your icon in the Full MDL2 Asset. We recommend using <a href="https://fabricicon.azurewebsites.net">fabricicon</a>.</li>

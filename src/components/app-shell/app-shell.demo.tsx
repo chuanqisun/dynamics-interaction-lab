@@ -27,11 +27,11 @@ export class AppShellDemo extends React.Component<any, any> {
   render() {
     return <React.Fragment>
     <section>
-      <h2>Sample</h2>
+      <h2 className="lab-demo-h2">Sample</h2>
       <AppShell avatarImgUrl="https://api.adorable.io/avatars/285/abott@adorable.png" dynamicsDisplayStack={dynamicsDisplayStack} systemDisplayStack={systemDisplayStack} customOverflowStack={this.state.customOverflowStack}></AppShell>
     </section>
     <section>
-      <h2>Usage</h2>
+      <h2 className="lab-demo-h2">Usage</h2>
       <section style={{marginTop: "16px"}}>
         <span>Custom actions: </span>
         <button onClick={this.removeCustomItem}>-</button>

@@ -17,35 +17,37 @@ export class ColorDemo extends React.Component<any, any> {
 
   render() {
     return <React.Fragment>
-    <h2>Sample</h2>
     <section>
-      <h3>Static colors</h3>
-      <StyledDl>
-        <Swatch cssVar="--color-grey-10"/>
-        <Swatch cssVar="--color-grey-20"/>
-        <Swatch cssVar="--color-grey-30"/>
-        <Swatch cssVar="--color-grey-40"/>
-        <Swatch cssVar="--color-grey-50"/>
-        <Swatch cssVar="--color-grey-60"/>
-        <Swatch cssVar="--color-grey-90"/>
-        <Swatch cssVar="--color-grey-130"/>
-        <Swatch cssVar="--color-grey-150"/>
-        <Swatch cssVar="--color-grey-160"/>
-        <Swatch cssVar="--color-grey-190"/>
-      </StyledDl>
-    </section>
-    <section>
-      <h3>Theme colors</h3>
-      <form onSubmit={e => e.preventDefault()}>
-        <fieldset>
-        <legend>Choose a theme</legend>
-        <label><input type="radio" name="theme" value="digital-blue" checked={this.state.selectedTheme === 'digital-blue'} onChange={this.onThemeChange}/>Digital blue</label>
-        </fieldset>
-      </form>
-      <StyledDl>
-        <Swatch cssVar="--color-primary"/>
-        <Swatch cssVar="--color-primary-contrast"/>
-      </StyledDl>
+    <h2 className="lab-demo-h2">Sample</h2>
+      <section>
+        <h3>Static colors</h3>
+        <StyledDl>
+          <Swatch cssVar="--color-grey-10"/>
+          <Swatch cssVar="--color-grey-20"/>
+          <Swatch cssVar="--color-grey-30"/>
+          <Swatch cssVar="--color-grey-40"/>
+          <Swatch cssVar="--color-grey-50"/>
+          <Swatch cssVar="--color-grey-60"/>
+          <Swatch cssVar="--color-grey-90"/>
+          <Swatch cssVar="--color-grey-130"/>
+          <Swatch cssVar="--color-grey-150"/>
+          <Swatch cssVar="--color-grey-160"/>
+          <Swatch cssVar="--color-grey-190"/>
+        </StyledDl>
+      </section>
+      <section>
+        <h3>Theme colors</h3>
+        <form onSubmit={e => e.preventDefault()}>
+          <fieldset>
+          <legend>Choose a theme</legend>
+          <label><input type="radio" name="theme" value="digital-blue" checked={this.state.selectedTheme === 'digital-blue'} onChange={this.onThemeChange}/>Digital blue</label>
+          </fieldset>
+        </form>
+        <StyledDl>
+          <Swatch cssVar="--color-primary"/>
+          <Swatch cssVar="--color-primary-contrast"/>
+        </StyledDl>
+      </section>
     </section>
     </React.Fragment>
   }

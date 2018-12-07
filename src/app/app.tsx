@@ -14,6 +14,7 @@ export const demos = [
   { type: 'component', name: 'App shell', route: '/demos/app-shell', component: lazy(() => import('../components/app-shell/app-shell.demo'))},
   { type: 'component', name: 'Button', route: '/demos/button', component: lazy(() => import('../components/button/button.demo'))},
   { type: 'component', name: 'Form header', route: '/demos/form-header', component: lazy(() => import('../components/form-header/form-header.demo'))},
+  { type: 'component', name: 'Side nav', route: '/demos/side-nav', component: lazy(() => import('../components/side-nav/side-nav.demo'))},
   { type: 'component', name: 'Text field', route: '/demos/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
   { type: 'component', name: 'Toggle', route: '/demos/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
 ];
@@ -38,7 +39,7 @@ export class App extends React.Component<any, any> {
             <div className="lab-s50"></div>
             <h2 className="lab-h2">Demos</h2>
             <div className="lab-s50"></div>
-            <section className="lab-section">
+            <section className="lab-index-section">
               <h3 className='lab-h3'>Styles</h3>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
               <br/>
               <h3 className='lab-h3'>Components</h3>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}</NavLink>)}
@@ -46,7 +47,7 @@ export class App extends React.Component<any, any> {
             </section>
             <h2 className="lab-h2">Experiments</h2>
             <div className="lab-s50"></div>
-            <section className="lab-section">
+            <section className="lab-index-section">
             {experiments.map(experiment => <div title={`${experiment.started}: ${experiment.description}`} key={experiment.series}>
               <h3 className='lab-h3'>{experiment.series}</h3>
               {experiment.iterations.map(iteration => <NavLink target="_blank" key={iteration.subRoute} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
