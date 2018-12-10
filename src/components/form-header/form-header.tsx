@@ -9,11 +9,12 @@ export interface FormHeaderProps {
   showRecordImage?: boolean;
   showFormSwitcher?: boolean;
   showShadow?: boolean;
+  inlineModeBreakpoint?: string;
   fields: number[];
 }
 
 export const FormHeader = (props: FormHeaderProps) => {
-  return <StyledHeader fieldCount={props.fields.length}>
+  return <StyledHeader inlineModeBreakpoint={props.inlineModeBreakpoint}>
   {props.showReadOnlyMessage ?
   <div className="read-only-message"><InfoSvg className="message-item--icon"/><strong className="message-item--strong" ref={contentEditable}>This record is read-only.&nbsp;</strong><span ref={contentEditable}>You can’t change any field on this record because the status of this Opportunity is “closed”.</span></div>
   : null }
@@ -66,7 +67,7 @@ export const FormHeader = (props: FormHeaderProps) => {
 const StyledHeader: StyledComponent<'header', any, any> = styled.header`
   padding: 14px 20px 4px 20px;
   background-color: #F8F8F8;
-  box-shadow: var(--depth-2);
+  box-shadow: var(--depth-1);
 
   .read-only-message {
     flex-basis: 100vw;
@@ -196,7 +197,7 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
     font-family: inherit;
   }
 
-  @media (min-width: 400px) {
+  @media (min-width: ${(props: FormHeaderProps) => props.inlineModeBreakpoint || '400px'}) {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;

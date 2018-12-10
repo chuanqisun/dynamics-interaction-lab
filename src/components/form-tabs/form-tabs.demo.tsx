@@ -33,7 +33,7 @@ export class FormTabsDemo extends React.Component<any, DemoProps> {
     return <React.Fragment>
     <section>
       <h2 className="lab-demo-h2">Sample</h2>
-      <div>
+      <div className="tabs">
         {this.state.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`} onClick={() => this.onSelect(tab.id)}>{tab.name}</button>)}
       </div>
     </section>

@@ -1,3 +1,7 @@
+.tabs {
+  white-space: nowrap;
+}
+
 .tab {
   padding: 0;
   display: inline-block;
