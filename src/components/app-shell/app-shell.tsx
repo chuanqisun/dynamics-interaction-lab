@@ -25,7 +25,7 @@ interface ReflowPlan {
   customOverflowStack: Item[];
 }
 
-interface TopNavState {
+export interface AppShellState {
   showOverflowMenu: boolean,
   dynamicsDisplayStack: Item[];
   systemDisplayStack: Item[];
@@ -34,15 +34,15 @@ interface TopNavState {
   customOverflowStack: Item[];
 }
 
-interface TopNavProps {
+export interface AppShellProps {
   avatarImgUrl: string;
   dynamicsDisplayStack: Item[];
   systemDisplayStack: Item[];
   customOverflowStack: Item[];
 }
 
-export class AppShell extends React.Component<TopNavProps, TopNavState> {
-  constructor(props: TopNavProps) {
+export class AppShell extends React.Component<AppShellProps, AppShellState> {
+  constructor(props: AppShellProps) {
     super(props);
 
     this.state = {
@@ -101,7 +101,7 @@ export class AppShell extends React.Component<TopNavProps, TopNavState> {
     return window.innerWidth - (waffle + titleWidth + search + dynamicsActions + customAction + overflowMenu + divider + systemActions + me);
   }
 
-  getOverflowItems = (currentState: TopNavState) => [...currentState.customOverflowStack, ...currentState.dynamicsOverflowStack, ...currentState.systemOverflowStack];
+  getOverflowItems = (currentState: AppShellState) => [...currentState.customOverflowStack, ...currentState.dynamicsOverflowStack, ...currentState.systemOverflowStack];
 
   componentDidMount() {
     this.updateDimensions();
@@ -112,7 +112,7 @@ export class AppShell extends React.Component<TopNavProps, TopNavState> {
     window.removeEventListener("resize", this.updateDimensions);
   }
 
-  componentDidUpdate(prevProps: TopNavProps) {
+  componentDidUpdate(prevProps: AppShellProps) {
     if (prevProps.customOverflowStack !== this.props.customOverflowStack) {
       this.updateDimensions();
     }

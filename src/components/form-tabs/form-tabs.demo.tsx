@@ -11,7 +11,7 @@ export interface DemoProps {
   selectedTabId: string;
 }
 
-export const demoProps = {
+export const formTabsDemoProps = {
   tabs:[
     {id: '0', name: 'Summary'},
     {id: '1', name: 'Relationship Analytics'},
@@ -26,7 +26,7 @@ export class FormTabsDemo extends React.Component<any, DemoProps> {
   constructor(props: any) {
     super(props);
 
-    this.state = demoProps;
+    this.state = formTabsDemoProps;
   } 
 
   render() {
