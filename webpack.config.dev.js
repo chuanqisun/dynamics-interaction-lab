@@ -1,13 +1,9 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: './src/index.tsx', 
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-  ],
   module: {
     rules: [
       { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ }, 
