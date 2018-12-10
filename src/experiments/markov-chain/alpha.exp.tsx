@@ -1,6 +1,6 @@
 import * as React from 'React';
 
-export class BusinessProcess extends React.Component<any, any> {
+export class BusinessProcessExperiment extends React.Component<any, any> {
   render() {
     return <React.Fragment>
     <section>
@@ -10,4 +10,4 @@ export class BusinessProcess extends React.Component<any, any> {
   }
 }
 
-export default BusinessProcess;
+export default BusinessProcessExperiment;

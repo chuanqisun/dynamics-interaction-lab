@@ -21,11 +21,6 @@ module.exports = {
     publicPath: '/dist/',
     chunkFilename: '[name].[chunkhash].js',
   },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'styled-components': 'styled',
-  },
   devServer: {
     historyApiFallback: true,
     contentBase: './',

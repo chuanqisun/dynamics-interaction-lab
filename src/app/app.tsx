@@ -14,6 +14,7 @@ export const demos = [
   { type: 'component', name: 'App shell', route: '/demos/app-shell', component: lazy(() => import('../components/app-shell/app-shell.demo'))},
   { type: 'component', name: 'Button', route: '/demos/button', component: lazy(() => import('../components/button/button.demo'))},
   { type: 'component', name: 'Form header', route: '/demos/form-header', component: lazy(() => import('../components/form-header/form-header.demo'))},
+  { type: 'component', name: 'Form tabs', route: '/demos/form-tabs', component: lazy(() => import('../components/form-tabs/form-tabs.demo'))},
   { type: 'component', name: 'Side nav', route: '/demos/side-nav', component: lazy(() => import('../components/side-nav/side-nav.demo'))},
   { type: 'component', name: 'Text field', route: '/demos/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
   { type: 'component', name: 'Toggle', route: '/demos/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
