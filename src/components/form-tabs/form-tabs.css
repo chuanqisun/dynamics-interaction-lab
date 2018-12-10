@@ -1,13 +1,11 @@
-/* .tabs {
-  display: 
-} */
-
 .tab {
   padding: 0;
   display: inline-block;
   font: var(--fw-normal) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
   letter-spacing: var(--ls-p-0005);
   position: relative;
+  background: none;
+  border: none;
 }
 
 .tab+.tab {
