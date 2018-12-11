@@ -31,7 +31,7 @@ export class App extends React.Component<any, any> {
     return <BrowserRouter>
         <React.Fragment>
           <Route exact path="/" component={() => <main>
-            <h1 className="lab-h1">Dynamics Interaction Lab</h1>
+            <h1 className="lab-h1">Dynamics 365 Interaction Lab</h1>
             <div className="lab-s50"></div>
             <h2 className="lab-h2">Demos</h2>
             <div className="lab-s50"></div>
