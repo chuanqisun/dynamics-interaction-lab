@@ -1,0 +1,33 @@
+.tabs {
+  white-space: nowrap;
+}
+
+.tab {
+  padding: 0;
+  display: inline-block;
+  font: var(--fw-normal) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
+  letter-spacing: var(--ls-p-0005);
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.tab+.tab {
+  margin-left: 20px;
+}
+
+.tab--selected {
+  font: var(--fw-semibold) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
+  letter-spacing: var(--ls-p-0005);
+}
+
+.tab--selected::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--color-primary);
+}

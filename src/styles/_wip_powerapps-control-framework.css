@@ -1,0 +1,78 @@
+/* property naming convention 
+ * --<component>-[<subcomponent>]-[<variant>|<mode>]-[fg|bg|border]-[rest|hover|focus|pressed|disabled]
+*/
+
+body {
+    /* Button */
+    --btn-font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    --btn-height: calc(8*var(--grid-basis));
+    --btn-letter-spacing: var(--ls-p-05);
+    --btn-padding-side: calc(5*var(--grid-basis));
+    --btn-primary-bg-rest: var(--color-primary);
+    --btn-primary-fg-rest:  var(--color-primary-contrast);
+    --btn-primary-bg-hover: white;
+    --btn-primary-fg-hover: var(--color-grey-190);
+    --btn-secondary-bg-rest: white;
+    --btn-secondary-fg-rest: var(--color-grey-190);
+    --btn-secondary-bg-hover: var(--color-primary);
+    --btn-secondary-fg-hover: var(--color-primary-contrast);
+    --btn-border-radius: var(--border-radius);
+    --btn-shadow-hover: var(--depth-2);
+    --btn-shadow-rest: var(--depth-1);
+
+    /*
+     * DANGER ZONE
+     * 
+     * Below are raw styles.
+     * Always use the styles above first.
+     * Use the styles below only as an escape hatch.
+     * If none of the styles above meets your goal,
+     * ask yourself if you are breaking the design system.
+    */
+
+    /* Color */
+    --color-grey-10: #F8F8F9;
+    --color-grey-20: #F1F2F4;
+    --color-grey-30: #E8EAEC;
+    --color-grey-40: #D8DADE;
+    --color-grey-50: #CED0D4;
+    --color-grey-60: #C6C8CC;
+    --color-grey-90: #A4A6AC;
+    --color-grey-130: #6E6F77;
+    --color-grey-150: #3A3C42;
+    --color-grey-160: #31333A;
+    --color-grey-190: #1F2126;
+
+    /* Depth */
+    --dpt-1: 0px 2px 4px rgba(0, 0, 0, 0.14);
+    --dpt-2: 0px 1.2px 3.6px rgba(0, 0, 0, 0.12), 0px 6.4px 7.2px rgba(0, 0, 0, 0.1);
+    --dpt-3: 0px 2.4px 7.2px rgba(0, 0, 0, 0.08), 0px 12.8px 28.8px rgba(0, 0, 0, 0.12);
+    --dpt-4: 0px 4.8px 14.4px rgba(0, 0, 0, 0.08), 0px 25.6px 57.6px rgba(0, 0, 0, 0.12);
+
+    /* Font weights */
+    --fw-normal: 400;
+    --fw-semibold: 600;
+
+    /* Font families */
+    --ff-segoe-ui: 'Segoe UI',Segoe,Tahoma,Arial,Verdana,sans-serif;
+    --ff-mdl2: 'Fabric MDL2 Assets';
+
+    /* Font sizes */
+    --fs-48: 3rem;
+    --fs-34: 2.125rem;
+    --fs-24: 1.5rem;
+    --fs-20: 1.25rem;
+    --fs-16: 1rem;
+    --fs-14: .875rem;
+    --fs-12: .75rem;
+
+    /* Geometry */
+    --generic-border-radius: 2px;
+    --border-width: 1px;
+    --grid-basis: 0.25rem; /* 4px */
+}
+
+body[data-theme="digital-blue"] {
+    --color-primary: #2266E3;
+    --color-primary-contrast: white;
+}

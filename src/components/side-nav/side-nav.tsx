@@ -10,7 +10,7 @@ export interface SideNavItem {
 
 export interface SideNavProps {
   expanded: boolean;
-  className: string;
+  className?: string;
   selectedItemId: string;
   items: SideNavItem[];
   onSelect: (id: string) => any;

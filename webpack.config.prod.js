@@ -2,8 +2,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: 'production',
   entry: './src/index.tsx', 
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -24,11 +23,6 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     chunkFilename: '[name].[chunkhash].js',
-  },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'styled-components': 'styled',
   },
   devServer: {
     historyApiFallback: true,

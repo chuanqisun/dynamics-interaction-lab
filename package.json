@@ -4,10 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack --config webpack.config.js --mode=\"production\"",
-    "build:dev": "webpack --config webpack.config.js",
-    "build:watch": "webpack --watch --config webpack.config.js"
+    "start": "webpack-dev-server --open --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.prod.js",
+    "build:dev": "webpack --config webpack.config.dev.js"
   },
   "keywords": [],
   "author": "Cloud + AI Design Studio",

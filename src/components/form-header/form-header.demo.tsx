@@ -3,16 +3,18 @@ import styled from 'styled-components';
 
 import {FormHeader, FormHeaderProps} from './form-header';
 
-export class FormHeaderDemo extends React.Component<any, any> {
+export const formHeaderDemoProps = {
+  showReadOnlyMessage: false,
+  showRecordImage: false,
+  showFormSwitcher: true,
+  fields: [0, 1, 2, 3],
+};
+
+export class FormHeaderDemo extends React.Component<any, FormHeaderProps> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      showReadOnlyMessage: false,
-      showRecordImage: false,
-      showFormSwitcher: true,
-      fields: [0, 1, 2, 3],
-    }
+    this.state = formHeaderDemoProps;
   }
 
   onFieldCountChange = (event: any) => {
