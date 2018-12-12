@@ -3,8 +3,14 @@
 */
 
 body {
+    /* Link */
+    --lk-color: var(--color-link);
+    --lk-text-decoration-rest: none;
+    --lk-text-decoration-hover: underline;
+    --lk-font: var(--fw-normal) var(--fs-14) var(--ff-segoe-ui);
+
     /* Button */
-    --btn-font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    --btn-font: var(--fw-semibold) var(--fs-14) var(--ff-segoe-ui);
     --btn-height: calc(8*var(--grid-basis));
     --btn-letter-spacing: var(--ls-p-05);
     --btn-padding-side: calc(5*var(--grid-basis));
@@ -20,13 +26,32 @@ body {
     --btn-shadow-hover: var(--depth-2);
     --btn-shadow-rest: var(--depth-1);
 
+    /* Toggle */
+    --tg-track-width: 42px;
+    --tg-track-height: 20px;
+    --tg-track-gutter: 5px;
+    --tg-track-label-gutter: 8px;
+    --tg-knob-translate: 22px;
+    --tg-knob-diameter: calc(var(--tg-track-height) - 2 * var(--tg-track-gutter));
+    --tg-label-font: var(--fw-semibold) var(--fs-14) var(--ff-segoe-ui);
+    --tg-label-letter-spacing: var(--ls-p-05);
+    --tg-transition-duration: var(--t-200);
+    --tg-off-track-border-rest: var(--color-grey-160);
+    --tg-off-track-border-hover: var(--color-primary);
+    --tg-off-track-bg-rest: white;
+    --tg-off-knob-bg: var(--color-grey-160);
+    --tg-on-track-border-rest: transparent;
+    --tg-on-track-border-hover: transparent;
+    --tg-on-track-bg-rest: var(--color-primary);
+    --tg-on-knob-bg: white;
+
     /*
-     * DANGER ZONE
+     * ================= DANGER ZONE =================
      * 
-     * Below are raw styles.
-     * Always use the styles above first.
-     * Use the styles below only as an escape hatch.
-     * If none of the styles above meets your goal,
+     * Below are base properties.
+     * Always use the component-specific properties above first.
+     * Use the properties below only as an escape hatch.
+     * If none of the component-specific properties above meets your goal,
      * ask yourself if you are breaking the design system.
     */
 
@@ -67,12 +92,13 @@ body {
     --fs-12: .75rem;
 
     /* Geometry */
-    --generic-border-radius: 2px;
-    --border-width: 1px;
-    --grid-basis: 0.25rem; /* 4px */
+    --generic-border-radius-2: 2px;
+    --border-width-1: 1px;
+    --grid-basis-4: 0.25rem; /* 4px */
 }
 
 body[data-theme="digital-blue"] {
     --color-primary: #2266E3;
     --color-primary-contrast: white;
+    --color-link: #2266E3;
 }
