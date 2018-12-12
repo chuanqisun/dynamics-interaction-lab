@@ -24,6 +24,9 @@ export const experiments = [
   { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow improvements', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
   ]},
+  { series: 'rhythm-zero', baseRoute: '/experiments/rhythm-zero', description: 'Typeramp conversion table for baseline spacing', started: '2018-12-12', iterations: [
+    { subRoute: 'alpha', component: lazy(() => import('../experiments/rhythm-zero/alpha.exp'))},
+  ]},
 ];
 
 export class App extends React.Component<any, any> {
