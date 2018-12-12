@@ -92,7 +92,7 @@ body {
     --fs-12: .75rem;
 
     /* Geometry */
-    --generic-border-radius-2: 2px;
+    --border-radius-2: 2px;
     --border-width-1: 1px;
     --grid-basis-4: 0.25rem; /* 4px */
 }
