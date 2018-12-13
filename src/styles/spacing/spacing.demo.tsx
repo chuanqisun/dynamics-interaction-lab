@@ -1,6 +1,7 @@
 import * as React from 'React';
 import styled, {StyledComponent} from 'styled-components';
 import ErrorIcon from './error.svg';
+import WarningIcon from './warning.svg';
 
 const typographyData = [
   {name: 'landing 48 (600)', fontSize: 48, lineHeight: 60, fontWeight: 600, topToAscender: 14, baselineToBottom: 10},
@@ -18,7 +19,9 @@ const typographyData = [
   {name: 'densecap 12 (600)', fontSize: 12, lineHeight: 14, fontWeight: 600, topToAscender: 3, baselineToBottom: 2},
   {name: 'densecap 12 (400)', fontSize: 12, lineHeight: 14, fontWeight: 400, topToAscender: 3, baselineToBottom: 2},
   {name: 'object', topToAscender: 0, baselineToBottom: 0},
-]
+];
+
+const spacingRamp = [4, 8, 12, 16, 20, 32, 40, 60, 92, 120];
 
 export class SpacingDemo extends React.Component<any, any> {
   constructor(props: any) {
@@ -47,6 +50,10 @@ export class SpacingDemo extends React.Component<any, any> {
 
   onChangeDeveloperSpacing = (event: any) => {
     this.setState({designerSpacing: parseInt(event.target.value) + this.state.itemUpper.baselineToBottom + this.state.itemLower.topToAscender});
+  }
+
+  onSelectRampItem = (value: number) => {
+    this.setState({designerSpacing: value});
   }
 
   onFocusDesignerSpacing = () => {
@@ -81,6 +88,7 @@ export class SpacingDemo extends React.Component<any, any> {
     const developerSpacing = this.state.designerSpacing - this.state.itemUpper.baselineToBottom - this.state.itemLower.topToAscender;
     const showLettersOverlappingError = (this.state.designerSpacing < 0 || this.state.designerSpacing === 0) && this.state.itemUpper.name !== 'object' && this.state.itemLower.name !== 'object';
     const showBoundingBoxOverlappingError = developerSpacing < 0;
+    const showRampNonStandardWarning = spacingRamp.indexOf(this.state.designerSpacing) < 0;
 
     return <StyledSection>
       <div className="steps">
@@ -94,7 +102,14 @@ export class SpacingDemo extends React.Component<any, any> {
         </div>
         <div className="step">
           <h2 className="h2">3. Choose desired spacing</h2>
-          <span className="number-item number-item--hint">Tips: click the blue/red spacer to select, then use up/down arrow keys to nudge the value.</span>
+          <span className="number-item number-item--hint">Tips: click blue/red bar to select spacer, use arrow keys to adjust the value.</span>
+          <div className="number-item number-item--wrap ">
+            <div className="number-prompt number-prompt--full-width">Spacing ramp</div>
+            {spacingRamp.map(value => <React.Fragment key={value} >
+              <input type="radio" id={'ramp-item' + value} name="ramp-item" className="ramp-item__radio" checked={this.state.designerSpacing === value} onChange={() => this.onSelectRampItem(value)}/>
+              <label className="ramp-item__label" htmlFor={'ramp-item' + value}>{value}</label>
+            </React.Fragment>)}
+          </div>
           <label className="number-item" onMouseOver={this.onMouseOverDesignerSpacing} onMouseLeave={this.onMouseLeaveDesignerSpacing}>
             <span className="number-prompt">{`${this.state.itemUpper.name === 'object' ? 'Bounding box' : 'Baseline'} to ${this.state.itemLower.name === 'object' ? 'bounding box' : 'ascender'}`}</span>
             <input id="designer-spacing" className="number-input" type="number" step="4" onBlur={this.onBlurSpacing} onFocus={this.onFocusDesignerSpacing} value={this.state.designerSpacing} onChange={this.onChangeDesignerSpacing}/>px</label>
@@ -103,6 +118,7 @@ export class SpacingDemo extends React.Component<any, any> {
             <input id="developer-spacing" className="number-input" type="number" step="4" onBlur={this.onBlurSpacing}  onFocus={this.onFocusDeveloperSpacing} value={developerSpacing} onChange={this.onChangeDeveloperSpacing}/>px</label>
           {showLettersOverlappingError ? <span className="number-item"><span className="error-message"><ErrorIcon className="error-icon"/>&nbsp;This spacing is impossible because the letters will overlap. You must to increase the spacing.</span></span> : null}
           {showBoundingBoxOverlappingError ? <span className="number-item"><span className="error-message"><ErrorIcon className="error-icon"/>&nbsp;This spacing is impossible because the bounding boxes will overlap. You must to increase the spacing.</span></span> : null}
+          {showRampNonStandardWarning ? <span className="number-item"><span className="error-message"><WarningIcon className="error-icon"/>&nbsp;This spacing is not a standard ramp item. We recommend using the ramp.</span></span> : null}
         </div>
       </div>
       <div className="illustration">
@@ -184,6 +200,10 @@ const StyledSection = styled.section`
     padding: 4px 0 4px 24px;
   }
 
+  .number-item--wrap {
+    flex-wrap: wrap;
+  }
+
   .number-item--hint {
     color: #666;
   }
@@ -193,11 +213,62 @@ const StyledSection = styled.section`
     width: 16em;
   }
 
+  .number-prompt--full-width {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
   .number-input {
     height: 32px;
     font-size: 24px;
     width: 64px;
     padding-left: 4px;
+  }
+
+  .ramp-button {
+    background-color: white;
+    border: 1px solid black;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ramp-item__radio {
+    width: 32px;
+    height: var(--tg-track-height);
+    margin: 0;
+    vertical-align: bottom;
+  }
+
+  .ramp-item__label:first-of-type {
+    margin-left: -32px;
+  }
+
+  .ramp-item__label {
+    margin-left: -33px;
+    width: 32px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  .ramp-item__label:hover {
+    background-color: grey;
+    color: white;
+  }
+
+  .ramp-item__radio:checked + .ramp-item__label {
+    background-color: black;
+    color: white;
+  }
+
+  .ramp-item__radio:focus + .ramp-item__label {
+    outline: 1px dashed black;
+    z-index: 1;
   }
 
   .steps {
@@ -206,6 +277,7 @@ const StyledSection = styled.section`
     column-gap: 24px;
     background-color: #EEEEEE;
     padding: 12px;
+    overflow: auto;
     margin-bottom: 12px;
   }
 
