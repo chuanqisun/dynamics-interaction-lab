@@ -86,11 +86,11 @@ export class SpacingDemo extends React.Component<any, any> {
       <div className="steps">
         <div className="step">
           <h2 className="h2 h2--with-margin">1. Choose an upper element</h2>
-          {typographyData.map(itemUpper => <label className="typography-option" key={itemUpper.name}><input type="radio" checked={this.state.itemUpper.name === itemUpper.name} onChange={() => this.onSelectItemUpper(itemUpper)}/>{itemUpper.name}</label>)}
+          {typographyData.map(itemUpper => <label className="typography-option" key={itemUpper.name}><input type="radio" name="itemUpper" checked={this.state.itemUpper.name === itemUpper.name} onChange={() => this.onSelectItemUpper(itemUpper)}/>{itemUpper.name}</label>)}
         </div>
         <div className="step">
           <h2 className="h2 h2--with-margin">2. Choose a lower element</h2>
-          {typographyData.map(itemLower => <label className="typography-option" key={itemLower.name}><input type="radio" checked={this.state.itemLower.name === itemLower.name}  onChange={() => this.onSelectItemLower(itemLower)}/>{itemLower.name}</label>)}
+          {typographyData.map(itemLower => <label className="typography-option" key={itemLower.name}><input type="radio" name="itemLower" checked={this.state.itemLower.name === itemLower.name}  onChange={() => this.onSelectItemLower(itemLower)}/>{itemLower.name}</label>)}
         </div>
         <div className="step">
           <h2 className="h2">3. Choose desired spacing</h2>
