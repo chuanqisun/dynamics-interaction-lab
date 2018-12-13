@@ -6,6 +6,7 @@ import './interaction-lab.css';
 
 const DemoBrowser = lazy(() => import('./demo-browser'));
 
+/* please sort by name A-Z, but group by type first */
 export const demos = [
   { type: 'style', name: 'Color', route: '/demos/color', component: lazy(() => import('../styles/color/color.demo'))},
   { type: 'style', name: 'Depth', route: '/demos/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
@@ -20,12 +21,26 @@ export const demos = [
   { type: 'component', name: 'Toggle', route: '/demos/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
 ];
 
-export const experiments = [
-  { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow improvements', started: '2018-12-05', iterations: [
-    { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
-  ]},
+interface Experiment {
+  series: string;
+  baseRoute: string;
+  description: string;
+  started: string;
+  iterations: Iteration[];
+}
+
+interface Iteration {
+  subRoute: string;
+  component: React.LazyExoticComponent<any>;
+}
+
+/* Please keep new experiements on top */
+export const experiments: Experiment[] = [
   { series: 'rhythm-zero', baseRoute: '/experiments/rhythm-zero', description: 'Typeramp conversion table for baseline spacing', started: '2018-12-12', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/rhythm-zero/alpha.exp'))},
+  ]},
+  { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow improvements', started: '2018-12-05', iterations: [
+    { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
   ]},
 ];
 

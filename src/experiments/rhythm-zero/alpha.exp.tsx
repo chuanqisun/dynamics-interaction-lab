@@ -8,6 +8,23 @@ const typographyData = [
 ]
 
 export class TyperampConversion extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      selectedFromName: typographyData[0].name,
+      selectedToName: typographyData[1].name,
+    }
+  }
+
+  onSelectFromItem = (name: string) => {
+    this.setState({selectedFromName: name});
+  }
+
+  onSelectToItem = (name: string) => {
+    this.setState({selectedToName: name});
+  }
+
   render() {
     return <StyledSection>
       {/* {typographyData.map(item => <TypographyItem {...item}/>)} */}
@@ -20,6 +37,9 @@ export class TyperampConversion extends React.Component<any, any> {
       </div>
       <div className="matrix">
         {typographyData.map(toItem => typographyData.map(fromItem => <span key={toItem.name}>-{toItem.baselineToBottom + fromItem.ascenderToTop}</span>))}  
+      </div>
+      <div className="type-list">
+        {typographyData.map((fromItem, index) => <label><input type="radio" checked={this.state.selectedFromName === fromItem.name} onSelect={() => this.onSelectFromItem(fromItem.name)}/>{fromItem.name}</label>)}
       </div>
     </StyledSection>
   }
