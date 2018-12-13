@@ -94,14 +94,15 @@ export class SpacingDemo extends React.Component<any, any> {
         </div>
         <div className="step">
           <h2 className="h2">3. Choose desired spacing</h2>
-          {showLettersOverlappingError ? <span className="number-item"><ErrorIcon/>&nbsp;The letters are overlapping. You must to increase the spacing.</span> : null}
-          {showBoundingBoxOverlappingError ? <span className="number-item"><ErrorIcon/>&nbsp;The bounding boxes are overlapping. You must to increase the spacing.</span> : null}
+          <span className="number-item number-item--hint">Tips: click the blue/red spacer to select, then use up/down arrow keys to nudge the value.</span>
           <label className="number-item" onMouseOver={this.onMouseOverDesignerSpacing} onMouseLeave={this.onMouseLeaveDesignerSpacing}>
             <span className="number-prompt">{`${this.state.itemUpper.name === 'object' ? 'Bounding box' : 'Baseline'} to ${this.state.itemLower.name === 'object' ? 'bounding box' : 'ascender'}`}</span>
             <input id="designer-spacing" className="number-input" type="number" step="4" onBlur={this.onBlurSpacing} onFocus={this.onFocusDesignerSpacing} value={this.state.designerSpacing} onChange={this.onChangeDesignerSpacing}/>px</label>
           <label className="number-item" onMouseOver={this.onMouseOverDeveloperSpacing} onMouseLeave={this.onMouseLeaveDeveloperSpacing}>
             <span className="number-prompt">Bounding box to bounding box</span>
             <input id="developer-spacing" className="number-input" type="number" step="4" onBlur={this.onBlurSpacing}  onFocus={this.onFocusDeveloperSpacing} value={developerSpacing} onChange={this.onChangeDeveloperSpacing}/>px</label>
+          {showLettersOverlappingError ? <span className="number-item"><span className="error-message"><ErrorIcon className="error-icon"/>&nbsp;This spacing is impossible because the letters will overlap. You must to increase the spacing.</span></span> : null}
+          {showBoundingBoxOverlappingError ? <span className="number-item"><span className="error-message"><ErrorIcon className="error-icon"/>&nbsp;This spacing is impossible because the bounding boxes will overlap. You must to increase the spacing.</span></span> : null}
         </div>
       </div>
       <div className="illustration">
@@ -171,10 +172,20 @@ const StyledSection = styled.section`
     margin-bottom: 2px;
   }
 
+  .error-icon {
+    display: inline;
+    position: relative;
+    top: 2px;
+  }
+
   .number-item {
     display: flex;
     align-items: center;
     padding: 4px 0 4px 24px;
+  }
+
+  .number-item--hint {
+    color: #666;
   }
 
   .number-prompt {
@@ -185,13 +196,13 @@ const StyledSection = styled.section`
   .number-input {
     height: 32px;
     font-size: 24px;
-    width: 48px;
+    width: 64px;
     padding-left: 4px;
   }
 
   .steps {
     display: grid;
-    grid-template-columns: max-content max-content max-content;
+    grid-template-columns: max-content max-content 360px;
     column-gap: 24px;
     background-color: #EEEEEE;
     padding: 12px;
