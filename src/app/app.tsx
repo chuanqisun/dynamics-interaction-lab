@@ -8,17 +8,18 @@ const DemoBrowser = lazy(() => import('./demo-browser'));
 
 /* please sort by name A-Z, but group by type first */
 export const demos = [
-  { type: 'style', name: 'Color', route: '/demos/color', component: lazy(() => import('../styles/color/color.demo'))},
-  { type: 'style', name: 'Depth', route: '/demos/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
-  { type: 'style', name: 'Icon', route: '/demos/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
-  { type: 'style', name: 'Typography', route: '/demos/typography', component: lazy(() => import('../styles/typography/typography.demo'))},
-  { type: 'component', name: 'App shell', route: '/demos/app-shell', component: lazy(() => import('../components/app-shell/app-shell.demo'))},
-  { type: 'component', name: 'Button', route: '/demos/button', component: lazy(() => import('../components/button/button.demo'))},
-  { type: 'component', name: 'Form header', route: '/demos/form-header', component: lazy(() => import('../components/form-header/form-header.demo'))},
-  { type: 'component', name: 'Form tabs', route: '/demos/form-tabs', component: lazy(() => import('../components/form-tabs/form-tabs.demo'))},
-  { type: 'component', name: 'Side nav', route: '/demos/side-nav', component: lazy(() => import('../components/side-nav/side-nav.demo'))},
-  { type: 'component', name: 'Text field', route: '/demos/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
-  { type: 'component', name: 'Toggle', route: '/demos/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
+  { type: 'style', name: 'Color', route: '/style/color', component: lazy(() => import('../styles/color/color.demo'))},
+  { type: 'style', name: 'Depth', route: '/style/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
+  { type: 'style', name: 'Icon', route: '/style/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
+  { type: 'style', name: 'Spacing', route: '/style/spacing', component: lazy(() => import('../styles/spacing/spacing.demo'))},
+  { type: 'style', name: 'Typography', route: '/style/typography', component: lazy(() => import('../styles/typography/typography.demo'))},
+  { type: 'component', name: 'App shell', route: '/component/app-shell', component: lazy(() => import('../components/app-shell/app-shell.demo'))},
+  { type: 'component', name: 'Button', route: '/component/button', component: lazy(() => import('../components/button/button.demo'))},
+  { type: 'component', name: 'Form header', route: '/component/form-header', component: lazy(() => import('../components/form-header/form-header.demo'))},
+  { type: 'component', name: 'Form tabs', route: '/component/form-tabs', component: lazy(() => import('../components/form-tabs/form-tabs.demo'))},
+  { type: 'component', name: 'Side nav', route: '/component/side-nav', component: lazy(() => import('../components/side-nav/side-nav.demo'))},
+  { type: 'component', name: 'Text field', route: '/component/text-field', component: lazy(() => import('../components/text-field/text-field.demo'))},
+  { type: 'component', name: 'Toggle', route: '/component/toggle', component: lazy(() => import('../components/toggle/toggle.demo'))},
 ];
 
 interface Experiment {
@@ -36,9 +37,6 @@ interface Iteration {
 
 /* Please keep new experiements on top */
 export const experiments: Experiment[] = [
-  { series: 'rhythm-zero', baseRoute: '/experiments/rhythm-zero', description: 'Typeramp conversion table for baseline spacing', started: '2018-12-12', iterations: [
-    { subRoute: 'alpha', component: lazy(() => import('../experiments/rhythm-zero/alpha.exp'))},
-  ]},
   { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow improvements', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
   ]},
@@ -69,7 +67,8 @@ export class App extends React.Component<any, any> {
             )}
             </section>
           </main>}/>
-          <Route path="/demos" component={() => <Suspense fallback="loading..."><DemoBrowser/></Suspense>}/>
+          <Route path="/style" component={() => <Suspense fallback="loading..."><DemoBrowser/></Suspense>}/>
+          <Route path="/component" component={() => <Suspense fallback="loading..."><DemoBrowser/></Suspense>}/>
           {experiments.map(experiment => experiment.iterations.map(iteration => <Route key={iteration.subRoute} path={`${experiment.baseRoute}/${iteration.subRoute}`} component={() => <Suspense fallback="loading..."><iteration.component/></Suspense>}></Route>))}
           {demos.map(demo => <Route key={demo.route} path={`/embed${demo.route}`} component={() => <Suspense fallback="loading..."><demo.component/></Suspense>}></Route>)}
         </React.Fragment>
