@@ -210,7 +210,7 @@ const StyledSection = styled.section`
 
   .number-prompt {
     display: inline-block;
-    width: 16em;
+    flex: 1 1 auto;
   }
 
   .number-prompt--full-width {
@@ -273,7 +273,7 @@ const StyledSection = styled.section`
 
   .steps {
     display: grid;
-    grid-template-columns: max-content max-content 360px;
+    grid-template-columns: max-content max-content 372px;
     column-gap: 24px;
     background-color: #EEEEEE;
     padding: 12px;
