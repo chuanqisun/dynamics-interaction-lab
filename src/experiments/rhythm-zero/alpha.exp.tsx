@@ -11,14 +11,15 @@ export class TyperampConversion extends React.Component<any, any> {
   render() {
     return <StyledSection>
       {/* {typographyData.map(item => <TypographyItem {...item}/>)} */}
-      <div className="labels-from">
+      <div className="legend">from \ to</div>
+      <div className="labels-to">
         {typographyData.map(item => <span key={item.name} className="item item--rotated">{item.name}</span>)}
       </div>
-      <div className="labels-to">
+      <div className="labels-from">
         {typographyData.map(item => <span key={item.name} className="item item--horizontal">{item.name}</span>)}
       </div>
       <div className="matrix">
-        {typographyData.map(fromItem => typographyData.map(toItem => <span key={toItem.name}>-{fromItem.baselineToBottom + toItem.ascenderToTop}</span>))}  
+        {typographyData.map(toItem => typographyData.map(fromItem => <span key={toItem.name}>-{toItem.baselineToBottom + fromItem.ascenderToTop}</span>))}  
       </div>
     </StyledSection>
   }
@@ -46,15 +47,21 @@ const StyledSection = styled.section`
   grid-template-rows: 100px auto;
   grid-template-columns: max-content 400px;
 
-  .labels-to {
+  .legend {
+    font-weight: 600;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .labels-from {
     display: flex;
     flex-direction: column;
     text-align: right;
   }
 
-  .labels-from {
+  .labels-to {
     align-self: end;
-    grid-column-start: 2;
   }
 
   .item--horizontal {
