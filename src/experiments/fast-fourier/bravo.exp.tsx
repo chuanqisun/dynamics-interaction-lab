@@ -113,7 +113,7 @@ const StyledNav = styled.nav`
 
   .node--expanded {
     width: 300px;
-    height: 600px;
+    height: 420px;
 
     .chevron {
       transform: rotate(180deg);
