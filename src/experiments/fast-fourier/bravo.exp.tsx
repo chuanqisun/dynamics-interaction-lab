@@ -75,6 +75,7 @@ const StyledNav = styled.nav`
   }
 
   .accordion-trigger {
+    cursor: pointer;
     background: none;
     border: none;
     padding: 0;
