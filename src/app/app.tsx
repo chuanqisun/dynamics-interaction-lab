@@ -37,7 +37,10 @@ interface Iteration {
 
 /* Please keep new experiements on top */
 export const experiments: Experiment[] = [
-  { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow improvements', started: '2018-12-05', iterations: [
+  { series: 'fast-fourier', baseRoute: '/experiments/fast-fourier', description: 'Business process flow internals', started: '2018-12-19', iterations: [
+    { subRoute: 'alpha', component: lazy(() => import('../experiments/fast-fourier/alpha.exp'))},
+  ]},
+  { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow integration', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
   ]},
 ];
