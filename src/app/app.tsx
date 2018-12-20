@@ -8,7 +8,7 @@ const DemoBrowser = lazy(() => import('./demo-browser'));
 
 /* please sort by name A-Z, but group by type first */
 export const demos = [
-  { type: 'style', name: 'Color', route: '/style/color', component: lazy(() => import('../styles/color/color.demo'))},
+  { type: 'style', name: 'Color', route: '/style/color', component: lazy(() => import('../styles/color/color.demo')) as any}, /* use this cast fixes a typescript compiler issue */
   { type: 'style', name: 'Depth', route: '/style/depth', component: lazy(() => import('../styles/depth/depth.demo'))},
   { type: 'style', name: 'Icon', route: '/style/icon', component: lazy(() => import('../styles/icon/icon.demo'))},
   { type: 'style', name: 'Spacing', route: '/style/spacing', component: lazy(() => import('../styles/spacing/spacing.demo'))},
