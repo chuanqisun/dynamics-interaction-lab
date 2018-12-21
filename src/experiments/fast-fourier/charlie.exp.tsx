@@ -43,7 +43,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
             </span>
           </button>  
         </div>
-        {index < this.state.stages.length - 1 ? <div className={`progress-bar${index < this.state.recordAtIndex ? ' progress-bar--filled' : ''}${index === this.state.recordAtIndex ? ' progress-bar--fade' : ''}`}/> : null}
+        {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
       </React.Fragment>)}
     </StyledNav>
     <h2>Design notes</h2>
@@ -70,7 +70,6 @@ const StyledNav = styled.nav`
     height: 24px;
     border-radius: 12px;
     box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
-    margin-top: 16px;
     transition: width 200ms, height 200ms;
   }
 
@@ -99,6 +98,13 @@ const StyledNav = styled.nav`
     border-color: var(--brand-primary);
     border-radius: 12px;
     transition: border-radius 200ms, background-color 200ms, border-color 200ms;
+  }
+
+  .progress-bar {
+    height: 16px;
+    width: 4px;
+    background-color: var(--brand-primary);
+    margin-left: 10px;
   }
 
   .node--filled {
