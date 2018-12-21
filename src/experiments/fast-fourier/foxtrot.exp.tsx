@@ -17,7 +17,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {name: 'Close'},
         {name: 'Archive'},
       ],
-      userSelectedIndex: 1,
+      userSelectedIndex: 2,
       recordAtIndex: 2,
     };
   }
