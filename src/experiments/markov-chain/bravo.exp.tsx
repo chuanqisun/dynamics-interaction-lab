@@ -159,7 +159,6 @@ const StyledApp = styled.div`
   .form-tab {
     padding: 20px;
     column-gap: 20px;
-    column-count: 1;
   }
 
   @media screen and (min-width: 1400px) {
