@@ -146,7 +146,7 @@ const StyledNav = styled.nav`
     padding: 0;
     height: 24px;
     border-radius: 12px;
-    min-width: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
