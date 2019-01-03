@@ -12,8 +12,11 @@ import {formHeaderDemoProps} from '../../components/form-header/form-header.demo
 
 import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
 
+import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/hotel.exp';
+
 import MockCommandBar from './mock-command-bar.svg';
 import MockFormBody from './mock-form-body.svg';
+import MockForm2Column from './mock-form-2-column.svg';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
@@ -21,9 +24,26 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
     this.state = {
       selectedTabId: '0',
+      stages: [
+        {name: 'Screen'},
+        {name: 'Qualify'},
+        {name: 'Develop'},
+        {name: 'Connect'},
+        {name: 'Propose'},
+        {name: 'Close'},
+        {name: 'Archive'},
+      ],
+      userSelectedIndex: 2,
+      recordAtIndex: 2,
+      onSelectStage: this.onSelectStage,
+      onCompleteStage: this.onCompleteStage,
+      onMoveRecordToStage: this.onMoveRecordToStage,
     };
   }
+
   render() {
+    const {selectedTabId, ...businessProcessFlowProps} = this.state;
+
     return <StyledApp>
       <div className="top"><AppShell {...appShellDemoProps}/></div>
       <div className="bottom">
@@ -36,15 +56,31 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
             <FormHeader inlineModeBreakpoint="600px" {...formHeaderDemoProps}/>
           </div>
           <div className="bottom-right-bottom">
-            <div className="tabs-container">
-              {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
+            <div className="form-left">
+              <div className="tabs-container">
+                {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
+              </div>
+              <MockForm2Column className="mock-form"/>
             </div>
-            <MockFormBody className="mock-form"/>
+            <div className="form-right">
+              <h1 className="process-title">Lead to opportunity process</h1>
+              <BusinessProcessFlow {...businessProcessFlowProps as BusinessProcessFlowProps}/>
+            </div>
           </div>
         </div>
       </div>
     </StyledApp>
   }
+
+  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+
+  onCompleteStage = () => {
+    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
+    const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
+    this.setState({recordAtIndex, userSelectedIndex});
+  }
+
+  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
 }
 
 const StyledApp = styled.div`
@@ -86,6 +122,7 @@ const StyledApp = styled.div`
   .bottom-right-bottom {
     flex: 1 1 auto;
     overflow: hidden;
+    display: flex;
   }
 
   .command-bar-container {
@@ -96,14 +133,30 @@ const StyledApp = styled.div`
     display: block;
   }
 
+  .form-left {
+    flex: 1 0 auto;
+  }
+
+  .form-right {
+    flex: 0 0 300px;
+    width: 300px;
+    padding: 16px 20px 0 8px;
+  }
+
   .mock-form {
     padding: 20px;
+  }
+
+  .process-title {
+    font: var(--fw-semibold) var(--scale-20)/var(--scale-24) var(--ff-segoe-ui);
+    margin: 0 0 20px 0;
   }
 
   .tabs-container {
     padding: 16px 20px 0 20px;
     white-space: nowrap;
   }
+
 `;
 
 export default BusinessProcessExperiment;
