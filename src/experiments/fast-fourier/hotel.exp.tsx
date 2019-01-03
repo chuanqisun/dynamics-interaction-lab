@@ -3,6 +3,49 @@ import styled, {keyframes} from 'styled-components';
 import { FullMdl2 } from '../../styles/icon/full-mdl2';
 import '../../components/button/button.css';
 
+
+export interface Stage {
+  name: string;
+}
+
+export interface BusinessProcessFlowProps {
+  stages: Stage[];
+  userSelectedIndex: number;
+  recordAtIndex: number;
+  onSelectStage: (stageIndex: number) => void;
+  onMoveRecordToStage: (stageIndex: number) => void;
+  onCompleteStage: () => void;
+}
+
+export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowProps> = (props) => {
+  return <StyledNav>
+  {props.stages.map((stage: any, index: number) => 
+  <React.Fragment key={index}>
+    <div className={[
+      `node`,
+      index === props.userSelectedIndex ? ' node--expanded' : '',
+      index === props.recordAtIndex ? ' node--outlined' : '',
+      index < props.recordAtIndex ? ' node--filled' : ''
+    ].join('')}>
+      <button onClick={() => props.onSelectStage(index)} className="accordion-trigger">
+        <span className="checkmark mdl2">{index < props.recordAtIndex ? FullMdl2.CheckMark : null}</span>
+        <span className="name-with-chevron">
+          <span className="stage-name">{stage.name}</span>
+          <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
+        </span>
+      </button>
+      {index === props.userSelectedIndex ? <div className="stage-content">
+        {index < props.recordAtIndex ? <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Rollback to this stage</button> : null}
+        {index === props.recordAtIndex ? <button className="stage-cta" onClick={props.onCompleteStage}>Complete</button> : null}
+        {index > props.recordAtIndex ? <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Skip to this stage</button> : null}
+      </div> : null}
+      
+    </div>
+    {index < props.stages.length - 1 ? <div className="progress-bar"></div> : null}
+  </React.Fragment>)}
+</StyledNav>
+}
+
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -19,6 +62,9 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       ],
       userSelectedIndex: 2,
       recordAtIndex: 2,
+      onSelectStage: this.onSelectStage,
+      onCompleteStage: this.onCompleteStage,
+      onMoveRecordToStage: this.onMoveRecordToStage,
     };
   }
 
@@ -37,34 +83,10 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
 
   render() {
+
     return <StyledSection>
     <h2>Sample</h2>
-    <StyledNav>
-      {this.state.stages.map((stage: any, index: number) => 
-      <React.Fragment key={index}>
-        <div className={[
-          `node`,
-          index === this.state.userSelectedIndex ? ' node--expanded' : '',
-          index === this.state.recordAtIndex ? ' node--outlined' : '',
-          index < this.state.recordAtIndex ? ' node--filled' : ''
-        ].join('')}>
-          <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
-            <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
-            <span className="name-with-chevron">
-              <span className="stage-name">{stage.name}</span>
-              <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
-            </span>
-          </button>
-          {index === this.state.userSelectedIndex ? <div className="stage-content">
-            {index < this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Rollback to this stage</button> : null}
-            {index === this.state.recordAtIndex ? <button className="stage-cta" onClick={this.onCompleteStage}>Complete</button> : null}
-            {index > this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Skip to this stage</button> : null}
-          </div> : null}
-          
-        </div>
-        {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
-      </React.Fragment>)}
-    </StyledNav>
+    <BusinessProcessFlow {...this.state as BusinessProcessFlowProps}/>
     <h2>Design notes</h2>
     <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
     <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
