@@ -22,7 +22,7 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    chunkFilename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[contenthash].js',
   },
   devServer: {
     historyApiFallback: true,
