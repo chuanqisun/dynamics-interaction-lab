@@ -49,6 +49,7 @@ export const experiments: Experiment[] = [
   ]},
   { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow integration', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
+    { subRoute: 'bravo', component: lazy(() => import('../experiments/markov-chain/bravo.exp'))},
   ]},
 ];
 
