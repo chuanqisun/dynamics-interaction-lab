@@ -18,6 +18,12 @@ import MockCommandBar from './mock-command-bar.svg';
 import MockFormBody from './mock-form-body.svg';
 import MockForm2Column from './mock-form-2-column.svg';
 
+import Summary from './FormSectionMocks/Summary.svg';
+import Subgrids from './FormSectionMocks/Subgrids.svg';
+import RelationshipAssistant from './FormSectionMocks/RelationshipAssistant.svg';
+import Timeline from './FormSectionMocks/Timeline.svg';
+import Details from './FormSectionMocks/Details.svg';
+
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -60,7 +66,14 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               <div className="tabs-container">
                 {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
               </div>
-              <MockForm2Column className="mock-form"/>
+              <div className="form-tab">
+                <div className="form-section"><Summary/></div>
+                <div className="form-section"><Details/></div>
+                <div className="form-section"><Subgrids/></div>
+                <div className="form-section"><RelationshipAssistant/></div>
+                <div className="form-section"><Timeline/></div>
+              </div>
+              {/* <MockForm2Column className="mock-form"/> */}
             </div>
             <div className="form-right">
               <h1 className="process-title">Lead to opportunity process</h1>
@@ -143,8 +156,28 @@ const StyledApp = styled.div`
     padding: 16px 20px 0 8px;
   }
 
-  .mock-form {
+  .form-tab {
     padding: 20px;
+    column-gap: 20px;
+    column-count: 1;
+  }
+
+  @media screen and (min-width: 1400px) {
+    .form-tab {
+      column-count: 2;
+    }
+  }
+  
+  @media screen and (min-width: 1880px) {
+    .form-tab {
+      column-count: 3;
+    }
+  }
+
+  .form-section {
+    border: 1px solid #CBCBCB;
+    margin-bottom: 20px;
+    break-inside: avoid-column;
   }
 
   .process-title {
