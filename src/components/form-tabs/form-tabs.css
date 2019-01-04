@@ -10,6 +10,8 @@
   position: relative;
   background: none;
   border: none;
+  outline: none; /* replace with focus-visible */
+  cursor: pointer;
 }
 
 .tab+.tab {

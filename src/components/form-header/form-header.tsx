@@ -5,6 +5,7 @@ import InfoSvg from './info.svg';
 
 
 export interface FormHeaderProps {
+  className?: string;
   showReadOnlyMessage?: boolean;
   showRecordImage?: boolean;
   showFormSwitcher?: boolean;
@@ -13,8 +14,8 @@ export interface FormHeaderProps {
   fields: number[];
 }
 
-export const FormHeader = (props: FormHeaderProps) => {
-  return <StyledHeader inlineModeBreakpoint={props.inlineModeBreakpoint}>
+export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
+  return <StyledHeader className={props.className} inlineModeBreakpoint={props.inlineModeBreakpoint}>
   {props.showReadOnlyMessage ?
   <div className="read-only-message"><InfoSvg className="message-item--icon"/><strong className="message-item--strong" ref={contentEditable}>This record is read-only.&nbsp;</strong><span ref={contentEditable}>You can’t change any field on this record because the status of this Opportunity is “closed”.</span></div>
   : null }

@@ -38,7 +38,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      selectedTabId: '0',
+      selectedTabId: '-1',
       stages: [
         {name: 'Screen'},
         {name: 'Qualify'},
@@ -81,13 +81,29 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               <Assign/>
               <EmailALink/>
             </div>
-            <FormHeader inlineModeBreakpoint="600px" {...formHeaderDemoProps}/>
+            <FormHeader className="form-header" inlineModeBreakpoint="600px" {...formHeaderDemoProps}/>
+            <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
           </div>
           <div className="page-center-bottom">
             <div className="tabs-container">
-              {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
+              <button onClick={() => this.setState({selectedTabId: '-1'})}  className={`tab${this.state.selectedTabId === '-1' ? ' tab--selected' : ''}`}>{this.state.stages[this.state.userSelectedIndex].name}</button>
+              {formTabsDemoProps.tabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
             <div className="form-tab">
+              {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
+                <h1 className="process-name">Lead to opportunity process</h1>
+                <span className="process-attribute">Process started 24 days ago</span>
+                <span className="process-attribute-separator">·</span>
+                {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Completed “{this.state.stages[this.state.userSelectedIndex].name}” {14 - 2 * this.state.userSelectedIndex} days ago</span>}
+                {this.state.userSelectedIndex === this.state.recordAtIndex && <span className="process-attribute">In “{this.state.stages[this.state.userSelectedIndex].name}” for 3 days</span>}
+
+                <div className="process-actions">
+                  {this.state.userSelectedIndex < this.state.recordAtIndex && <button className="switch-process-btn" onClick={() => this.onMoveRecordToStage(this.state.userSelectedIndex)}>Rollback to “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
+                  {this.state.userSelectedIndex === this.state.recordAtIndex && <button className="switch-process-btn switch-process-btn--primary" onClick={this.onCompleteStage}>Complete “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
+                  {this.state.userSelectedIndex > this.state.recordAtIndex && <button className="switch-process-btn" onClick={() => this.onMoveRecordToStage(this.state.userSelectedIndex)}>Skip to “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
+                  <button className="switch-process-btn">Switch process</button>
+                </div>
+              </div>}
               <div className="form-section"><Summary/></div>
               <div className="form-section"><Details/></div>
               <div className="form-section"><Subgrids/></div>
@@ -96,20 +112,11 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
             </div>
           </div>
         </Scrollbars>
-        <Scrollbars
-          className="page-right"
-          autoHide
-          autoHideTimeout={1000}
-          autoHideDuration={200}
-        >
-          <h1 className="process-title">Lead to opportunity process</h1>
-          <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
-        </Scrollbars>
       </div>
     </StyledApp>
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+  onSelectStage = (index: number) => this.setState({userSelectedIndex: index, selectedTabId: '-1'});
 
   onCompleteStage = () => {
     const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
@@ -121,6 +128,10 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 }
 
 const StyledApp = styled.div`
+  --brand-primary: #2266E3;
+  --brand-primary-darken: #1B52B6;
+  --light-grey: #F8F8F9;
+
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -178,18 +189,22 @@ const StyledApp = styled.div`
     background-color: #F8F8F8;
   }
 
+  .form-header {
+    padding-bottom: 14px;
+  }
+
   .form-tab {
     padding: 20px;
     column-gap: 20px;
   }
 
-  @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1100px) {
     .form-tab {
       column-count: 2;
     }
   }
   
-  @media screen and (min-width: 1880px) {
+  @media screen and (min-width: 1580px) {
     .form-tab {
       column-count: 3;
     }
@@ -201,9 +216,26 @@ const StyledApp = styled.div`
     break-inside: avoid-column;
   }
 
-  .process-title {
+  .form-section--process {
+    padding: 4px 12px;
+  }
+
+  .process-name {
     font: var(--fw-semibold) var(--scale-20)/var(--scale-24) var(--ff-segoe-ui);
-    margin: 16px 20px 20px 20px;
+    margin: 8px 0 16px 0;
+  }
+
+  .process-actions {
+    margin: 16px 0 8px;
+  }
+
+  .process-attribute {
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .process-attribute-separator {
+    margin: 0 8px;
   }
 
   .tabs-container {
@@ -216,7 +248,40 @@ const StyledApp = styled.div`
   }
 
   .business-process-flow {
-    margin: 0 20px 20px 20px;
+    margin: 0 20px;
+    transform: translateY(-12px);
+    margin-bottom: -12px;
+  }
+
+  .switch-process-btn {
+    border-radius: 2px;
+    border: none;
+    height: 32px;
+    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    padding: 0 1.25rem;
+    box-shadow: var(--depth-1);
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    outline: none; /* replace with focus-visible */
+  }
+
+  .switch-process-btn:hover {
+    box-shadow: var(--depth-2);
+    background-color: var(--light-grey);
+  }
+
+  .switch-process-btn--primary {
+    background-color: var(--brand-primary);
+    color: white;
+  }
+
+  .switch-process-btn--primary:hover {
+    background-color: var(--brand-primary-darken);
+  }
+
+  .switch-process-btn + .switch-process-btn {
+    margin-left: 12px;
   }
 `;
 

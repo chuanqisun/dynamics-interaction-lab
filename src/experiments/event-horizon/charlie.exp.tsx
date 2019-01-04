@@ -103,6 +103,8 @@ const StyledSection = styled.section`
 
 const StyledNav = styled.nav`
   --brand-primary: #2266E3;
+  --brand-primary-darken: #1B52B6;
+  --light-grey: #F8F8F9;
   --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
@@ -111,7 +113,7 @@ const StyledNav = styled.nav`
   align-items: center;
 
   .progress-bar {
-    max-width: 100px;
+    max-width: 40px;
     flex: 1 0 20px;
     height: 2px;
     margin: 0 -2px;
@@ -138,7 +140,12 @@ const StyledNav = styled.nav`
     padding: 0;
     position: relative;
     white-space: nowrap;
-    transition: all 200ms;
+    transition: background-color 200ms;
+  }
+
+  .node:hover {
+    --full-bg: var(--light-grey);
+    --checkmark-bg: var(--brand-primary-darken);
   }
 
   .node--record-at {
@@ -146,7 +153,12 @@ const StyledNav = styled.nav`
   }
 
   .node--record-at .node__stage-name {
-    animation: ${pulse} 4000ms infinite;
+    animation: ${pulse} 4000ms 400ms infinite;
+    border-color: var(--border-fg);
+  }
+
+  .node--user-selected .node__stage-name {
+    border-color: transparent;
   }
 
   .node--record-competed {
@@ -160,6 +172,11 @@ const StyledNav = styled.nav`
     --text-color: white;
   }
 
+  .node--user-selected:hover {
+    --full-bg: var(--brand-primary-darken);
+    --border-fg: var(--brand-primary-darken);
+  }
+
   .node__checkmark {
     color: var(--checkmark-fg);
     display: inline-block;
@@ -169,6 +186,7 @@ const StyledNav = styled.nav`
     align-items: center;
     justify-content: center;
     border-radius: 12px 0 0 12px;
+    transition: background-color 200ms;
   }
 
   .node__stage-name {
@@ -177,11 +195,12 @@ const StyledNav = styled.nav`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--border-fg);
+    border: 2px solid transparent;
     height: 24px;
     box-sizing: border-box;
     border-radius: 12px;
     padding: var(--stage-name-padding);
+    transition: color 200ms, background-color 200ms;
   }
 `;
 
