@@ -33,28 +33,30 @@ interface Experiment {
 interface Iteration {
   subRoute: string;
   component: React.LazyExoticComponent<any>;
+  notes?: string;
 }
 
 /* Please keep new experiements on top */
 export const experiments: Experiment[] = [
   { series: 'event-horizon', baseRoute: '/experiments/event-horizon', description: 'Business process flow horizontal', started: '2019-01-04', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/event-horizon/alpha.exp'))},
-    { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp'))},
+    { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp')), notes: 'baseline'},
     { subRoute: 'charlie', component: lazy(() => import('../experiments/event-horizon/charlie.exp'))},
   ]},
   { series: 'fast-fourier', baseRoute: '/experiments/fast-fourier', description: 'Business process flow vertical', started: '2018-12-19', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/fast-fourier/alpha.exp'))},
     { subRoute: 'bravo', component: lazy(() => import('../experiments/fast-fourier/bravo.exp'))},
     { subRoute: 'charlie', component: lazy(() => import('../experiments/fast-fourier/charlie.exp'))},
-    { subRoute: 'delta', component: lazy(() => import('../experiments/fast-fourier/delta.exp'))},
+    { subRoute: 'delta', component: lazy(() => import('../experiments/fast-fourier/delta.exp')), notes: 'square card'},
     { subRoute: 'echo', component: lazy(() => import('../experiments/fast-fourier/echo.exp'))},
     { subRoute: 'foxtrot', component: lazy(() => import('../experiments/fast-fourier/foxtrot.exp'))},
-    { subRoute: 'golf', component: lazy(() => import('../experiments/fast-fourier/golf.exp'))},
+    { subRoute: 'golf', component: lazy(() => import('../experiments/fast-fourier/golf.exp')), notes: 'floating header'},
   ]},
   { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow integration', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
     { subRoute: 'bravo', component: lazy(() => import('../experiments/markov-chain/bravo.exp'))},
-    { subRoute: 'charlie', component: lazy(() => import('../experiments/markov-chain/charlie.exp'))},
+    { subRoute: 'charlie', component: lazy(() => import('../experiments/markov-chain/charlie.exp')), notes: 'vertical'},
+    { subRoute: 'delta', component: lazy(() => import('../experiments/markov-chain/delta.exp')), notes: 'horizontal'},
   ]},
 ];
 
@@ -78,7 +80,12 @@ export class App extends React.Component<any, any> {
             <section className="lab-index-section">
             {experiments.map(experiment => <div title={`${experiment.started}: ${experiment.description}`} key={experiment.series}>
               <h3 className='lab-h3'>{experiment.series}</h3>
-              {experiment.iterations.map(iteration => <NavLink target="_blank" key={iteration.subRoute} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
+              {experiment.iterations.map(iteration => <NavLink
+                target="_blank"
+                title={iteration.notes}
+                key={iteration.subRoute}
+                className="lab-link lab-link--horizontal-list"
+                activeClassName="lab-link--active" to={`${experiment.baseRoute}/${iteration.subRoute}`}>{iteration.subRoute}</NavLink>)}
               </div>
             )}
             </section>
