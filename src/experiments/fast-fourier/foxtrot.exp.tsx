@@ -42,8 +42,12 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     <StyledNav>
       {this.state.stages.map((stage: any, index: number) => 
       <React.Fragment key={index}>
-        <div className={`node`+`${index === this.state.userSelectedIndex ? ' node--expanded' : ''}` +
-        `${index < this.state.recordAtIndex ? ' node--filled' : ''}`}>
+        <div className={[
+          `node`,
+          index === this.state.userSelectedIndex ? ' node--expanded' : '',
+          index === this.state.recordAtIndex ? ' node--outlined' : '',
+          index < this.state.recordAtIndex ? ' node--filled' : ''
+        ].join('')}>
           <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
             <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
             <span className="name-with-chevron">
@@ -80,10 +84,8 @@ const StyledNav = styled.nav`
   --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
   
-
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 
   .node {
     width: 24px;
@@ -92,19 +94,34 @@ const StyledNav = styled.nav`
     box-shadow: var(--material-shadow-d3);
     transition: width 200ms, height 200ms;
     position: relative;
+    box-sizing: border-box;
   }
 
-  /* .node::before {
+  .node::before {
     content: '';
     position: absolute;
     left: 0;
-    width: 14px;
-    height: 100%;
+    right: 0;
+    height: 24px;
+  
+    border: 2px solid transparent;
+    background-color: white;
     box-sizing: border-box;
-    border: 4px solid var(--brand-primary);
-    border-right: none;
-    border-radius: 12px 0 0 12px;
-  }; */
+    border-radius: 12px;
+
+    transition: all 200ms;
+  }
+
+  .node--filled::before {
+    background-color: var(--brand-primary);
+  }
+  .node--filled.node--expanded::before {
+    height: 24px;
+  }
+
+  .node--outlined::before {
+    border-color: var(--brand-primary);
+  }
 
   .accordion-trigger {
     cursor: pointer;
@@ -119,19 +136,9 @@ const StyledNav = styled.nav`
     outline: none; /* TODO replace with focus-visible */
     position: relative;
     transition: color 200ms;
-  }
-
-  .accordion-trigger::before {
-    content: '';
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background-color: white;
-    /* border: 2px solid black; */
-    border-color: var(--brand-primary);
-    border-radius: 12px;
-    transition: border-radius 200ms, background-color 200ms, border-color 200ms;
+    appearance: none; /* unset the native button styles */
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 
   .progress-bar {
@@ -148,8 +155,10 @@ const StyledNav = styled.nav`
 
     .accordion-trigger::before {
       background-color: var(--brand-primary);
-      border-color: transparent;
     }
+  }
+
+  .node--outlined {
   }
 
   .node--expanded {
@@ -162,10 +171,6 @@ const StyledNav = styled.nav`
 
     .accordion-trigger {
       color: var(--brand-primary);
-    }
-
-    .accordion-trigger::before {
-      border-radius: 12px 12px 0 0;
     }
   }
 

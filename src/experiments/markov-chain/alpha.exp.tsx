@@ -12,7 +12,7 @@ import {formHeaderDemoProps} from '../../components/form-header/form-header.demo
 
 import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
 
-import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/hotel.exp';
+import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/golf.exp';
 
 import MockCommandBar from './mock-command-bar.svg';
 import MockFormBody from './mock-form-body.svg';

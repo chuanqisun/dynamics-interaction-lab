@@ -74,18 +74,6 @@ const StyledNav = styled.nav`
     position: relative;
   }
 
-  /* .node::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 14px;
-    height: 100%;
-    box-sizing: border-box;
-    border: 4px solid var(--brand-primary);
-    border-right: none;
-    border-radius: 12px 0 0 12px;
-  }; */
-
   .accordion-trigger {
     cursor: pointer;
     background: none;
@@ -135,6 +123,7 @@ const StyledNav = styled.nav`
   .node--expanded {
     width: 300px;
     height: 420px;
+    border-radius: 2px;
 
     .chevron {
       transform: rotate(180deg);
@@ -145,7 +134,7 @@ const StyledNav = styled.nav`
     }
 
     .accordion-trigger::before {
-      border-radius: 12px 12px 0 0;
+      border-radius: 2px 2px 0 0;
     }
   }
 

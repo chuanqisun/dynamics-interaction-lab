@@ -1,6 +1,7 @@
 import * as React from 'React';
 import styled from 'styled-components';
 import { FullMdl2 } from '../../styles/icon/full-mdl2';
+import '../../components/button/button.css';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
@@ -16,7 +17,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {name: 'Close'},
         {name: 'Archive'},
       ],
-      userSelectedIndex: 1,
+      userSelectedIndex: 2,
       recordAtIndex: 2,
     };
   }
@@ -26,6 +27,14 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   rollBackStage = () => this.setState({recordAtIndex: Math.max(0, this.state.recordAtIndex - 1)});
 
   advanceStage = () => this.setState({recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1)});
+
+  onCompleteStage = () => {
+    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
+    const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
+    this.setState({recordAtIndex, userSelectedIndex});
+  }
+
+  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
 
   render() {
     return <StyledSection>
@@ -41,7 +50,13 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               <span className="stage-name">{stage.name}</span>
               <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
             </span>
-          </button>  
+          </button>
+          {index === this.state.userSelectedIndex ? <div className="stage-content">
+            {index < this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Rollback to this stage</button> : null}
+            {index === this.state.recordAtIndex ? <button className="stage-cta" onClick={this.onCompleteStage}>Complete</button> : null}
+            {index > this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Skip to this stage</button> : null}
+          </div> : null}
+          
         </div>
         {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
       </React.Fragment>)}
@@ -60,6 +75,11 @@ const StyledSection = styled.section`
 
 const StyledNav = styled.nav`
   --brand-primary: #2266E3;
+  --brand-primary-darken: #1B52B6;
+  --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+  
 
   display: flex;
   flex-direction: column;
@@ -69,10 +89,22 @@ const StyledNav = styled.nav`
     width: 24px;
     height: 24px;
     border-radius: 12px;
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    box-shadow: var(--material-shadow-d3);
     transition: width 200ms, height 200ms;
     position: relative;
   }
+
+  /* .node::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 14px;
+    height: 100%;
+    box-sizing: border-box;
+    border: 4px solid var(--brand-primary);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+  }; */
 
   .accordion-trigger {
     cursor: pointer;
@@ -123,7 +155,6 @@ const StyledNav = styled.nav`
   .node--expanded {
     width: 300px;
     height: 420px;
-    border-radius: 2px;
 
     .chevron {
       transform: rotate(180deg);
@@ -134,7 +165,7 @@ const StyledNav = styled.nav`
     }
 
     .accordion-trigger::before {
-      border-radius: 2px 2px 0 0;
+      border-radius: 12px 12px 0 0;
     }
   }
 
@@ -171,6 +202,32 @@ const StyledNav = styled.nav`
     display: flex;
     align-items: baseline;
     left: 32px;
+  }
+
+  .stage-content {
+    .stage-cta {
+      position: absolute;
+      left: 32px;
+      bottom: 8px;
+    }
+  }
+
+  .stage-cta {
+    border-radius: var(--btn-border-radius);
+    border: none;
+    cursor: pointer;
+    height: 28px;
+    font: var(--btn-font);
+    color: var(--btn-primary-fg-rest);
+    background-color: var(--btn-primary-bg-rest);
+    letter-spacing: var(--btn-letter-spacing);
+    padding: 0 var(--btn-padding-side);
+    box-shadow: var(--material-shadow-d2);
+    outline: none;
+  }
+
+  .stage-cta:hover {
+    background-color: var(--brand-primary-darken);
   }
 `;
 

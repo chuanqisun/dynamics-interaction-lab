@@ -71,7 +71,20 @@ const StyledNav = styled.nav`
     border-radius: 12px;
     box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
     transition: width 200ms, height 200ms;
+    position: relative;
   }
+
+  /* .node::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 14px;
+    height: 100%;
+    box-sizing: border-box;
+    border: 4px solid var(--brand-primary);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+  }; */
 
   .accordion-trigger {
     cursor: pointer;
@@ -94,7 +107,8 @@ const StyledNav = styled.nav`
     height: 100%;
     width: 100%;
     position: absolute;
-    border: 2px solid black;
+    background-color: white;
+    /* border: 2px solid black; */
     border-color: var(--brand-primary);
     border-radius: 12px;
     transition: border-radius 200ms, background-color 200ms, border-color 200ms;

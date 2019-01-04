@@ -1,40 +1,6 @@
 import * as React from 'React';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import { FullMdl2 } from '../../styles/icon/full-mdl2';
-import '../../components/button/button.css';
-
-
-export interface Stage {
-  name: string;
-}
-
-export interface BusinessProcessFlowProps {
-  className?: string;
-  stages: Stage[];
-  userSelectedIndex: number;
-  recordAtIndex: number;
-  onSelectStage: (stageIndex: number) => void;
-  onMoveRecordToStage: (stageIndex: number) => void;
-  onCompleteStage: () => void;
-}
-
-export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowProps> = (props) => {
-  return <StyledNav className={props.className}>
-  {props.stages.map((stage: any, index: number) => 
-  <React.Fragment key={index}>
-    <button onClick={() => props.onSelectStage(index)} className={[
-        `node`,
-        index === props.userSelectedIndex ? ' node--user-selected' : '',
-        index === props.recordAtIndex ? ' node--record-at' : '',
-        index < props.recordAtIndex ? ' node--record-competed' : ''
-      ].join('')}>
-      {index < props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.CheckMark}</span>}
-      <span className="node__stage-name">{stage.name}</span>
-    </button>      
-    {index < props.stages.length - 1 ? <div className="progress-bar"></div> : null}
-  </React.Fragment>)}
-</StyledNav>
-}
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
@@ -50,36 +16,38 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {name: 'Close'},
         {name: 'Archive'},
       ],
-      userSelectedIndex: 2,
+      userSelectedIndex: 1,
       recordAtIndex: 2,
-      onSelectStage: this.onSelectStage,
-      onCompleteStage: this.onCompleteStage,
-      onMoveRecordToStage: this.onMoveRecordToStage,
     };
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+  onSelectStage = (index: number) => this.setState({userSelectedIndex: index});
 
   rollBackStage = () => this.setState({recordAtIndex: Math.max(0, this.state.recordAtIndex - 1)});
 
   advanceStage = () => this.setState({recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1)});
 
-  onCompleteStage = () => {
-    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
-    const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
-    this.setState({recordAtIndex, userSelectedIndex});
-  }
-
-  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
-
   render() {
-
     return <StyledSection>
     <h2>Sample</h2>
-    <BusinessProcessFlow {...this.state as BusinessProcessFlowProps}/>
+    <StyledNav>
+      {this.state.stages.map((stage: any, index: number) => 
+      <React.Fragment key={index}>
+        <div className="node">
+          <button onClick={() => this.onSelectStage(index)} className={`btn${index < this.state.recordAtIndex ? ' btn--shrinkable btn--filled' : ''}` +
+            `${index === this.state.recordAtIndex ? ' btn--filled' : ''}` +
+            `${index === this.state.userSelectedIndex ? ' btn--selected' : ''}` +
+            `${index > this.state.recordAtIndex ? ' btn--empty' : ''}`}>
+            {index < this.state.recordAtIndex ? <span className="btn__icon mdl2">{FullMdl2.CheckMark}</span> : null}
+            <span className="btn__text">{stage.name}</span>
+          </button>
+        </div>
+        {index < this.state.stages.length - 1 ? <div className={`progress-bar${index < this.state.recordAtIndex ? ' progress-bar--filled' : ''}${index === this.state.recordAtIndex ? ' progress-bar--fade' : ''}`}/> : null}
+      </React.Fragment>)}
+    </StyledNav>
     <h2>Design notes</h2>
     <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
-    <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
+    <li>User is viewing "{this.state.stages[this.state.userSelectedIndex].name}"</li>
     <li>{this.state.recordAtIndex < this.state.stages.length ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"` : `Record has finished all stages`}</li>
     </StyledSection>
   }
@@ -90,47 +58,86 @@ const StyledSection = styled.section`
 `;
 
 const StyledNav = styled.nav`
-  --brand-primary: #2266E3;
-  --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-  --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-  --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
-  
   display: flex;
+  align-items: center;
 
   .node {
-    --border-fg: transparent;
-    --checkmark-fg: white;
-    --checkmark-bg: var(--brand-primary);
-    --full-bg: white;
-    --text-color: var(--brand-primary);
-
-    appearance: none;
-    border: 2px solid var(--border-fg);
-    background-color: var(--full-bg);
-    outline: none; /* to be replaced by focus-visible */
+    position: relative;
   }
 
-  .node--record-at {
-    --border-fg: var(--brand-primary);
+  .progress-bar {
+    width: 100px;
+    height: 4px;
+    background-color: #CADAF8;
   }
 
-  .node--record-competed {
-    .node__checkmark {
-      background-color: var(--checkmark-bg);
+  .progress-bar--filled {
+    background-color: #2266E3;
+  }
+
+  .progress-bar--fade {
+    background: linear-gradient(90deg, #2266E3 0%, #CADAF8 100%);
+  }
+
+  .btn {
+    box-sizing: border-box;
+    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    max-width: 120px;
+    height: 24px;
+    padding: 0;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    outline: none; /* replace with focus-visible */
+    transition: all 200ms;
+  }
+
+  .btn:hover {
+    position: relative;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+
+    .btn__icon {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .btn--selected {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    transform: scale(1.2);
+
+    .btn__icon {
+      transform: rotate(360deg);
     }
   }
 
-  .node--user-selected {
-    --full-bg: var(--brand-primary);
-    --text-color: white;
+  .btn__icon {
+    transition: inherit;
+    font-size: 16px;
   }
 
-  .node__checkmark {
-    color: var(--checkmark-fg);
+  .btn__text {
+    margin: 0 8px;
   }
 
-  .node__stage-name {
-    color: var(--text-color);
+  .btn--filled {
+    background-color: #2266E3;
+  }
+
+  .btn--shrinkable:not(.btn--selected):not(:hover) {
+    max-width: 24px;
+  }
+
+  .btn--shrinkable {
+    padding-left: 4px;
+  }
+
+  .btn--empty {
+    color: #2266E3;
+    border: 2px solid #2266E3;
+    background-color: white;
   }
 `;
 
