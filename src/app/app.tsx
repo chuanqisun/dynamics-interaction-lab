@@ -39,6 +39,7 @@ interface Iteration {
 export const experiments: Experiment[] = [
   { series: 'event-horizon', baseRoute: '/experiments/event-horizon', description: 'Business process flow internals', started: '2018-12-19', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/event-horizon/alpha.exp'))},
+    { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp'))},
   ]},
   { series: 'fast-fourier', baseRoute: '/experiments/fast-fourier', description: 'Business process flow internals', started: '2018-12-19', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/fast-fourier/alpha.exp'))},
