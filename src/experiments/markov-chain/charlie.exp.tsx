@@ -13,16 +13,25 @@ import {formHeaderDemoProps} from '../../components/form-header/form-header.demo
 import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
 
 import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/hotel.exp';
+import Scrollbars  from 'react-custom-scrollbars';
 
-import MockCommandBar from './mock-command-bar.svg';
-import MockFormBody from './mock-form-body.svg';
-import MockForm2Column from './mock-form-2-column.svg';
-
+/* form sections */
 import Summary from './FormSectionMocks/Summary.svg';
 import Subgrids from './FormSectionMocks/Subgrids.svg';
 import RelationshipAssistant from './FormSectionMocks/RelationshipAssistant.svg';
 import Timeline from './FormSectionMocks/Timeline.svg';
 import Details from './FormSectionMocks/Details.svg';
+
+/* command */
+import Assign from './CommandMocks/Assign.svg';
+import CloseAsLost from './CommandMocks/CloseAsLost.svg';
+import CloseAsWon from './CommandMocks/CloseAsWon.svg';
+import EmailALink from './CommandMocks/EmailALink.svg';
+import New from './CommandMocks/New.svg';
+import Process from './CommandMocks/Process.svg';
+import RecalculateOpportunity from './CommandMocks/RecalculateOpportunity.svg';
+import RecordSet from './CommandMocks/RecordSet.svg';
+import Refresh from './CommandMocks/Refresh.svg';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
@@ -54,33 +63,48 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       <div className="top"><AppShell {...appShellDemoProps}/></div>
       <div className="bottom">
         <div className="bottom-left"><SideNav {...sideNavDemoProps}/></div>
-        <div className="bottom-right">
-          <div className="bottom-right-top">
+        <Scrollbars
+          className="page-center"
+          autoHide
+          autoHideTimeout={1000}
+          autoHideDuration={200}
+        >
+          <div className="page-center-top">
             <div className="command-bar-container">
-              <MockCommandBar className="mock-command-bar"/>
+              <RecordSet/>
+              <New/>
+              <Refresh/>
+              <CloseAsWon/>
+              <CloseAsLost/>
+              <RecalculateOpportunity/>
+              <Process/>
+              <Assign/>
+              <EmailALink/>
             </div>
             <FormHeader inlineModeBreakpoint="600px" {...formHeaderDemoProps}/>
           </div>
-          <div className="bottom-right-bottom">
-            <div className="form-left">
-              <div className="tabs-container">
-                {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
-              </div>
-              <div className="form-tab">
-                <div className="form-section"><Summary/></div>
-                <div className="form-section"><Details/></div>
-                <div className="form-section"><Subgrids/></div>
-                <div className="form-section"><RelationshipAssistant/></div>
-                <div className="form-section"><Timeline/></div>
-              </div>
-              {/* <MockForm2Column className="mock-form"/> */}
+          <div className="page-center-bottom">
+            <div className="tabs-container">
+              {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
-            <div className="form-right">
-              <h1 className="process-title">Lead to opportunity process</h1>
-              <BusinessProcessFlow {...businessProcessFlowProps as BusinessProcessFlowProps}/>
+            <div className="form-tab">
+              <div className="form-section"><Summary/></div>
+              <div className="form-section"><Details/></div>
+              <div className="form-section"><Subgrids/></div>
+              <div className="form-section"><RelationshipAssistant/></div>
+              <div className="form-section"><Timeline/></div>
             </div>
           </div>
-        </div>
+        </Scrollbars>
+        <Scrollbars
+          className="page-right"
+          autoHide
+          autoHideTimeout={1000}
+          autoHideDuration={200}
+        >
+          <h1 className="process-title">Lead to opportunity process</h1>
+          <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
+        </Scrollbars>
       </div>
     </StyledApp>
   }
@@ -107,6 +131,7 @@ const StyledApp = styled.div`
 
   .bottom {
     flex: 1 1 auto;
+    height: 100%;
   }
 
   .bottom {
@@ -115,45 +140,42 @@ const StyledApp = styled.div`
   
   .bottom-left {
     flex: 0 0 auto;
-    position: relative;
   }
 
-  .bottom-right {
+  .page-center {
     flex: 1 1 auto;
     overflow: auto;
-    width: 100%;
+    height: 100%;
   }
 
-  .bottom-right-top {
+  .page-center-top {
+    flex: 0 0 auto;
     position: sticky;
     top: 0;
-    z-index: 600;
+    z-index: 400;
+  }  
+
+  .page-center-bottom {
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
   }
 
-  .bottom-right-bottom {
-    flex: 1 1 auto;
-    overflow: hidden;
-    display: flex;
-  }
-
   .command-bar-container {
+    border-bottom: 1px solid #CDCDCD;
+    height: 42px;
     overflow: hidden;
+    background: white;
   }
 
-  .mock-command-bar {
-    display: block;
-  }
-
-  .form-left {
-    flex: 1 0 auto;
-  }
-
-  .form-right {
-    flex: 0 0 300px;
-    width: 300px;
-    padding: 16px 20px 0 8px;
+  .page-right {
+    flex: 0 0 352px;
+    width: 352px;
+    border-left: 1px solid #CDCDCD;
+    overflow: auto;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #F8F8F8;
   }
 
   .form-tab {
@@ -181,7 +203,7 @@ const StyledApp = styled.div`
 
   .process-title {
     font: var(--fw-semibold) var(--scale-20)/var(--scale-24) var(--ff-segoe-ui);
-    margin: 0 0 20px 0;
+    margin: 16px 20px 20px 20px;
   }
 
   .tabs-container {
@@ -189,6 +211,13 @@ const StyledApp = styled.div`
     white-space: nowrap;
   }
 
+  .thumb-vertical {
+    z-index: 600;
+  }
+
+  .business-process-flow {
+    margin: 0 20px 20px 20px;
+  }
 `;
 
 export default BusinessProcessExperiment;

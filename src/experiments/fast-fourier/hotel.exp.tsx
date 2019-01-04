@@ -9,6 +9,7 @@ export interface Stage {
 }
 
 export interface BusinessProcessFlowProps {
+  className?: string;
   stages: Stage[];
   userSelectedIndex: number;
   recordAtIndex: number;
@@ -18,7 +19,7 @@ export interface BusinessProcessFlowProps {
 }
 
 export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowProps> = (props) => {
-  return <StyledNav>
+  return <StyledNav className={props.className}>
   {props.stages.map((stage: any, index: number) => 
   <React.Fragment key={index}>
     <div className={[
@@ -245,7 +246,7 @@ const StyledNav = styled.nav`
     position: absolute;
     top: 22px;
     left: 8px;
-    border-left: 2px solid var(--brand-primary);
+    /* border-left: 2px solid var(--brand-primary); */
     right: 8px;
     box-shadow: var(--material-shadow-d3);
     bottom: 0;
