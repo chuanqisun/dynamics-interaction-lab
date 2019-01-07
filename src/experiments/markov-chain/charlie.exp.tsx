@@ -102,7 +102,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
           autoHideTimeout={1000}
           autoHideDuration={200}
         >
-          <h1 className="process-title">Lead to opportunity process</h1>
+          <h1 className="process-title">Lead to opportunity process <span className="switch-process">(<button className="switch-button">switch</button>)</span></h1>
           <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
         </Scrollbars>
       </div>
@@ -217,6 +217,24 @@ const StyledApp = styled.div`
 
   .business-process-flow {
     margin: 0 20px 20px 20px;
+  }
+
+  .switch-process {
+    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+  }
+
+  .switch-button {
+    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    background: none;
+    color: var(--color-primary);
+    padding: 0;
+
+    :hover {
+      text-decoration: underline;
+    }
   }
 `;
 
