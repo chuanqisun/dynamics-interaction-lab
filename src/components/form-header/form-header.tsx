@@ -2,41 +2,69 @@ import * as React from 'react';
 import styled, {StyledComponent} from 'styled-components';
 import {contentEditable} from '../../utils/content-editable';
 import InfoSvg from './info.svg';
+import { string } from 'prop-types';
+import content from './info.svg';
 
+export interface Field {
+  key: string;
+  value: string;
+}
 
 export interface FormHeaderProps {
   className?: string;
+  entityName?: string;
+  fields?: Field[];
+  formSwitcherOptions?: string[];
+  inlineModeBreakpoint?: string;
+  isContentEditable?: boolean;
+  recordInitials?: string;
+  recordName?: string;
+  showFormSwitcher?: boolean;
   showReadOnlyMessage?: boolean;
   showRecordImage?: boolean;
-  showFormSwitcher?: boolean;
   showShadow?: boolean;
-  inlineModeBreakpoint?: string;
-  fields: number[];
 }
 
 export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
+  const recordName = props.recordName || '1Q-19-Renew-NAmeric-Int-550units-3Dmaker-model-T1XX800plus';
+  const recordInitials = props.recordInitials || 'RN';
+  const fields = props.fields || [
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+  ];
+  const formSwitcherOptions = props.formSwitcherOptions || [
+    'Internal Printer Preapproval Opps',
+    'Internal Display All',
+    'External Hybrid Preapproval',
+  ];
+
+  const entityName = props.entityName || 'Opportunity';
+
+  const contentEditableRef = props.isContentEditable ? contentEditable : undefined;
+
+
   return <StyledHeader className={props.className} inlineModeBreakpoint={props.inlineModeBreakpoint}>
   {props.showReadOnlyMessage ?
-  <div className="read-only-message"><InfoSvg className="message-item--icon"/><strong className="message-item--strong" ref={contentEditable}>This record is read-only.&nbsp;</strong><span ref={contentEditable}>You can’t change any field on this record because the status of this Opportunity is “closed”.</span></div>
+  <div className="read-only-message"><InfoSvg className="message-item--icon"/><strong className="message-item--strong" ref={contentEditableRef}>This record is read-only.&nbsp;</strong><span ref={contentEditableRef}>You can’t change any field on this record because the status of this Opportunity is “closed”.</span></div>
   : null }
   <div className="title-assembly">
     {props.showRecordImage ?  
       <div className="title-assembly__left">
-        <span className="record-icon" ref={contentEditable}>RN</span>
+        <span className="record-icon" ref={contentEditableRef}>{recordInitials}</span>
       </div>
     : null}
     <div className="title-assembly__right">
-      <h1 className="form-title" ref={contentEditable}>1Q-19-Renew-NAmeric-Int-550units-3Dmaker-model-T1XX800plus</h1>
+      <h1 className="form-title" ref={contentEditableRef}>{recordName}</h1>
       <span className="metas">
-        <span className="metas__field metas__field" ref={contentEditable}>Opportunity</span>
+        <span className="metas__field metas__field" ref={contentEditableRef}>{entityName}</span>
         {props.showFormSwitcher ?
         <React.Fragment>
         <span className="metas__field metas__field--separator">·</span>
         <span className="metas__field metas__field--select">
           <select className="view-switcher">
-            <option value="record-view-1">Internal Printer Preapproval Opps</option>
-            <option value="record-view-1">Internal Display All</option>
-            <option value="record-view-1">External Hybrid Preapproval </option>
+            {formSwitcherOptions.map(option => <option key={option} value={option}>{option}</option>)}
           </select>
         </span>
         </React.Fragment>
@@ -45,20 +73,20 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
     </div>
   </div>
   <div className="fields-assembly fields-assembly--grid">
-    {props.fields.map((key, index) => 
-      <React.Fragment key={key}>
-        <div className="field__key" ref={contentEditable}>Header field key</div>
-        <div className="field__value" ref={contentEditable}>Header field value</div>
+    {fields.map((item, index) => 
+      <React.Fragment key={index}>
+        <div className="field__key" ref={contentEditableRef}>{item.key}</div>
+        <div className="field__value" ref={contentEditableRef}>{item.value}</div>
       </React.Fragment>)}
   </div>
   <div className="fields-assembly fields-assembly--card">
-    {props.fields.map((key, index) => 
-    <React.Fragment key={key}>
+    {fields.map((item, index) => 
+    <React.Fragment key={index}>
       <div className="field" >
-        <div className="field__value" ref={contentEditable}>Header field value</div>
-        <div className="field__key" ref={contentEditable}>Header field key</div>
+        <div className="field__value" ref={contentEditableRef}>{item.value}</div>
+        <div className="field__key" ref={contentEditableRef}>{item.key}</div>
       </div>
-      {index + 1 < props.fields.length ? <div className="divider"><div className="divider-line"></div></div> : null}
+      {index + 1 < fields.length ? <div className="divider"><div className="divider-line"></div></div> : null}
     </React.Fragment>
     )}
   </div>

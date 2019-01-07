@@ -7,7 +7,13 @@ export const formHeaderDemoProps = {
   showReadOnlyMessage: false,
   showRecordImage: false,
   showFormSwitcher: true,
-  fields: [0, 1, 2, 3],
+  fields: [
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Header field key', value: 'Header field value'},
+  ],
+  isContentEditable: true,
 };
 
 export class FormHeaderDemo extends React.Component<any, FormHeaderProps> {
@@ -18,7 +24,9 @@ export class FormHeaderDemo extends React.Component<any, FormHeaderProps> {
   }
 
   onFieldCountChange = (event: any) => {
-    const newArray = Array.from(Array(parseInt(event.target.value)).keys());
+    const newArray = [...this.state.fields!];
+    while (newArray.length > event.target.value) newArray.pop();
+    while (newArray.length < event.target.value) newArray.push({key: 'Header field key', value: 'Header field value'});
     this.setState({fields: newArray});
   }
 
@@ -46,8 +54,8 @@ export class FormHeaderDemo extends React.Component<any, FormHeaderProps> {
           <li>Always show entity name as a small tag.</li>
           <li>Show large image only if record has its own unique image, e.g. Contacts. We will call it record image, instead of entity image.<button onClick={this.toggleRecordImage}>Toggle record image</button></li>
           <li>
-            Strictly limit field count up to 4. Currently showing:&nbsp;{this.state.fields.length} of 4
-            <input type="range" min="0" max="4" value={this.state.fields.length} onChange={this.onFieldCountChange}></input>
+            Strictly limit field count up to 4. Currently showing:&nbsp;{this.state.fields!.length} of 4
+            <input type="range" min="0" max="4" value={this.state.fields!.length} onChange={this.onFieldCountChange}></input>
           </li>
         </ul>
       </StyledSection>
