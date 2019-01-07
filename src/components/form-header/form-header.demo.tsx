@@ -8,10 +8,10 @@ export const formHeaderDemoProps = {
   showRecordImage: false,
   showFormSwitcher: true,
   fields: [
-    {key: 'Header field key', value: 'Header field value'},
-    {key: 'Header field key', value: 'Header field value'},
-    {key: 'Header field key', value: 'Header field value'},
-    {key: 'Header field key', value: 'Header field value'},
+    {key: 'Est. Close Date', value: '5/20/2019'},
+    {key: 'Est. Revenue', value: '$290,000.00'},
+    {key: 'Status', value: 'In progress'},
+    {key: 'Owner', value: 'Molly Clark'},
   ],
   isContentEditable: true,
 };

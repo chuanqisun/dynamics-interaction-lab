@@ -2,8 +2,6 @@ import * as React from 'react';
 import styled, {StyledComponent} from 'styled-components';
 import {contentEditable} from '../../utils/content-editable';
 import InfoSvg from './info.svg';
-import { string } from 'prop-types';
-import content from './info.svg';
 
 export interface Field {
   key: string;
@@ -26,8 +24,8 @@ export interface FormHeaderProps {
 }
 
 export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
-  const recordName = props.recordName || '1Q-19-Renew-NAmeric-Int-550units-3Dmaker-model-T1XX800plus';
-  const recordInitials = props.recordInitials || 'RN';
+  const recordName = props.recordName || 'Cooking Appliances IOT Capable';
+  const recordInitials = props.recordInitials || 'CA';
   const fields = props.fields || [
     {key: 'Header field key', value: 'Header field value'},
     {key: 'Header field key', value: 'Header field value'},
@@ -35,9 +33,9 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
     {key: 'Header field key', value: 'Header field value'},
   ];
   const formSwitcherOptions = props.formSwitcherOptions || [
-    'Internal Printer Preapproval Opps',
-    'Internal Display All',
-    'External Hybrid Preapproval',
+    'Sales rep form',
+    'Sales manager form',
+    'Executive form',
   ];
 
   const entityName = props.entityName || 'Opportunity';

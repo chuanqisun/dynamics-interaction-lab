@@ -58,6 +58,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
   render() {
     const {selectedTabId, ...businessProcessFlowProps} = this.state;
+    const formHeaderProps = {...formHeaderDemoProps, isContentEditable: false};
 
     return <StyledApp>
       <div className="top"><AppShell {...appShellDemoProps}/></div>
@@ -81,7 +82,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               <Assign/>
               <EmailALink/>
             </div>
-            <FormHeader className="form-header" inlineModeBreakpoint="600px" {...formHeaderDemoProps}/>
+            <FormHeader className="form-header" inlineModeBreakpoint="600px" {...formHeaderProps}/>
             <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
           </div>
           <div className="page-center-bottom">
