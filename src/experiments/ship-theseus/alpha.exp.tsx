@@ -159,6 +159,24 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               </div>}
               {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
                 <div className="ff">
+                  <label className="ff__key">Customer need</label>
+                  <input className="ff__value" type="text"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Proposed solution</label>
+                  <input className="ff__value" type="text"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Identify stakeholders</label>
+                  <input className="ff__value" type="checkbox"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Identify competitors</label>
+                  <input className="ff__value" type="checkbox"/>
+                </div>
+              </div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section">
+                <div className="ff">
                   <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
                   <input className="ff__value" type="text" value="Wants to expand"/>
                 </div>
@@ -170,17 +188,44 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <label className="ff__key">Account</label>
                   <a className="ff__value">The Phone Company</a>
                 </div>
-
                 <div className="ff">
-                  <label className="ff__key">Currency</label>
+                  <label className="ff__key">Purchase Timeframe</label>
+                  <select className="ff__value">
+                    <option>Immediate</option>
+                    <option>This quarter</option>
+                    <option>Next quarter</option>
+                    <option>This year</option>
+                    <option>Unknown</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Currency<span className="ff__asterisk">*</span></label>
                   <a className="ff__value">US Dollay</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Budget Amount</label>
                   <a className="ff__value">$1,389,000.00</a>
                 </div>
+                <div className="ff">
+                  <label className="ff__key">Est. Close Data</label>
+                  <input className="ff__value" type="date" value="2019-05-20"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Est. Revenue</label>
+                  <input className="ff__value" type="text" value="$290,000.00"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Status</label>
+                  <select className="ff__value">
+                    <option>In progress</option>
+                    <option>Closed</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Owner</label>
+                  <a className="ff__value">Molly Clark</a>
+                </div>
               </div>}
-              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Summary/></div>}
               {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Details/></div>}
               {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Subgrids/></div>}
               {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><RelationshipAssistant/></div>}

@@ -36,6 +36,7 @@
   margin-left: 4px;
 }
 
+[type="date"].ff__value,
 [type="text"].ff__value {
   border: none;
   outline: none; /* replace with focus-visible */
@@ -43,11 +44,22 @@
   border-bottom: 1px solid transparent;
 }
 
-[type="text"].ff__value:hover,
-[type="text"].ff__value:focus {
-  border-bottom-color: var(--color-primary);
+textarea.ff__value {
+  border: 1px solid var(--color-grey-60);
+  outline: none; /* replace with focus-visible */
+  font: var(--fw-normal) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
 }
 
+textarea.ff__value:hover,
+textarea.ff__value:focus,
+[type="date"].ff__value:hover,
+[type="date"].ff__value:focus,
+[type="text"].ff__value:hover,
+[type="text"].ff__value:focus {
+  border-color: var(--color-primary);
+}
+
+[type="date"].ff__value:focus,
 [type="text"].ff__value:focus {
   font: var(--fw-normal) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
 }
