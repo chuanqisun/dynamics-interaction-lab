@@ -13,6 +13,7 @@ export interface FormHeaderProps {
   entityName?: string;
   fields?: Field[];
   formSwitcherOptions?: string[];
+  formSwitcherSelectedIndex?: number;
   inlineModeBreakpoint?: string;
   isContentEditable?: boolean;
   recordInitials?: string;
@@ -37,6 +38,7 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
     'Sales manager form',
     'Executive form',
   ];
+  const formSwitcherSelectedIndex = props.formSwitcherSelectedIndex !== undefined ? props.formSwitcherSelectedIndex : 0;
 
   const entityName = props.entityName || 'Opportunity';
 
@@ -61,7 +63,7 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
         <React.Fragment>
         <span className="metas__field metas__field--separator">·</span>
         <span className="metas__field metas__field--select">
-          <select className="view-switcher">
+          <select className="view-switcher" value={formSwitcherOptions[formSwitcherSelectedIndex]}>
             {formSwitcherOptions.map(option => <option key={option} value={option}>{option}</option>)}
           </select>
         </span>

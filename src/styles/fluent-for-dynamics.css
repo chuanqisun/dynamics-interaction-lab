@@ -35,7 +35,7 @@ body {
     --sn-select-indicator-to-left-edge-gap: 4px;
     --sn-chevron-font-size: 8px;
 
-    /* Text field */
+    /* Text field (deprecated) */
     --tf-border-rest: var(--border-width) solid var(--color-grey-130);
     --tf-border-hover: var(--border-width) solid var(--color-primary);
     --tf-fg: var(--color-grey-190);
