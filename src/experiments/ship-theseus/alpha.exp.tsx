@@ -15,6 +15,9 @@ import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
 import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/charlie.exp';
 import Scrollbars  from 'react-custom-scrollbars';
 
+/* side nav */
+import {FullMdl2} from '../../styles/icon/full-mdl2';
+
 /* form sections */
 import Summary from '../markov-chain/FormSectionMocks/Summary.svg';
 import Subgrids from '../markov-chain/FormSectionMocks/Subgrids.svg';
@@ -50,6 +53,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       identifyDecisionMaker: false,
       captureSummary: '',
       estCloseDate: '2019-05-20',
+      topic: 'Cooking Appliances IOT Capable',
       /* form tabs */
       selectedTabId: '-1',
       /* bpf */
@@ -73,6 +77,25 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {key: 'Status', value: 'In progress'},
         {key: 'Owner', value: 'Molly Clark'},
       ],
+      /* side nav */
+      expanded: true,
+      selectedItemId: '4',
+      items: [
+        {id: '0', icon: FullMdl2.SummaryChart, name: 'Dashbaord'},
+        {id: '1', icon: FullMdl2.AccountActivity, name: 'Activities'},
+        {id: '2', icon: FullMdl2.DocumentSet, name: 'Accounts'},
+        {id: '3', icon: FullMdl2.Contact, name: 'Contact'},
+        {id: '4', icon: FullMdl2.CRMLead, name: 'Leads'},
+        {id: '5', icon: FullMdl2.Opportunities, name: 'Opportunities'},
+        {id: '6', icon: FullMdl2.GuestUser, name: 'Competitors'},
+        {id: '7', icon: FullMdl2.Quotes, name: 'Quotes'},
+        {id: '8', icon: FullMdl2.Query, name: 'Orders'},
+        {id: '9', icon: FullMdl2.CRMInvoices, name: 'Invoices'},
+        {id: '10', icon: FullMdl2.Product, name: 'Products'},
+        {id: '11', icon: FullMdl2.CustomActivity, name: 'Cases'},
+      ],
+      onSelect: (id: string) => this.setState({selectedItemId: id}),
+      onToggleExpanded: () => this.setState({expanded: !this.state.expanded}),
     };
   }
 
@@ -83,12 +106,20 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       fields: this.state.fields,
       formSwitcherOptions: [this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity', 'Information', 'Sales insights'], 
       entityName: this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity',
+      recordName: this.state.recordAtIndex === 0 ? this.state.contact : this.state.topic,
+    };
+    const sideNavProps = {
+      expanded: this.state.expanded,
+      selectedItemId: this.state.recordAtIndex === 0 ? '4' : '5',
+      items: this.state.items,
+      onSelect: this.state.onSelect,
+      onToggleExpanded: this.state.onToggleExpanded,
     };
 
     return <StyledApp>
       <div className="top"><AppShell {...appShellDemoProps}/></div>
       <div className="bottom">
-        <div className="bottom-left"><SideNav {...sideNavDemoProps}/></div>
+        <div className="bottom-left"><SideNav {...sideNavProps}/></div>
         <Scrollbars
           className="page-center"
           autoHide
@@ -116,6 +147,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               {formTabsDemoProps.tabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
             <div className="form-tab">
+              {/*BPF: all stages*/}
               {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
                 <h1 className="process-name">Lead to opportunity process</h1>
                 <span className="process-attribute">Process started 24 days ago</span>
@@ -130,6 +162,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <button className="switch-process-btn">Switch process</button>
                 </div>
               </div>}
+              {/*BPF: Qualify stage*/}              
               {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
                 <div className="ff">
                   <label className="ff__key">Existing contact</label>
@@ -163,17 +196,18 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Capture summary</label>
-                  <textarea className="ff__value" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
+                  <textarea className="ff__value" placeholder="---" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
                 </div>
               </div>}
+              {/*BPF: Develop stage */}                            
               {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
                 <div className="ff">
                   <label className="ff__key">Customer need</label>
-                  <input className="ff__value" type="text"/>
+                  <input className="ff__value" type="text" placeholder="---" />
                 </div>
                 <div className="ff">
                   <label className="ff__key">Proposed solution</label>
-                  <input className="ff__value" type="text"/>
+                  <input className="ff__value" type="text" placeholder="---" />
                 </div>
                 <div className="ff">
                   <label className="ff__key">Identify stakeholders</label>
@@ -184,10 +218,91 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <input className="ff__value" type="checkbox"/>
                 </div>
               </div>}
-              {this.state.selectedTabId !== '-1' && <div className="form-section">
+              {/* Lead form, Contact section */}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
+                <div className="ft">Contact</div>
                 <div className="ff">
                   <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
-                  <input className="ff__value" type="text" value="Wants to expand"/>
+                  <input className="ff__value" type="text" value={this.state.topic} onChange={e => this.setState({topic: e.target.value})}/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Type</label>
+                  <select className="ff__value" defaultValue="Item based">
+                    <option value="Work based">Work based</option>
+                    <option value="Item based">Item based</option>
+                    <option value="Service-maintenance based">Service-maintenance based</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">First name</label>
+                  <input className="ff__value" type="text" defaultValue="Allison" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Last name</label>
+                  <input className="ff__value" type="text" defaultValue="Brown" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Job title</label>
+                  <input className="ff__value" type="text" defaultValue="Owner" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Business Phone></label>
+                  <input className="ff__value" type="tel" defaultValue="343-555-6797" placeholder="XXX-XXX-XXXX" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Mobile Phone</label>
+                  <input className="ff__value" type="tel" defaultValue="" placeholder="XXX-XXX-XXXX" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Email</label>
+                  <input className="ff__value" type="email" defaultValue="allison.brown@contoso.com" placeholder="name@company.com"/>
+                </div>
+              </div>}
+              {/* Lead form, Company section */}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
+                <div className="ft">Company</div>
+                <div className="ff">
+                  <label className="ff__key">Company</label>
+                  <input className="ff__value" type="text" defaultValue="Contoso" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Website</label>
+                  <input className="ff__value" type="url" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 1</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 2</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 3</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">City</label>
+                  <input className="ff__value" type="text" placeholder="---"  defaultValue="Madison"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">State/Province</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="IL"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">ZIP/Postal code</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="74285"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Country/Region</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="USA"/>
+                </div>
+              </div>}
+              {/* Opportunity, 1st section*/}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
+                <div className="ff">
+                  <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
+                  <input className="ff__value" type="text" value={this.state.topic} onChange={e => this.setState({topic: e.target.value})}/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Contact</label>
@@ -331,18 +446,22 @@ const StyledApp = styled.div`
   @media screen and (min-width: 1100px) {
     .form-tab {
       column-count: 2;
+      column-fill: auto;
     }
   }
   
   @media screen and (min-width: 1580px) {
     .form-tab {
       column-count: 3;
+      column-fill: auto;
     }
   }
 
   .form-section {
     border: 1px solid #CBCBCB;
     margin-bottom: 20px;
+    -webkit-column-break-inside: avoid; /* Chrome, Safari */
+    page-break-inside: avoid;           /* Theoretically FF 20+ */
     break-inside: avoid-column;
     padding: 8px 16px;
   }

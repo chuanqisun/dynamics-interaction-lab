@@ -1,3 +1,7 @@
+.ft {
+  font: var(--fw-semibold) var(--scale-16)/var(--scale-24) var(--ff-segoe-ui);
+}
+
 .ff {
   display: flex;
   flex-wrap: wrap;
@@ -36,6 +40,9 @@
   margin-left: 4px;
 }
 
+[type="url"].ff__value,
+[type="tel"].ff__value,
+[type="email"].ff__value,
 [type="date"].ff__value,
 [type="text"].ff__value {
   border: none;
@@ -52,6 +59,12 @@ textarea.ff__value {
 
 textarea.ff__value:hover,
 textarea.ff__value:focus,
+[type="url"].ff__value:hover,
+[type="url"].ff__value:focus,
+[type="email"].ff__value:hover,
+[type="email"].ff__value:focus,
+[type="tel"].ff__value:hover,
+[type="tel"].ff__value:focus,
 [type="date"].ff__value:hover,
 [type="date"].ff__value:focus,
 [type="text"].ff__value:hover,
@@ -59,6 +72,9 @@ textarea.ff__value:focus,
   border-color: var(--color-primary);
 }
 
+[type="url"].ff__value:focus,
+[type="email"].ff__value:focus,
+[type="tel"].ff__value:focus,
 [type="date"].ff__value:focus,
 [type="text"].ff__value:focus {
   font: var(--fw-normal) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);

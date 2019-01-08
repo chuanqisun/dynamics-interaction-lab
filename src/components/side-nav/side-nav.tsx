@@ -101,6 +101,7 @@ const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
     font-weight: inherit;
     padding: 0;
     width: 100%;
+    outline: none; /* replace with focus-visible */
   }
 
   .row-button__icon {
