@@ -42,11 +42,18 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      /* shared state */
-      entityName: 'Lead',
+      /* form fields */
+      contact: 'Allison Brown',
+      account: 'Commerical Kitchen Inc.',
+      purchaseTimeframe: 'This quarter',
+      purchaseProcess: 'Individual',
+      identifyDecisionMaker: false,
+      captureSummary: '',
+      estCloseDate: '2019-05-20',
       /* form tabs */
       selectedTabId: '-1',
       /* bpf */
+      processName: 'Lead to opportunity process',
       stages: [
         {name: 'Qualify'},
         {name: 'Develop'},
@@ -126,35 +133,37 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
                 <div className="ff">
                   <label className="ff__key">Existing contact</label>
-                  <a className="ff__value">Allison Brown</a>
+                  <a className="ff__value">{this.state.contact}</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Existing account</label>
-                  <a className="ff__value">?</a>
+                  <a className="ff__value">{this.state.account}</a>
                 </div>
                 <div className="ff">
-                  <label className="ff__key">Purchase Timeframe</label>
-                  <select className="ff__value">
-                    <option>Immediate</option>
-                    <option>This quarter</option>
-                    <option>Next quarter</option>
-                    <option>This year</option>
-                    <option>Unknown</option>
+                  <label className="ff__key">Purchase timeframe</label>
+                  <select className="ff__value" value={this.state.purchaseTimeframe} onChange={e => this.setState({purchaseTimeframe: e.target.value})}>
+                    <option value="Immediate">Immediate</option>
+                    <option value="This quarter">This quarter</option>
+                    <option value="Next quarter">Next quarter</option>
+                    <option value="This year">This year</option>
+                    <option value="Unknown">Unknown</option>
                   </select>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Purchase process</label>
-                  <select className="ff__value">
-                    <option>Unknown</option>
+                  <select className="ff__value" value={this.state.purchaseProcess} onChange={e => this.setState({purchaseProcess: e.target.value})}>
+                    <option value="Individual">Individual</option>
+                    <option value="Commitee">Committee</option>
+                    <option value="Unknown">Unknown</option>
                   </select>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Identify decision maker</label>
-                  <input className="ff__value" type="checkbox"/>
+                  <input className="ff__value" type="checkbox" checked={this.state.identifyDecisionMaker} onChange={e => this.setState({identifyDecisionMaker: e.target.checked})}/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Capture summary</label>
-                  <textarea className="ff__value" value="Wants to expand"/>
+                  <textarea className="ff__value" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
                 </div>
               </div>}
               {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
@@ -186,16 +195,16 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Account</label>
-                  <a className="ff__value">The Phone Company</a>
+                  <a className="ff__value">Commerical Kitchen Inc.</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Purchase Timeframe</label>
-                  <select className="ff__value">
-                    <option>Immediate</option>
-                    <option>This quarter</option>
-                    <option>Next quarter</option>
-                    <option>This year</option>
-                    <option>Unknown</option>
+                  <select className="ff__value" value={this.state.purchaseTimeframe} onChange={e => this.setState({purchaseTimeframe: e.target.value})}>
+                    <option value="Immediate">Immediate</option>
+                    <option value="This quarter">This quarter</option>
+                    <option value="Next quarter">Next quarter</option>
+                    <option value="This year">This year</option>
+                    <option value="Unknown">Unknown</option>
                   </select>
                 </div>
                 <div className="ff">
@@ -207,7 +216,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <a className="ff__value">$1,389,000.00</a>
                 </div>
                 <div className="ff">
-                  <label className="ff__key">Est. Close Data</label>
+                  <label className="ff__key">Est. Close Date</label>
                   <input className="ff__value" type="date" value="2019-05-20"/>
                 </div>
                 <div className="ff">
