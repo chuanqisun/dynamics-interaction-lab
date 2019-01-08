@@ -123,18 +123,14 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <button className="switch-process-btn">Switch process</button>
                 </div>
               </div>}
-              <div className="form-section">
+              {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
                 <div className="ff">
-                  <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
-                  <input className="ff__value" type="text" value="Wants to expand"/>
-                </div>
-                <div className="ff">
-                  <label className="ff__key">Contact</label>
+                  <label className="ff__key">Existing contact</label>
                   <a className="ff__value">Allison Brown</a>
                 </div>
                 <div className="ff">
-                  <label className="ff__key">Account</label>
-                  <a className="ff__value">The Phone Company</a>
+                  <label className="ff__key">Existing account</label>
+                  <a className="ff__value">?</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Purchase Timeframe</label>
@@ -147,6 +143,35 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   </select>
                 </div>
                 <div className="ff">
+                  <label className="ff__key">Purchase process</label>
+                  <select className="ff__value">
+                    <option>Unknown</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Identify decision maker</label>
+                  <input className="ff__value" type="checkbox"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Capture summary</label>
+                  <textarea className="ff__value" value="Wants to expand"/>
+                </div>
+              </div>}
+              {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
+                <div className="ff">
+                  <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
+                  <input className="ff__value" type="text" value="Wants to expand"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Contact</label>
+                  <a className="ff__value">Allison Brown</a>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Account</label>
+                  <a className="ff__value">The Phone Company</a>
+                </div>
+
+                <div className="ff">
                   <label className="ff__key">Currency</label>
                   <a className="ff__value">US Dollay</a>
                 </div>
@@ -154,12 +179,12 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <label className="ff__key">Budget Amount</label>
                   <a className="ff__value">$1,389,000.00</a>
                 </div>
-              </div>
-              <div className="form-section form-section--mock"><Summary/></div>
-              <div className="form-section form-section--mock"><Details/></div>
-              <div className="form-section form-section--mock"><Subgrids/></div>
-              <div className="form-section form-section--mock"><RelationshipAssistant/></div>
-              <div className="form-section form-section--mock"><Timeline/></div>
+              </div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Summary/></div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Details/></div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Subgrids/></div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><RelationshipAssistant/></div>}
+              {this.state.selectedTabId !== '-1' && <div className="form-section form-section--mock"><Timeline/></div>}
             </div>
           </div>
         </Scrollbars>
