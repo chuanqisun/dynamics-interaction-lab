@@ -38,9 +38,6 @@ interface Iteration {
 
 /* Please keep new experiements on top */
 export const experiments: Experiment[] = [
-  { series: 'ship-theseus', baseRoute: '/experiments/ship-theseus', description: 'Responsive form fields', started: '2019-01-07', iterations: [
-    { subRoute: 'alpha', component: lazy(() => import('../experiments/ship-theseus/alpha.exp')), notes: 'branched from markov-chain delta'},
-  ]},
   { series: 'event-horizon', baseRoute: '/experiments/event-horizon', description: 'Business process flow horizontal', started: '2019-01-04', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/event-horizon/alpha.exp'))},
     { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp')), notes: 'baseline'},
@@ -60,6 +57,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'bravo', component: lazy(() => import('../experiments/markov-chain/bravo.exp'))},
     { subRoute: 'charlie', component: lazy(() => import('../experiments/markov-chain/charlie.exp')), notes: 'vertical'},
     { subRoute: 'delta', component: lazy(() => import('../experiments/markov-chain/delta.exp')), notes: 'horizontal'},
+    { subRoute: 'echo', component: lazy(() => import('../experiments/markov-chain/echo.exp')), notes: 'real form fields'},
   ]},
 ];
 
