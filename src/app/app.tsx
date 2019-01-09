@@ -60,6 +60,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'echo', component: lazy(() => import('../experiments/markov-chain/echo.exp')), notes: 'real form fields'},
     { subRoute: 'foxtrot', component: lazy(() => import('../experiments/markov-chain/foxtrot.exp')), notes: 'horizontal hifi'},
     { subRoute: 'golf', component: lazy(() => import('../experiments/markov-chain/golf.exp')), notes: 'hybrid tabs'},
+    { subRoute: 'hotel', component: lazy(() => import('../experiments/markov-chain/hotel.exp')), notes: 'vertical hifi'},
   ]},
 ];
 

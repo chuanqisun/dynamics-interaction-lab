@@ -35,14 +35,15 @@ export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowPro
           <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
         </span>
       </button>
-      {index === props.userSelectedIndex ? <div className="stage-content">
-        {index < props.recordAtIndex ? <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Rollback to this stage</button> : null}
-        {index === props.recordAtIndex ? <button className="stage-cta" onClick={props.onCompleteStage}>Complete</button> : null}
-        {index > props.recordAtIndex ? <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Skip to this stage</button> : null}
-      </div> : null}
+      {index === props.userSelectedIndex && <div className="stage-content">
+        {index < props.recordAtIndex && <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Rollback to stage</button>}
+        {index === props.recordAtIndex && index < props.stages.length - 1 && <button className="stage-cta" onClick={props.onCompleteStage}>Complete stage</button>}
+        {index === props.recordAtIndex && index === props.stages.length -1 && <button className="stage-cta" onClick={props.onCompleteStage}>Finish process</button>}
+        {index > props.recordAtIndex && <button className="stage-cta" onClick={() => props.onMoveRecordToStage(index)}>Skip to stage</button>}
+      </div>}
       
     </div>
-    {index < props.stages.length - 1 ? <div className="progress-bar"></div> : null}
+    {index < props.stages.length - 1 && <div className="progress-bar"></div>}
   </React.Fragment>)}
 </StyledNav>
 }
