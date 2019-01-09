@@ -13,17 +13,14 @@
 }
 
 .ff .ff__key {
-  flex: 1 0 8rem;
-  min-width: 8rem;
-  max-width: 12rem;
+  flex: 0 0 10rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ff .ff__value {
-  flex: 2 0 10rem;
-  min-width: 10rem;
+  flex: 1 0 10rem;
   max-width: 15rem;
   white-space: nowrap;
   overflow: hidden;
@@ -101,4 +98,13 @@ select.ff__value {
 select.ff__value:hover,
 select.ff__value:focus {
   border-bottom-color: var(--color-primary);
+}
+
+
+/* work in progress */
+[type="checkbox"].ff__value {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  min-width: 0;
 }

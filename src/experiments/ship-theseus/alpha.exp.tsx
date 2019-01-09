@@ -143,27 +143,26 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
           </div>
           <div className="page-center-bottom">
             <div className="tabs-container">
-              <button onClick={() => this.setState({selectedTabId: '-1'})}  className={`tab${this.state.selectedTabId === '-1' ? ' tab--selected' : ''}`}>{this.state.stages[this.state.userSelectedIndex].name}</button>
+              <button onClick={() => this.setState({selectedTabId: '-1'})}  className={`tab${this.state.selectedTabId === '-1' ? ' tab--selected' : ''}`}>Business process</button>
               {formTabsDemoProps.tabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
             <div className="form-tab">
               {/*BPF: all stages*/}
               {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
-                <h1 className="process-name">Lead to opportunity process</h1>
-                <span className="process-attribute">Process started 24 days ago</span>
-                <span className="process-attribute-separator">·</span>
-                {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Completed “{this.state.stages[this.state.userSelectedIndex].name}” {14 - 2 * this.state.userSelectedIndex} days ago</span>}
-                {this.state.userSelectedIndex === this.state.recordAtIndex && <span className="process-attribute">In “{this.state.stages[this.state.userSelectedIndex].name}” for 3 days</span>}
+                <h1 className="process-name">{this.state.stages[this.state.userSelectedIndex].name}</h1>
+                {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Stage complete {14 - 2 * this.state.userSelectedIndex} days ago</span>}
+                {this.state.userSelectedIndex === this.state.recordAtIndex && <span className="process-attribute">Stage active for {8 - this.state.userSelectedIndex} days</span>}
+                {!(this.state.userSelectedIndex > this.state.recordAtIndex) && <span className="process-attribute-separator">·</span>}
+                <span className="process-attribute">{this.state.processName} (<button className="switch-button">switch</button>)</span>
 
                 <div className="process-actions">
                   {this.state.userSelectedIndex < this.state.recordAtIndex && <button className="switch-process-btn" onClick={() => this.onMoveRecordToStage(this.state.userSelectedIndex)}>Rollback to “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
-                  {this.state.userSelectedIndex === this.state.recordAtIndex && <button className="switch-process-btn switch-process-btn--primary" onClick={this.onCompleteStage}>Complete “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
+                  {this.state.userSelectedIndex === this.state.recordAtIndex && <button className="switch-process-btn switch-process-btn--primary" onClick={this.onCompleteStage}>Complete stage</button>}
                   {this.state.userSelectedIndex > this.state.recordAtIndex && <button className="switch-process-btn" onClick={() => this.onMoveRecordToStage(this.state.userSelectedIndex)}>Skip to “{this.state.stages[this.state.userSelectedIndex].name}”</button>}
-                  <button className="switch-process-btn">Switch process</button>
                 </div>
               </div>}
               {/*BPF: Qualify stage*/}              
-              {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
+              {this.state.selectedTabId === '-1' && this.state.userSelectedIndex === 0 && <div className="form-section">
                 <div className="ff">
                   <label className="ff__key">Existing contact</label>
                   <a className="ff__value">{this.state.contact}</a>
@@ -200,7 +199,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
               </div>}
               {/*BPF: Develop stage */}                            
-              {this.state.selectedTabId === '-1' && this.state.recordAtIndex === 1 && <div className="form-section">
+              {this.state.selectedTabId === '-1' && this.state.userSelectedIndex === 1 && <div className="form-section">
                 <div className="ff">
                   <label className="ff__key">Customer need</label>
                   <input className="ff__value" type="text" placeholder="---" />
@@ -536,6 +535,20 @@ const StyledApp = styled.div`
 
   .switch-process-btn + .switch-process-btn {
     margin-left: 12px;
+  }
+
+  .switch-button {
+    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    background: none;
+    color: var(--color-primary);
+    padding: 0;
+
+    :hover {
+      text-decoration: underline;
+    }
   }
 `;
 
