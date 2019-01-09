@@ -114,6 +114,7 @@ const StyledNav = styled.nav`
 
   .progress-bar {
     max-width: 40px;
+    min-width: 20px;
     flex: 1 0 20px;
     height: 2px;
     margin: 0 -2px;

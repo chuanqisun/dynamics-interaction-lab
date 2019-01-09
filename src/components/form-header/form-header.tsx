@@ -63,7 +63,7 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
         <React.Fragment>
         <span className="metas__field metas__field--separator">·</span>
         <span className="metas__field metas__field--select">
-          <select className="view-switcher" value={formSwitcherOptions[formSwitcherSelectedIndex]}>
+          <select className="view-switcher" defaultValue={formSwitcherOptions[formSwitcherSelectedIndex]}>
             {formSwitcherOptions.map(option => <option key={option} value={option}>{option}</option>)}
           </select>
         </span>
