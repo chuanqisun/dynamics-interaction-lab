@@ -196,7 +196,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
             <div className="tabs-container">
               {formTabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id, userSelectedIndex: null})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
-            <div className="form-tab">
+            <div className={`form-tab${this.state.selectedTabId === '-1' ? ' form-tab--process' : ''}`}>
               {/*BPF: all stages*/}
               {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
                 <div className="ft">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn">switch</button>)</span></div>
@@ -525,6 +525,10 @@ const StyledApp = styled.div`
       column-count: 3;
       column-fill: auto;
     }
+  }
+
+  .form-tab--process {
+    column-count: initial;
   }
 
   .form-section {
