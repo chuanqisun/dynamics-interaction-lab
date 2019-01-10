@@ -466,7 +466,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
   onSwitchProcessSubmit = (e: any) => {
     e.preventDefault();
-    this.setState({dialogElement: null, dialogSelectedProcessIndex: this.state.dialogSelectingProcessIndex, processName: this.state.switchProcessOptions[this.state.dialogSelectedProcessIndex]});
+    this.setState({dialogElement: null, dialogSelectedProcessIndex: this.state.dialogSelectingProcessIndex, processName: this.state.switchProcessOptions[this.state.dialogSelectingProcessIndex]});
   }
   
   onSwitchProcessCancel = (e: any) => {
