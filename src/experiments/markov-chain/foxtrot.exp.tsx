@@ -118,6 +118,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         'Opportunity sales process',
       ],
       dialogSelectedProcessIndex: 0,
+      dialogSelectingProcessIndex: 0,
     };
   }
 
@@ -465,22 +466,27 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
   onSwitchProcessSubmit = (e: any) => {
     e.preventDefault();
-    this.setState({dialogElement: null, processName: this.state.switchProcessOptions[this.state.dialogSelectedProcessIndex]});
+    this.setState({dialogElement: null, dialogSelectedProcessIndex: this.state.dialogSelectingProcessIndex, processName: this.state.switchProcessOptions[this.state.dialogSelectedProcessIndex]});
+  }
+  
+  onSwitchProcessCancel = (e: any) => {
+    this.setState({dialogElement: null, dialogSelectingProcessIndex: this.state.dialogSelectedProcessIndex});
   }
 
   onSelectProcess = (index: number) => {
-    this.setState({dialogSelectedProcessIndex: index});
+    this.setState({dialogSelectingProcessIndex: index});
   }
 
-  SwitchProcessDialog: React.FunctionComponent<any> = (state: any) => <form className="dialog-box" onSubmit={e => this.onSwitchProcessSubmit(e)}>
-  <h1>Choose a process</h1>
-  {this.state.switchProcessOptions.map((option: string, index: number) => <div key={option}>
-    <label><input type="radio" checked={index === this.state.dialogSelectedProcessIndex} onChange={e => this.onSelectProcess(index)}/>{option}</label>
-  </div>)}
-  
-  <div className="dialog-actions">
-    <button className="btn btn--primary">Switch</button>
-    <button className="btn btn--secondary" onClick={e => this.setState({dialogElement: null})}>Cancel</button>
+  SwitchProcessDialog: React.FunctionComponent<any> = (state: any) => <form className="dialog__box" onSubmit={e => this.onSwitchProcessSubmit(e)}>
+  <h1 className="dialog__header">Choose a process</h1>
+  <div className="dialog__main">
+    {this.state.switchProcessOptions.map((option: string, index: number) => <div className="switch-process-option" key={option}>
+      <label><input type="radio" checked={index === this.state.dialogSelectingProcessIndex} onChange={e => this.onSelectProcess(index)}/>{option}</label>
+    </div>)}
+  </div>
+  <div className="dialog__footer btn-group">
+    <button className="btn btn--primary">Confirm</button>
+    <button className="btn btn--secondary" onClick={this.onSwitchProcessCancel}>Cancel</button>
   </div>
   </form>
 }
@@ -673,6 +679,22 @@ const StyledApp = styled.div`
       text-decoration: underline;
     }
   }
+
+  .switch-process-option {
+    label {
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .switch-process-option + .switch-process-option {
+    margin-top: 8px;
+  } 
 `;
 
 export default BusinessProcessExperiment;

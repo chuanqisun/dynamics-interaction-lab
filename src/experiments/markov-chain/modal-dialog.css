@@ -12,13 +12,24 @@
   justify-content: center;
 }
 
-.dialog-actions {
+.dialog__footer {
   margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.dialog-box {
+.dialog__box {
   padding: 20px;
   background: white;
   border: 1px solid grey;
   min-width: 420px;
+  border-radius: 2px;
+}
+
+.dialog__header {
+  font: var(--fw-semibold) var(--scale-20)/var(--scale-24) var(--ff-segoe-ui);
+}
+
+.dialog__main {
+  margin-top: 24px;
 }

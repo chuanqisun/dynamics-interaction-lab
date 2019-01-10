@@ -31,3 +31,7 @@
   color: var(--btn-secondary-fg-hover);
   background-color: var(--btn-secondary-bg-hover);
 }
+
+.btn-group .btn + .btn{
+  margin-left: 16px;
+}
