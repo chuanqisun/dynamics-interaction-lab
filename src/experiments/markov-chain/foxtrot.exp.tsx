@@ -41,6 +41,10 @@ import './form-field.css';
 import '../../styles/fluent-for-dynamics.css';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
+
+  private estimatedBudgetRef = React.createRef<HTMLInputElement>();
+  private qualifyStageFormRef = React.createRef<HTMLFormElement>();
+
   constructor(props: any) {
     super(props);
 
@@ -207,7 +211,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
               </div>}
               {/*BPF: Qualify stage*/}              
-              {this.state.selectedTabId === '-1' && this.state.userSelectedIndex === 0 && <div className="form-section">
+              {this.state.selectedTabId === '-1' && this.state.userSelectedIndex === 0 && <form ref={this.qualifyStageFormRef}className="form-section">
                 <div className="ff">
                   <label className="ff__key">Existing contact</label>
                   <a className="ff__value">{this.state.contact}</a>
@@ -228,8 +232,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   </select>
                 </div>
                 <div className="ff">
-                  <label className="ff__key">Estimated budget</label>
-                  <input className="ff__value" type="text" placeholder="---" value={this.state.estimatedBudget} onChange={e => this.setState({estimatedBudget: e.target.value})}/>
+                  <label className="ff__key">Estimated budget<span className="ff__asterisk">*</span></label>
+                  <input className="ff__value" ref={this.estimatedBudgetRef} required type="text" placeholder="---" value={this.state.estimatedBudget} onChange={e => this.setState({estimatedBudget: e.target.value})}/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Purchase process</label>
@@ -248,7 +252,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <label className="ff__key">Capture summary</label>
                   <textarea className="ff__value" placeholder="---" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
                 </div>
-              </div>}
+              </form>}
               {/*BPF: Develop stage */}                            
               {this.state.selectedTabId === '-1' && this.state.userSelectedIndex === 1 && <div className="form-section">
                 <div className="ff">
@@ -378,7 +382,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Budget Amount</label>
-                  <a className="ff__value">$1,389,000.00</a>
+                  <input className="ff__value" type="text" defaultValue={this.state.estimatedBudget}/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Est. Close Date</label>
@@ -411,16 +415,31 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     </StyledApp>
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index, selectedTabId: '-1'});
+  onSelectStage = (index: number) => this.setState((state: any) => ({userSelectedIndex: index, selectedTabId: '-1'}));
 
   onCompleteStage = () => {
-    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
-    const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
-    const selectedTabId = userSelectedIndex === null ? '0' : this.state.selectedTabId;
-    this.setState({recordAtIndex, userSelectedIndex, selectedTabId});
+    this.setState((state: any) => {
+      this.qualifyStageFormRef.current!.reportValidity();
+      const isValid = this.estimatedBudgetRef.current!.checkValidity();
+      if (isValid) {
+        const recordAtIndex =  Math.min(state.stages.length, state.recordAtIndex + 1);
+        const userSelectedIndex = recordAtIndex < state.stages.length ? recordAtIndex : null;
+        const selectedTabId = userSelectedIndex === null ? '0' : state.selectedTabId;
+        return {recordAtIndex, userSelectedIndex, selectedTabId}
+      } else {
+        return null;
+      }
+    });
   }
 
-  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
+  onMoveRecordToStage = (index: number) => {
+    if (index > 0 && this.state.estimatedBudget === '') {
+      this.onSelectStage(0);
+      window.setTimeout(() => this.onCompleteStage(), 200);
+    } else {
+      this.setState({recordAtIndex: index});
+    }
+  }
 }
 
 const StyledApp = styled.div`
