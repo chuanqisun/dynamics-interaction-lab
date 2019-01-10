@@ -5,15 +5,16 @@ import {AppShell} from '../../components/app-shell/app-shell';
 import {appShellDemoProps} from '../../components/app-shell/app-shell.demo';
 import {SideNav} from '../../components/side-nav/side-nav';
 import {FormHeader} from '../../components/form-header/form-header';
-import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
 import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/charlie.exp';
 import Scrollbars  from 'react-custom-scrollbars';
+
+/* form tabs */
+import '../../components/form-tabs/form-tabs.css';
 
 /* side nav */
 import {FullMdl2} from '../../styles/icon/full-mdl2';
 
 /* form sections */
-import Summary from '../markov-chain/FormSectionMocks/Summary.svg';
 import Subgrids from '../markov-chain/FormSectionMocks/Subgrids.svg';
 import RelationshipAssistant from '../markov-chain/FormSectionMocks/RelationshipAssistant.svg';
 import Timeline from '../markov-chain/FormSectionMocks/Timeline.svg';
@@ -23,9 +24,14 @@ import Details from '../markov-chain/FormSectionMocks/Details.svg';
 import Assign from '../markov-chain/CommandMocks/Assign.svg';
 import CloseAsLost from '../markov-chain/CommandMocks/CloseAsLost.svg';
 import CloseAsWon from '../markov-chain/CommandMocks/CloseAsWon.svg';
+import Delete from '../markov-chain/CommandMocks/Delete.svg';
+import Disqualify from '../markov-chain/CommandMocks/Disqualify.svg';
 import EmailALink from '../markov-chain/CommandMocks/EmailALink.svg';
+import Flow from '../markov-chain/CommandMocks/Flow.svg';
+import Follow from '../markov-chain/CommandMocks/Follow.svg';
 import New from '../markov-chain/CommandMocks/New.svg';
 import Process from '../markov-chain/CommandMocks/Process.svg';
+import Qualify from '../markov-chain/CommandMocks/Qualify.svg';
 import RecalculateOpportunity from '../markov-chain/CommandMocks/RecalculateOpportunity.svg';
 import RecordSet from '../markov-chain/CommandMocks/RecordSet.svg';
 import Refresh from '../markov-chain/CommandMocks/Refresh.svg';
@@ -102,7 +108,17 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     const {selectedTabId, ...businessProcessFlowProps} = this.state;
     const formHeaderProps = {
       showFormSwitcher: this.state.showFormSwitcher,
-      fields: this.state.fields,
+      fields: this.state.recordAtIndex === 0 ? [
+        {key: 'Lead source', value: 'Web'},
+        {key: 'Rating', value: 'Hot'},
+        {key: 'Status', value: 'Contacted'},
+        {key: 'Owner', value: 'Molly Clark'},
+      ] : [
+        {key: 'Est. Close Date', value: '5/20/2019'},
+        {key: 'Est. Revenue', value: '$290,000.00'},
+        {key: 'Status', value: 'In progress'},
+        {key: 'Owner', value: 'Molly Clark'},
+      ],
       formSwitcherOptions: [this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity', 'Information', 'Sales insights'], 
       entityName: this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity',
       recordName: this.state.recordAtIndex === 0 ? this.state.contact : this.state.topic,
@@ -114,6 +130,42 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       onSelect: this.state.onSelect,
       onToggleExpanded: this.state.onToggleExpanded,
     };
+
+    const commands = this.state.recordAtIndex === 0 ? <>
+        <RecordSet/>
+        <New/>
+        <Delete/>
+        <Refresh/>
+        <Qualify/>
+        <Disqualify/>
+        <Assign/>
+        <EmailALink/>
+        <Follow/>
+        <Flow/>
+      </> : <>
+        <RecordSet/>
+        <New/>
+        <Refresh/>
+        <CloseAsWon/>
+        <CloseAsLost/>
+        <Assign/>
+        <EmailALink/>
+        <Delete/>
+        <Follow/>
+        <Flow/>
+      </>
+
+    const formTabs = this.state.recordAtIndex === 0 ? [
+      {id: '0', name: 'Summary'},
+      {id: '1', name: 'Details'},
+      {id: '2', name: 'Related'},
+    ] : [
+      {id: '0', name: 'Summary'},
+      {id: '1', name: 'Product line items'},
+      {id: '2', name: 'Quotes'},
+      {id: '3', name: 'Field service'},
+      {id: '4', name: 'Related'},
+    ];
 
     return <StyledApp>
       <div className="top"><AppShell {...appShellDemoProps}/></div>
@@ -127,22 +179,14 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         >
           <div className="page-center-top">
             <div className="command-bar-container">
-              <RecordSet/>
-              <New/>
-              <Refresh/>
-              <CloseAsWon/>
-              <CloseAsLost/>
-              <RecalculateOpportunity/>
-              <Process/>
-              <Assign/>
-              <EmailALink/>
+              {commands}
             </div>
             <FormHeader className="form-header" inlineModeBreakpoint="600px" {...formHeaderProps}/>
             <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
           </div>
           <div className="page-center-bottom">
             <div className="tabs-container">
-              {formTabsDemoProps.tabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id, userSelectedIndex: null})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
+              {formTabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id, userSelectedIndex: null})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
             <div className="form-tab">
               {/*BPF: all stages*/}
@@ -334,11 +378,11 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Est. Close Date</label>
-                  <input className="ff__value" type="date" value="2019-05-20"/>
+                  <input className="ff__value" type="date" defaultValue="2019-05-20"/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Est. Revenue</label>
-                  <input className="ff__value" type="text" value="$290,000.00"/>
+                  <input className="ff__value" type="text" defaultValue="$290,000.00"/>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Status</label>
