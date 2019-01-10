@@ -82,6 +82,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {key: 'Status', value: 'In progress'},
         {key: 'Owner', value: 'Molly Clark'},
       ],
+      formSwitcherSelectedIndex: 0,
       /* side nav */
       expanded: true,
       selectedItemId: '4',
@@ -101,6 +102,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       ],
       onSelect: (id: string) => this.setState({selectedItemId: id}),
       onToggleExpanded: () => this.setState({expanded: !this.state.expanded}),
+      onFormSwitch: (index: number) => this.setState({formSwitcherSelectedIndex: index}),
     };
   }
 
@@ -120,6 +122,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {key: 'Owner', value: 'Molly Clark'},
       ],
       formSwitcherOptions: [this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity', 'Information', 'Sales insights'], 
+      formSwitcherSelectedIndex: this.state.formSwitcherSelectedIndex,
+      onFormSwitch: this.state.onFormSwitch,
       entityName: this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity',
       recordName: this.state.recordAtIndex === 0 ? this.state.contact : this.state.topic,
     };

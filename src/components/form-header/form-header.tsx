@@ -22,6 +22,7 @@ export interface FormHeaderProps {
   showReadOnlyMessage?: boolean;
   showRecordImage?: boolean;
   showShadow?: boolean;
+  onFormSwitch?: (index: number) => void;
 }
 
 export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
@@ -63,7 +64,7 @@ export const FormHeader: React.FunctionComponent<FormHeaderProps> = props => {
         <React.Fragment>
         <span className="metas__field metas__field--separator">·</span>
         <span className="metas__field metas__field--select">
-          <select className="view-switcher" defaultValue={formSwitcherOptions[formSwitcherSelectedIndex]}>
+          <select className="view-switcher" value={formSwitcherOptions[formSwitcherSelectedIndex]} onChange={e => props.onFormSwitch ? props.onFormSwitch(e.target.selectedIndex) : null}>
             {formSwitcherOptions.map(option => <option key={option} value={option}>{option}</option>)}
           </select>
         </span>
