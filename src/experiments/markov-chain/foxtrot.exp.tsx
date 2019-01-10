@@ -8,6 +8,10 @@ import {FormHeader} from '../../components/form-header/form-header';
 import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/charlie.exp';
 import Scrollbars  from 'react-custom-scrollbars';
 
+/* dialog */
+import './modal-dialog.css';
+import '../../components/button/button.css';
+
 /* form tabs */
 import '../../components/form-tabs/form-tabs.css';
 
@@ -107,6 +111,13 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       onSelect: (id: string) => this.setState({selectedItemId: id}),
       onToggleExpanded: () => this.setState({expanded: !this.state.expanded}),
       onFormSwitch: (index: number) => this.setState({formSwitcherSelectedIndex: index}),
+      /*dialog*/
+      dialogElement: null,
+      switchProcessOptions: [
+        'Lead to opportunity process',
+        'Opportunity sales process',
+      ],
+      dialogSelectedProcessIndex: 0,
     };
   }
 
@@ -163,6 +174,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         <Flow/>
       </>
 
+    const DialogElement: React.FunctionComponent<any> = this.state.dialogElement;
+
     const formTabs = this.state.recordAtIndex === 0 ? [
       {id: '0', name: 'Summary'},
       {id: '1', name: 'Details'},
@@ -199,7 +212,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
             <div className={`form-tab${this.state.selectedTabId === '-1' ? ' form-tab--process' : ''}`}>
               {/*BPF: all stages*/}
               {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
-                <div className="ft">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn">switch</button>)</span></div>
+                <div className="ft">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn" onClick={this.onOpenSwitchProcessDialog}>switch</button>)</span></div>
                 {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Stage complete {14 - 2 * this.state.userSelectedIndex} days ago</span>}
                 {this.state.userSelectedIndex === this.state.recordAtIndex && <span className="process-attribute">Stage active for {8 - this.state.userSelectedIndex} days</span>}
 
@@ -412,6 +425,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
           </div>
         </Scrollbars>
       </div>
+      {this.state.dialogElement && <div className="dialog"><DialogElement state={this.state}/></div>}
     </StyledApp>
   }
 
@@ -419,8 +433,12 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
   onCompleteStage = () => {
     this.setState((state: any) => {
-      this.qualifyStageFormRef.current!.reportValidity();
-      const isValid = this.estimatedBudgetRef.current!.checkValidity();
+      let isValid = true;
+      if (this.qualifyStageFormRef.current) {
+        this.qualifyStageFormRef.current!.reportValidity();
+        isValid = this.estimatedBudgetRef.current!.checkValidity();
+      }
+
       if (isValid) {
         const recordAtIndex =  Math.min(state.stages.length, state.recordAtIndex + 1);
         const userSelectedIndex = recordAtIndex < state.stages.length ? recordAtIndex : null;
@@ -440,6 +458,31 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       this.setState({recordAtIndex: index});
     }
   }
+
+  onOpenSwitchProcessDialog = () => {
+    this.setState({dialogElement: this.SwitchProcessDialog});
+  }
+
+  onSwitchProcessSubmit = (e: any) => {
+    e.preventDefault();
+    this.setState({dialogElement: null, processName: this.state.switchProcessOptions[this.state.dialogSelectedProcessIndex]});
+  }
+
+  onSelectProcess = (index: number) => {
+    this.setState({dialogSelectedProcessIndex: index});
+  }
+
+  SwitchProcessDialog: React.FunctionComponent<any> = (state: any) => <form className="dialog-box" onSubmit={e => this.onSwitchProcessSubmit(e)}>
+  <h1>Choose a process</h1>
+  {this.state.switchProcessOptions.map((option: string, index: number) => <div key={option}>
+    <label><input type="radio" checked={index === this.state.dialogSelectedProcessIndex} onChange={e => this.onSelectProcess(index)}/>{option}</label>
+  </div>)}
+  
+  <div className="dialog-actions">
+    <button className="btn btn--primary">Switch</button>
+    <button className="btn btn--secondary" onClick={e => this.setState({dialogElement: null})}>Cancel</button>
+  </div>
+  </form>
 }
 
 const StyledApp = styled.div`
