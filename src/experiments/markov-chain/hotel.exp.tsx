@@ -5,65 +5,195 @@ import {AppShell} from '../../components/app-shell/app-shell';
 import {appShellDemoProps} from '../../components/app-shell/app-shell.demo';
 
 import {SideNav} from '../../components/side-nav/side-nav';
-import {sideNavDemoProps} from '../../components/side-nav/side-nav.demo';
 
 import {FormHeader} from '../../components/form-header/form-header';
-import {formHeaderDemoProps} from '../../components/form-header/form-header.demo';
 
-import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
+/* dialog */
+import './modal-dialog.css';
+import '../../components/button/button.css';
+
+/* form tabs */
+import '../../components/form-tabs/form-tabs.css';
 
 import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/golf.exp';
 import Scrollbars  from 'react-custom-scrollbars';
 
 /* form sections */
-import Summary from './FormSectionMocks/Summary.svg';
 import Subgrids from './FormSectionMocks/Subgrids.svg';
 import RelationshipAssistant from './FormSectionMocks/RelationshipAssistant.svg';
 import Timeline from './FormSectionMocks/Timeline.svg';
 import Details from './FormSectionMocks/Details.svg';
 
 /* command */
-import Assign from './CommandMocks/Assign.svg';
-import CloseAsLost from './CommandMocks/CloseAsLost.svg';
-import CloseAsWon from './CommandMocks/CloseAsWon.svg';
-import EmailALink from './CommandMocks/EmailALink.svg';
-import New from './CommandMocks/New.svg';
-import Process from './CommandMocks/Process.svg';
-import RecalculateOpportunity from './CommandMocks/RecalculateOpportunity.svg';
-import RecordSet from './CommandMocks/RecordSet.svg';
-import Refresh from './CommandMocks/Refresh.svg';
+import Assign from '../markov-chain/CommandMocks/Assign.svg';
+import CloseAsLost from '../markov-chain/CommandMocks/CloseAsLost.svg';
+import CloseAsWon from '../markov-chain/CommandMocks/CloseAsWon.svg';
+import Delete from '../markov-chain/CommandMocks/Delete.svg';
+import Disqualify from '../markov-chain/CommandMocks/Disqualify.svg';
+import EmailALink from '../markov-chain/CommandMocks/EmailALink.svg';
+import Flow from '../markov-chain/CommandMocks/Flow.svg';
+import Follow from '../markov-chain/CommandMocks/Follow.svg';
+import New from '../markov-chain/CommandMocks/New.svg';
+import Qualify from '../markov-chain/CommandMocks/Qualify.svg';
+import RecordSet from '../markov-chain/CommandMocks/RecordSet.svg';
+import Refresh from '../markov-chain/CommandMocks/Refresh.svg';
+
+/* form fields */
+import './form-field.css';
+import '../../styles/fluent-for-dynamics.css';
+
+/* side nav */
+import {FullMdl2} from '../../styles/icon/full-mdl2';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      selectedTabId: '0',
+      /* bpf */
+      processName: 'Lead to opportunity process',
       stages: [
-        {name: 'Screen'},
         {name: 'Qualify'},
         {name: 'Develop'},
-        {name: 'Connect'},
         {name: 'Propose'},
         {name: 'Close'},
-        {name: 'Archive'},
       ],
-      userSelectedIndex: 2,
-      recordAtIndex: 2,
+      userSelectedIndex: 0,
+      recordAtIndex: 0,
       onSelectStage: this.onSelectStage,
       onCompleteStage: this.onCompleteStage,
       onMoveRecordToStage: this.onMoveRecordToStage,
+      /* form fields */
+      account: 'Commerical Kitchen Inc.',
+      captureSummary: '',
+      completeFinalPropsal: false,
+      completeInternalReview: false,
+      confirmDecisionDate: '',
+      contact: 'Allison Brown',
+      customerNeed: '',
+      developProposal: false,
+      estCloseDate: '2019-05-20',
+      estimatedBudget: '',
+      fileDebrief: false,
+      identifyCompetitors: false,
+      identifyDecisionMaker: false,
+      identifySalesTeam: false,
+      identifyStakeholders: false,
+      presentFinalProposal: false,
+      presentPropsal: false,
+      proposedSolution: '',
+      purchaseProcess: '',
+      purchaseTimeframe: '',
+      sendThankYou: false,
+      topic: 'Cooking Appliances IOT Capable',
+      /* form header */
+      formSwitcherSelectedIndex: 0,
+      onFormSwitch: (index: number) => this.setState({formSwitcherSelectedIndex: index}),
+      /* form tabs */
+      selectedTabId: '0',
+      /* dialog */
+      dialogElement: null,
+      switchProcessOptions: [
+        'Lead to opportunity process',
+        'Opportunity sales process',
+      ],
+      dialogSelectedProcessIndex: 0,
+      dialogSelectingProcessIndex: 0,
+      /* side nav */
+      expanded: true,
+      selectedItemId: '4',
+      items: [
+        {id: '0', icon: FullMdl2.SummaryChart, name: 'Dashbaord'},
+        {id: '1', icon: FullMdl2.AccountActivity, name: 'Activities'},
+        {id: '2', icon: FullMdl2.DocumentSet, name: 'Accounts'},
+        {id: '3', icon: FullMdl2.Contact, name: 'Contact'},
+        {id: '4', icon: FullMdl2.CRMLead, name: 'Leads'},
+        {id: '5', icon: FullMdl2.Opportunities, name: 'Opportunities'},
+        {id: '6', icon: FullMdl2.GuestUser, name: 'Competitors'},
+        {id: '7', icon: FullMdl2.Quotes, name: 'Quotes'},
+        {id: '8', icon: FullMdl2.Query, name: 'Orders'},
+        {id: '9', icon: FullMdl2.CRMInvoices, name: 'Invoices'},
+        {id: '10', icon: FullMdl2.Product, name: 'Products'},
+        {id: '11', icon: FullMdl2.CustomActivity, name: 'Cases'},
+      ],
+      onSelect: (id: string) => this.setState({selectedItemId: id}),
+      onToggleExpanded: () => this.setState({expanded: !this.state.expanded}),
     };
   }
 
   render() {
     const {selectedTabId, ...businessProcessFlowProps} = this.state;
-    const formHeaderProps = {...formHeaderDemoProps, isContentEditable: false};
+
+    const formHeaderProps = {
+      showFormSwitcher: true,
+      fields: this.state.recordAtIndex === 0 ? [
+        {key: 'Lead source', value: 'Web'},
+        {key: 'Rating', value: 'Hot'},
+        {key: 'Status', value: 'Contacted'},
+        {key: 'Owner', value: 'Molly Clark'},
+      ] : [
+        {key: 'Est. Close Date', value: '5/20/2019'},
+        {key: 'Est. Revenue', value: '$290,000.00'},
+        {key: 'Status', value: 'In progress'},
+        {key: 'Owner', value: 'Molly Clark'},
+      ],
+      formSwitcherOptions: [this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity', 'Information', 'Sales insights'], 
+      formSwitcherSelectedIndex: this.state.formSwitcherSelectedIndex,
+      onFormSwitch: this.state.onFormSwitch,
+      entityName: this.state.recordAtIndex === 0 ? 'Lead' : 'Opportunity',
+      recordName: this.state.recordAtIndex === 0 ? this.state.contact : this.state.topic,
+    };
+
+    const sideNavProps = {
+      expanded: this.state.expanded,
+      selectedItemId: this.state.recordAtIndex === 0 ? '4' : '5',
+      items: this.state.items,
+      onSelect: this.state.onSelect,
+      onToggleExpanded: this.state.onToggleExpanded,
+    };
+
+    const commands = this.state.recordAtIndex === 0 ? <>
+      <RecordSet/>
+      <New/>
+      <Delete/>
+      <Refresh/>
+      <Qualify/>
+      <Disqualify/>
+      <Assign/>
+      <EmailALink/>
+      <Follow/>
+      <Flow/>
+    </> : <>
+      <RecordSet/>
+      <New/>
+      <Refresh/>
+      <CloseAsWon/>
+      <CloseAsLost/>
+      <Assign/>
+      <EmailALink/>
+      <Delete/>
+      <Follow/>
+      <Flow/>
+    </>
+
+    const DialogElement: React.FunctionComponent<any> = this.state.dialogElement;
+
+    const formTabs = this.state.recordAtIndex === 0 ? [
+      {id: '0', name: 'Summary'},
+      {id: '1', name: 'Details'},
+      {id: '2', name: 'Related'},
+    ] : [
+      {id: '0', name: 'Summary'},
+      {id: '1', name: 'Product line items'},
+      {id: '2', name: 'Quotes'},
+      {id: '3', name: 'Field service'},
+      {id: '4', name: 'Related'},
+    ];
 
     return <StyledApp>
       <div className="top"><AppShell {...appShellDemoProps}/></div>
       <div className="bottom">
-        <div className="bottom-left"><SideNav {...sideNavDemoProps}/></div>
+        <div className="bottom-left"><SideNav {...sideNavProps}/></div>
         <Scrollbars
           className="page-center"
           autoHide
@@ -72,24 +202,147 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         >
           <div className="page-center-top">
             <div className="command-bar-container">
-              <RecordSet/>
-              <New/>
-              <Refresh/>
-              <CloseAsWon/>
-              <CloseAsLost/>
-              <RecalculateOpportunity/>
-              <Process/>
-              <Assign/>
-              <EmailALink/>
+              {commands}
             </div>
             <FormHeader inlineModeBreakpoint="600px" {...formHeaderProps}/>
           </div>
           <div className="page-center-bottom">
             <div className="tabs-container">
-              {formTabsDemoProps.tabs.map(tab => <button key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
+              {formTabs.map(tab => <button onClick={() => this.setState({selectedTabId: tab.id})} key={tab.id} className={`tab${tab.id === this.state.selectedTabId ? ' tab--selected' : ''}`}>{tab.name}</button>)}
             </div>
             <div className="form-tab">
-              <div className="form-section"><Summary/></div>
+              {/* Lead form, Contact section */}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
+                <div className="ft">Contact</div>
+                <div className="ff">
+                  <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
+                  <input className="ff__value" type="text" value={this.state.topic} onChange={e => this.setState({topic: e.target.value})}/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Type</label>
+                  <select className="ff__value" defaultValue="Item based">
+                    <option value="Work based">Work based</option>
+                    <option value="Item based">Item based</option>
+                    <option value="Service-maintenance based">Service-maintenance based</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">First name</label>
+                  <input className="ff__value" type="text" defaultValue="Allison" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Last name</label>
+                  <input className="ff__value" type="text" defaultValue="Brown" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Job title</label>
+                  <input className="ff__value" type="text" defaultValue="Owner" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Business Phone</label>
+                  <input className="ff__value" type="tel" defaultValue="343-555-6797" placeholder="XXX-XXX-XXXX" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Mobile Phone</label>
+                  <input className="ff__value" type="tel" defaultValue="" placeholder="XXX-XXX-XXXX" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Email</label>
+                  <input className="ff__value" type="email" defaultValue="allison.brown@contoso.com" placeholder="name@company.com"/>
+                </div>
+              </div>}
+              {/* Lead form, Company section */}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex === 0 && <div className="form-section">
+                <div className="ft">Company</div>
+                <div className="ff">
+                  <label className="ff__key">Company</label>
+                  <input className="ff__value" type="text" defaultValue="Contoso" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Website</label>
+                  <input className="ff__value" type="url" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 1</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 2</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Street 3</label>
+                  <input className="ff__value" type="text" placeholder="---" />
+                </div>
+                <div className="ff">
+                  <label className="ff__key">City</label>
+                  <input className="ff__value" type="text" placeholder="---"  defaultValue="Madison"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">State/Province</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="IL"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">ZIP/Postal code</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="74285"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Country/Region</label>
+                  <input className="ff__value" type="text" placeholder="---" defaultValue="USA"/>
+                </div>
+              </div>}
+              {/* Opportunity, 1st section*/}
+              {this.state.selectedTabId !== '-1' && this.state.recordAtIndex !== 0 && <div className="form-section">
+                <div className="ff">
+                  <label className="ff__key">Topic<span className="ff__asterisk">*</span></label>
+                  <input className="ff__value" type="text" value={this.state.topic} onChange={e => this.setState({topic: e.target.value})}/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Contact</label>
+                  <a className="ff__value">Allison Brown</a>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Account</label>
+                  <a className="ff__value">Commerical Kitchen Inc.</a>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Purchase Timeframe</label>
+                  <select className="ff__value" value={this.state.purchaseTimeframe} onChange={e => this.setState({purchaseTimeframe: e.target.value})}>
+                    <option value="Immediate">Immediate</option>
+                    <option value="This quarter">This quarter</option>
+                    <option value="Next quarter">Next quarter</option>
+                    <option value="This year">This year</option>
+                    <option value="Unknown">Unknown</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Currency<span className="ff__asterisk">*</span></label>
+                  <a className="ff__value">US Dollay</a>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Budget Amount</label>
+                  <input className="ff__value" type="text" defaultValue={this.state.estimatedBudget}/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Est. Close Date</label>
+                  <input className="ff__value" type="date" defaultValue="2019-05-20"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Est. Revenue</label>
+                  <input className="ff__value" type="text" defaultValue="$290,000.00"/>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Status</label>
+                  <select className="ff__value">
+                    <option>In progress</option>
+                    <option>Closed</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label className="ff__key">Owner</label>
+                  <a className="ff__value">Molly Clark</a>
+                </div>
+              </div>}
               <div className="form-section"><Details/></div>
               <div className="form-section"><Subgrids/></div>
               <div className="form-section"><RelationshipAssistant/></div>
@@ -103,10 +356,11 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
           autoHideTimeout={1000}
           autoHideDuration={200}
         >
-          <h1 className="process-title">Lead to opportunity process <span className="switch-process">(<button className="switch-button">switch</button>)</span></h1>
+          <h1 className="process-title">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn" onClick={this.onOpenSwitchProcessDialog}>switch</button>)</span></h1>
           <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
         </Scrollbars>
       </div>
+      {this.state.dialogElement && <div className="dialog"><DialogElement state={this.state}/></div>}
     </StyledApp>
   }
 
@@ -119,6 +373,36 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   }
 
   onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
+
+  onOpenSwitchProcessDialog = () => {
+    this.setState({dialogElement: this.SwitchProcessDialog});
+  }
+
+  onSwitchProcessSubmit = (e: any) => {
+    e.preventDefault();
+    this.setState({dialogElement: null, dialogSelectedProcessIndex: this.state.dialogSelectingProcessIndex, processName: this.state.switchProcessOptions[this.state.dialogSelectingProcessIndex]});
+  }
+  
+  onSwitchProcessCancel = (e: any) => {
+    this.setState({dialogElement: null, dialogSelectingProcessIndex: this.state.dialogSelectedProcessIndex});
+  }
+
+  onSelectProcess = (index: number) => {
+    this.setState({dialogSelectingProcessIndex: index});
+  }
+
+  SwitchProcessDialog: React.FunctionComponent<any> = (state: any) => <form className="dialog__box" onSubmit={e => this.onSwitchProcessSubmit(e)}>
+  <h1 className="dialog__header">Choose a process</h1>
+  <div className="dialog__main">
+    {this.state.switchProcessOptions.map((option: string, index: number) => <div className="switch-process-option" key={option}>
+      <label><input type="radio" checked={index === this.state.dialogSelectingProcessIndex} onChange={e => this.onSelectProcess(index)}/>{option}</label>
+    </div>)}
+  </div>
+  <div className="dialog__footer btn-group">
+    <button className="btn btn--primary">Confirm</button>
+    <button className="btn btn--secondary" onClick={this.onSwitchProcessCancel}>Cancel</button>
+  </div>
+  </form>
 }
 
 const StyledApp = styled.div`
@@ -199,7 +483,18 @@ const StyledApp = styled.div`
   .form-section {
     border: 1px solid #CBCBCB;
     margin-bottom: 20px;
+    -webkit-column-break-inside: avoid; /* Chrome, Safari */
+    page-break-inside: avoid;           /* Theoretically FF 20+ */
     break-inside: avoid-column;
+    padding: 8px 16px;
+  }
+
+  .form-section--mock {
+    padding: 0;
+  }
+
+  .form-section--process {
+    padding: 4px 12px;
   }
 
   .process-title {
@@ -220,11 +515,11 @@ const StyledApp = styled.div`
     margin: 0 20px 20px 20px;
   }
 
-  .switch-process {
+  .switch-process-inline {
     font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
   }
 
-  .switch-button {
+  .switch-process-btn {
     font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
     cursor: pointer;
     appearance: none;

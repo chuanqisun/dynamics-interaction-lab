@@ -34,9 +34,7 @@ import EmailALink from '../markov-chain/CommandMocks/EmailALink.svg';
 import Flow from '../markov-chain/CommandMocks/Flow.svg';
 import Follow from '../markov-chain/CommandMocks/Follow.svg';
 import New from '../markov-chain/CommandMocks/New.svg';
-import Process from '../markov-chain/CommandMocks/Process.svg';
 import Qualify from '../markov-chain/CommandMocks/Qualify.svg';
-import RecalculateOpportunity from '../markov-chain/CommandMocks/RecalculateOpportunity.svg';
 import RecordSet from '../markov-chain/CommandMocks/RecordSet.svg';
 import Refresh from '../markov-chain/CommandMocks/Refresh.svg';
 
@@ -54,28 +52,28 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
     this.state = {
       /* form fields */
-      contact: 'Allison Brown',
       account: 'Commerical Kitchen Inc.',
-      purchaseTimeframe: '',
-      purchaseProcess: '',
-      identifyDecisionMaker: false,
       captureSummary: '',
+      completeFinalPropsal: false,
+      completeInternalReview: false,
+      confirmDecisionDate: '',
+      contact: 'Allison Brown',
+      customerNeed: '',
+      developProposal: false,
       estCloseDate: '2019-05-20',
       estimatedBudget: '',
-      topic: 'Cooking Appliances IOT Capable',
-      customerNeed: '',
-      proposedSolution: '',
-      identifyStakeholders: false,
-      identifyCompetitors: false,
-      identifySalesTeam: false,
-      developProposal: false,
-      completeInternalReview: false,
-      presentPropsal: false,
-      completeFinalPropsal: false,
-      presentFinalProposal: false,
-      confirmDecisionDate: '',
-      sendThankYou: false,
       fileDebrief: false,
+      identifyCompetitors: false,
+      identifyDecisionMaker: false,
+      identifySalesTeam: false,
+      identifyStakeholders: false,
+      presentFinalProposal: false,
+      presentPropsal: false,
+      proposedSolution: '',
+      purchaseProcess: '',
+      purchaseTimeframe: '',
+      sendThankYou: false,
+      topic: 'Cooking Appliances IOT Capable',
       /* form tabs */
       selectedTabId: '0',
       /* bpf */
@@ -92,14 +90,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       onCompleteStage: this.onCompleteStage,
       onMoveRecordToStage: this.onMoveRecordToStage,
       /* form header */
-      showFormSwitcher: true,
-      fields: [
-        {key: 'Est. Close Date', value: '5/20/2019'},
-        {key: 'Est. Revenue', value: '$290,000.00'},
-        {key: 'Status', value: 'In progress'},
-        {key: 'Owner', value: 'Molly Clark'},
-      ],
       formSwitcherSelectedIndex: 0,
+      onFormSwitch: (index: number) => this.setState({formSwitcherSelectedIndex: index}),
       /* side nav */
       expanded: true,
       selectedItemId: '4',
@@ -119,7 +111,6 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       ],
       onSelect: (id: string) => this.setState({selectedItemId: id}),
       onToggleExpanded: () => this.setState({expanded: !this.state.expanded}),
-      onFormSwitch: (index: number) => this.setState({formSwitcherSelectedIndex: index}),
       /*dialog*/
       dialogElement: null,
       switchProcessOptions: [
@@ -134,7 +125,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   render() {
     const {selectedTabId, ...businessProcessFlowProps} = this.state;
     const formHeaderProps = {
-      showFormSwitcher: this.state.showFormSwitcher,
+      showFormSwitcher: true,
       fields: this.state.recordAtIndex === 0 ? [
         {key: 'Lead source', value: 'Web'},
         {key: 'Rating', value: 'Hot'},
@@ -365,7 +356,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <input className="ff__value" type="text" defaultValue="Owner" />
                 </div>
                 <div className="ff">
-                  <label className="ff__key">Business Phone></label>
+                  <label className="ff__key">Business Phone</label>
                   <input className="ff__value" type="tel" defaultValue="343-555-6797" placeholder="XXX-XXX-XXXX" />
                 </div>
                 <div className="ff">
