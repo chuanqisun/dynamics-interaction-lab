@@ -214,7 +214,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
               {/*BPF: all stages*/}
               {this.state.selectedTabId === '-1' && <div className="form-section form-section--process">
                 <div className="ft">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn" onClick={this.onOpenSwitchProcessDialog}>switch</button>)</span></div>
-                {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Stage complete {14 - 2 * this.state.userSelectedIndex} days ago</span>}
+                {this.state.userSelectedIndex < this.state.recordAtIndex && <span className="process-attribute">Stage completed {14 - 2 * this.state.userSelectedIndex} days ago</span>}
                 {this.state.userSelectedIndex === this.state.recordAtIndex && <span className="process-attribute">Stage active for {8 - this.state.userSelectedIndex} days</span>}
 
                 <div className="process-actions">

@@ -367,7 +367,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         >
           <h1 className="process-title">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn" onClick={this.onOpenSwitchProcessDialog}>switch</button>)</span></h1>
           <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps} stages={[
-            {name: 'Qualify', content: () => <form ref={this.qualifyStageFormRef}className="form-section form-section--borderless">
+            {name: `Qualify ${this.state.recordAtIndex === 0 ? ` (active 5 days)` : ``}${0 < this.state.recordAtIndex && this.state.userSelectedIndex === 0 ? ` (completed 3 min ago)` : ''}`,
+              content: () => <form ref={this.qualifyStageFormRef}className="form-section form-section--borderless">
                 <div className="ff">
                   <label htmlFor="contact" className="ff__key">Existing contact</label>
                   <a id="contact" className="ff__value">{this.state.contact}</a>
@@ -409,7 +410,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <textarea id="captureSummary" className="ff__value" placeholder="---" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
                 </div>
               </form>},
-            {name: 'Develop', content: () => <div className="form-section form-section--borderless">
+            {name: `Develop ${this.state.recordAtIndex === 1 ? ` (active 2 min)` : ``}${1 < this.state.recordAtIndex && this.state.userSelectedIndex === 1 ? ` (completed 2 min ago)` : ''}`,
+              content: () => <div className="form-section form-section--borderless">
                 <div className="ff">
                   <label htmlFor="customerNeed" className="ff__key">Customer need</label>
                   <input id="customerNeed" className="ff__value" type="text" placeholder="---" value={this.state.customerNeed} onChange={e => this.setState({customerNeed: e.target.value})} />
@@ -427,7 +429,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <input id="identifyCompetitors" className="ff__value" type="checkbox" checked={this.state.identifyCompetitors} onChange={e => this.setState({identifyCompetitors: e.target.checked})}/>
                 </div>
               </div>},
-            {name: 'Propose', content: () => <div className="form-section form-section--borderless">
+            {name: `Propose ${this.state.recordAtIndex === 2 ? ` (active 2 min)` : ``}${2 < this.state.recordAtIndex && this.state.userSelectedIndex === 2 ? ` (completed 1 min ago)` : ''}`, 
+              content: () => <div className="form-section form-section--borderless">
                 <div className="ff">
                   <label htmlFor="identifySalesTeam" className="ff__key">Identify sales team</label>
                   <input id="identifySalesTeam" className="ff__value" type="checkbox" checked={this.state.identifySalesTeam} onChange={e => this.setState({identifySalesTeam: e.target.checked})}/>
@@ -445,7 +448,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                   <input id="presentPropsal" className="ff__value" type="checkbox" checked={this.state.presentPropsal} onChange={e => this.setState({presentPropsal: e.target.checked})}/>
                 </div>
               </div>},
-            {name: 'Close', content: () => <div className="form-section form-section--borderless">
+            {name: `Close ${this.state.recordAtIndex === 3 ? ` (active 1 min)` : ``}${3 < this.state.recordAtIndex && this.state.userSelectedIndex === 3 ? ` (completed just now)` : ''}`,
+              content: () => <div className="form-section form-section--borderless">
                 <div className="ff">
                   <label htmlFor="completeFinalPropsal" className="ff__key">Complete final proposal</label>
                   <input id="completeFinalPropsal" className="ff__value" type="checkbox" checked={this.state.completeFinalPropsal} onChange={e => this.setState({completeFinalPropsal: e.target.checked})}/>

@@ -261,6 +261,7 @@ const StyledNav = styled.nav`
   .stage-name {
     font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
     margin-right: 6px;
+    white-space: nowrap;
   }
 
   .name-with-chevron {
