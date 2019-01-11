@@ -477,12 +477,31 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
 
   onCompleteStage = () => {
-    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
-    const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
-    this.setState({recordAtIndex, userSelectedIndex});
+    this.setState((state: any) => {
+      let isValid = true;
+      if (this.qualifyStageFormRef.current) {
+        this.qualifyStageFormRef.current!.reportValidity();
+        isValid = this.estimatedBudgetRef.current!.checkValidity();
+      }
+
+      if (isValid) {
+        const recordAtIndex =  Math.min(state.stages.length, state.recordAtIndex + 1);
+        const userSelectedIndex = recordAtIndex < state.stages.length ? recordAtIndex : null;
+        return {recordAtIndex, userSelectedIndex}
+      } else {
+        return null;
+      }
+    });
   }
 
-  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
+  onMoveRecordToStage = (index: number) => {
+    if (index > 0 && this.state.estimatedBudget === '') {
+      this.onSelectStage(0);
+      window.setTimeout(() => this.onCompleteStage(), 200);
+    } else {
+      this.setState({recordAtIndex: index});
+    }
+  }
 
   onOpenSwitchProcessDialog = () => {
     this.setState({dialogElement: this.SwitchProcessDialog});
