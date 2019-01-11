@@ -15,7 +15,7 @@ import '../../components/button/button.css';
 /* form tabs */
 import '../../components/form-tabs/form-tabs.css';
 
-import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/golf.exp';
+import {BusinessProcessFlow, BusinessProcessFlowProps} from '../fast-fourier/hotel.exp';
 import Scrollbars  from 'react-custom-scrollbars';
 
 /* form sections */
@@ -46,6 +46,9 @@ import '../../styles/fluent-for-dynamics.css';
 import {FullMdl2} from '../../styles/icon/full-mdl2';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
+  private estimatedBudgetRef = React.createRef<HTMLInputElement>();
+  private qualifyStageFormRef = React.createRef<HTMLFormElement>();
+
   constructor(props: any) {
     super(props);
 
@@ -122,7 +125,13 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
   }
 
   render() {
-    const {selectedTabId, ...businessProcessFlowProps} = this.state;
+    const businessProcessFlowProps = {
+      userSelectedIndex: this.state.userSelectedIndex,
+      recordAtIndex: this.state.recordAtIndex,
+      onSelectStage: this.onSelectStage,
+      onMoveRecordToStage: this.onMoveRecordToStage,
+      onCompleteStage: this.onCompleteStage,
+    };
 
     const formHeaderProps = {
       showFormSwitcher: true,
@@ -357,7 +366,108 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
           autoHideDuration={200}
         >
           <h1 className="process-title">{this.state.processName}<span className="switch-process-inline"> (<button className="switch-process-btn" onClick={this.onOpenSwitchProcessDialog}>switch</button>)</span></h1>
-          <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps}/>
+          <BusinessProcessFlow className="business-process-flow" {...businessProcessFlowProps as BusinessProcessFlowProps} stages={[
+            {name: 'Qualify', content: () => <form ref={this.qualifyStageFormRef}className="form-section form-section--borderless">
+                <div className="ff">
+                  <label htmlFor="contact" className="ff__key">Existing contact</label>
+                  <a id="contact" className="ff__value">{this.state.contact}</a>
+                </div>
+                <div className="ff">
+                  <label htmlFor="account" className="ff__key">Existing account</label>
+                  <a id="account" className="ff__value">{this.state.account}</a>
+                </div>
+                <div className="ff">
+                  <label htmlFor="purchaseTimeframe" className="ff__key">Purchase timeframe</label>
+                  <select id="purchaseTimeframe" className="ff__value" value={this.state.purchaseTimeframe} onChange={e => this.setState({purchaseTimeframe: e.target.value})}>
+                    <option value="" disabled>--select--</option>
+                    <option value="Immediate">Immediate</option>
+                    <option value="This quarter">This quarter</option>
+                    <option value="Next quarter">Next quarter</option>
+                    <option value="This year">This year</option>
+                    <option value="Unknown">Unknown</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label htmlFor="estimatedBudgetRef" className="ff__key">Estimated budget<span className="ff__asterisk">*</span></label>
+                  <input id="estimatedBudgetRef" className="ff__value" ref={this.estimatedBudgetRef} required type="text" placeholder="---" value={this.state.estimatedBudget} onChange={e => this.setState({estimatedBudget: e.target.value})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="purchaseProcess" className="ff__key">Purchase process</label>
+                  <select id="purchaseProcess" className="ff__value" value={this.state.purchaseProcess} onChange={e => this.setState({purchaseProcess: e.target.value})}>
+                    <option value="" disabled>--select--</option>
+                    <option value="Individual">Individual</option>
+                    <option value="Commitee">Committee</option>
+                    <option value="Unknown">Unknown</option>
+                  </select>
+                </div>
+                <div className="ff">
+                  <label htmlFor="identifyDecisionMaker" className="ff__key">Identify decision maker</label>
+                  <input id="identifyDecisionMaker" className="ff__value" type="checkbox" checked={this.state.identifyDecisionMaker} onChange={e => this.setState({identifyDecisionMaker: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="captureSummary" className="ff__key">Capture summary</label>
+                  <textarea id="captureSummary" className="ff__value" placeholder="---" value={this.state.captureSummary} onChange={e => this.setState({captureSummary: e.target.value})}/>
+                </div>
+              </form>},
+            {name: 'Develop', content: () => <div className="form-section form-section--borderless">
+                <div className="ff">
+                  <label htmlFor="customerNeed" className="ff__key">Customer need</label>
+                  <input id="customerNeed" className="ff__value" type="text" placeholder="---" value={this.state.customerNeed} onChange={e => this.setState({customerNeed: e.target.value})} />
+                </div>
+                <div className="ff">
+                  <label htmlFor="proposedSolution" className="ff__key">Proposed solution</label>
+                  <input id="proposedSolution" className="ff__value" type="text" placeholder="---" value={this.state.proposedSolution} onChange={e => this.setState({proposedSolution: e.target.value})} />
+                </div>
+                <div className="ff">
+                  <label htmlFor="identifyStakeholders" className="ff__key">Identify stakeholders</label>
+                  <input id="identifyStakeholders" className="ff__value" type="checkbox" checked={this.state.identifyStakeholders} onChange={e => this.setState({identifyStakeholders: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="identifyCompetitors" className="ff__key">Identify competitors</label>
+                  <input id="identifyCompetitors" className="ff__value" type="checkbox" checked={this.state.identifyCompetitors} onChange={e => this.setState({identifyCompetitors: e.target.checked})}/>
+                </div>
+              </div>},
+            {name: 'Propose', content: () => <div className="form-section form-section--borderless">
+                <div className="ff">
+                  <label htmlFor="identifySalesTeam" className="ff__key">Identify sales team</label>
+                  <input id="identifySalesTeam" className="ff__value" type="checkbox" checked={this.state.identifySalesTeam} onChange={e => this.setState({identifySalesTeam: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="developProposal" className="ff__key">Develop proposal</label>
+                  <input id="developProposal" className="ff__value" type="checkbox" checked={this.state.developProposal} onChange={e => this.setState({developProposal: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="completeInternalReview" className="ff__key">Complete internal review</label>
+                  <input id="completeInternalReview" className="ff__value" type="checkbox" checked={this.state.completeInternalReview} onChange={e => this.setState({completeInternalReview: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="presentPropsal" className="ff__key">Present proposal</label>
+                  <input id="presentPropsal" className="ff__value" type="checkbox" checked={this.state.presentPropsal} onChange={e => this.setState({presentPropsal: e.target.checked})}/>
+                </div>
+              </div>},
+            {name: 'Close', content: () => <div className="form-section form-section--borderless">
+                <div className="ff">
+                  <label htmlFor="completeFinalPropsal" className="ff__key">Complete final proposal</label>
+                  <input id="completeFinalPropsal" className="ff__value" type="checkbox" checked={this.state.completeFinalPropsal} onChange={e => this.setState({completeFinalPropsal: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="presentFinalProposal" className="ff__key">Present final proposal</label>
+                  <input id="presentFinalProposal" className="ff__value" type="checkbox" checked={this.state.presentFinalProposal} onChange={e => this.setState({presentFinalProposal: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="confirmDecisionDate" className="ff__key">Confirm decision date</label>
+                  <input id="confirmDecisionDate" className="ff__value" type="date" value={this.state.confirmDecisionDate} onChange={e => this.setState({confirmDecisionDate: e.target.value})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="sendThankYou" className="ff__key">Send thank you</label>
+                  <input id="sendThankYou" className="ff__value" type="checkbox" checked={this.state.sendThankYou} onChange={e => this.setState({sendThankYou: e.target.checked})}/>
+                </div>
+                <div className="ff">
+                  <label htmlFor="fileDebrief" className="ff__key">File de-brief</label>
+                  <input id="fileDebrief" className="ff__value" type="checkbox" checked={this.state.fileDebrief} onChange={e => this.setState({fileDebrief: e.target.checked})}/>
+                </div>
+              </div>},
+          ]}/>
         </Scrollbars>
       </div>
       {this.state.dialogElement && <div className="dialog"><DialogElement state={this.state}/></div>}
@@ -487,6 +597,10 @@ const StyledApp = styled.div`
     page-break-inside: avoid;           /* Theoretically FF 20+ */
     break-inside: avoid-column;
     padding: 8px 16px;
+  }
+
+  .form-section--borderless {
+    border: none;
   }
 
   .form-section--mock {

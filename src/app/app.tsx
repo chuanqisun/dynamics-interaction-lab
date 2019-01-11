@@ -51,6 +51,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'echo', component: lazy(() => import('../experiments/fast-fourier/echo.exp'))},
     { subRoute: 'foxtrot', component: lazy(() => import('../experiments/fast-fourier/foxtrot.exp'))},
     { subRoute: 'golf', component: lazy(() => import('../experiments/fast-fourier/golf.exp')), notes: 'floating header'},
+    { subRoute: 'hotel', component: lazy(() => import('../experiments/fast-fourier/hotel.exp')), notes: 'transcluded stage content'},
   ]},
   { series: 'markov-chain', baseRoute: '/experiments/markov-chain', description: 'Business process flow integration', started: '2018-12-05', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/markov-chain/alpha.exp'))},
