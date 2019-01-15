@@ -54,7 +54,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
 
     this.state = {
       /* bpf */
-      processName: 'Lead to opportunity process',
+      processName: 'Printer sales process',
       stages: [
         {name: 'Qualify'},
         {name: 'Develop'},
@@ -97,8 +97,8 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       /* dialog */
       dialogElement: null,
       switchProcessOptions: [
-        'Lead to opportunity process',
-        'Opportunity sales process',
+        'Printer sales process',
+        'Toner subscription sales process',
       ],
       dialogSelectedProcessIndex: 0,
       dialogSelectingProcessIndex: 0,
@@ -326,7 +326,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Currency<span className="ff__asterisk">*</span></label>
-                  <a className="ff__value">US Dollay</a>
+                  <a className="ff__value">US Dollar</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Budget Amount</label>

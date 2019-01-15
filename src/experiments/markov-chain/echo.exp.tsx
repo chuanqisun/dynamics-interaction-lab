@@ -323,7 +323,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
                 </div>
                 <div className="ff">
                   <label className="ff__key">Currency<span className="ff__asterisk">*</span></label>
-                  <a className="ff__value">US Dollay</a>
+                  <a className="ff__value">US Dollar</a>
                 </div>
                 <div className="ff">
                   <label className="ff__key">Budget Amount</label>
