@@ -60,9 +60,10 @@ export const experiments: Experiment[] = [
     { subRoute: 'charlie', component: lazy(() => import('../experiments/markov-chain/charlie.exp')), notes: 'vertical'},
     { subRoute: 'delta', component: lazy(() => import('../experiments/markov-chain/delta.exp')), notes: 'horizontal'},
     { subRoute: 'echo', component: lazy(() => import('../experiments/markov-chain/echo.exp')), notes: 'real form fields'},
-    { subRoute: 'foxtrot', component: lazy(() => import('../experiments/markov-chain/foxtrot.exp')), notes: 'horizontal hifi'},
+    { subRoute: 'foxtrot', component: lazy(() => import('../experiments/markov-chain/foxtrot.exp')), notes: 'horizontal v1'},
     { subRoute: 'golf', component: lazy(() => import('../experiments/markov-chain/golf.exp')), notes: 'hybrid tabs'},
-    { subRoute: 'hotel', component: lazy(() => import('../experiments/markov-chain/hotel.exp')), notes: 'vertical hifi'},
+    { subRoute: 'hotel', component: lazy(() => import('../experiments/markov-chain/hotel.exp')), notes: 'vertical v1'},
+    { subRoute: 'india', component: lazy(() => import('../experiments/markov-chain/india.exp')), notes: 'horizontal v2'},
   ]},
 ];
 
