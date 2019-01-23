@@ -13,6 +13,7 @@ export interface BusinessProcessFlowProps {
   stages: Stage[];
   userSelectedIndex: number;
   recordAtIndex: number;
+  leadingProgressBarWidthInPixel: number;
   onSelectStage: (stageIndex: number) => void;
   onMoveRecordToStage: (stageIndex: number) => void;
   onCompleteStage: () => void;
@@ -36,6 +37,7 @@ export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowPro
         index < props.recordAtIndex ? ' node--record-competed' : ''
       ].join('')}>
       {index < props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.CheckMark}</span>}
+      {index === props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.POI}</span>}
       <span className="node__stage-name">{stage.name}</span>
     </button>      
   </React.Fragment>)}
@@ -114,6 +116,12 @@ const StyledNav = styled.nav`
   --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+
+  --ms-depth-4: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+  --ms-depth-8: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+  --ms-depth-16: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+
+  --leading-progress-bar-width: ${(props: BusinessProcessFlowProps) => `${props.leadingProgressBarWidthInPixel ? props.leadingProgressBarWidthInPixel : '0'}px`}
   
   display: flex;
   align-items: center;
@@ -125,12 +133,13 @@ const StyledNav = styled.nav`
     --full-bg: white;
     --stage-name-padding: 0 8px;
     --text-color: var(--brand-primary);
+    --box-shadow: var(--ms-depth-4);
 
     appearance: none;
     background-color: var(--full-bg);
     border: none;
     border-radius: 12px;
-    box-shadow: var(--material-shadow-d3);
+    box-shadow: var(--box-shadow);
     cursor: pointer;
     display: flex;
     height: 24px;
@@ -138,41 +147,35 @@ const StyledNav = styled.nav`
     padding: 0;
     position: relative;
     white-space: nowrap;
-    transition: background-color 200ms;
+    transition: background-color 200ms, box-shadow 200ms;
   }
 
   .node:hover {
-    --full-bg: var(--light-grey);
-    --checkmark-bg: var(--brand-primary-darken);
+    --box-shadow: var(--ms-depth-16);
   }
 
-  .node--record-at {
-    --border-fg: var(--brand-primary);
-  }
-
-  .node--record-at .node__stage-name {
-    animation: ${pulse} 4000ms 400ms infinite;
-    border-color: var(--border-fg);
-  }
-
-  .node--user-selected .node__stage-name {
-    border-color: transparent;
-  }
-
+  .node--record-at,
   .node--record-competed {
     .node__checkmark {
       background-color: var(--checkmark-bg);
     }
+    .node__stage-name {
+      margin-left: -2px;
+      border-radius: 0 12px 12px 0;
+    }
   }
 
   .node--user-selected {
-    --full-bg: var(--brand-primary);
-    --text-color: white;
-  }
+    --box-shadow: var(--ms-depth-8);
+    --border-fg: var(--brand-primary);
 
-  .node--user-selected:hover {
-    --full-bg: var(--brand-primary-darken);
-    --border-fg: var(--brand-primary-darken);
+    :hover {
+      --box-shadow: var(--ms-depth-8);
+    }
+
+    .node__stage-name {
+      border-color: var(--border-fg);
+    }
   }
 
   .node__checkmark {
@@ -198,7 +201,7 @@ const StyledNav = styled.nav`
     box-sizing: border-box;
     border-radius: 12px;
     padding: var(--stage-name-padding);
-    transition: color 200ms, background-color 200ms;
+    transition: color 200ms, background-color 200ms, border-color 200ms;
   }
 
   .progress-bar {
@@ -207,6 +210,12 @@ const StyledNav = styled.nav`
     flex: 1 0 20px;
     height: 2px;
     margin: 0 -2px;
+  }
+
+  .progress-bar--start {
+    min-width: var(--leading-progress-bar-width);
+    max-width: var(--leading-progress-bar-width);
+    margin: 0;
   }
 
   .progress-bar--filled {
