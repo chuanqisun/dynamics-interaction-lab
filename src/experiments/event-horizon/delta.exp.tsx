@@ -20,7 +20,7 @@ export interface BusinessProcessFlowProps {
 }
 
 export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowProps> = (props) => {
-  return <StyledNav className={props.className}>
+  return <StyledNav className={props.className} leadingProgressBarWidthInPixel={props.leadingProgressBarWidthInPixel}>
   {props.stages.map((stage: any, index: number) => 
   <React.Fragment key={index}>
     {index < props.stages.length ? <div className={[
@@ -63,6 +63,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
       onSelectStage: this.onSelectStage,
       onCompleteStage: this.onCompleteStage,
       onMoveRecordToStage: this.onMoveRecordToStage,
+      leadingProgressBarWidthInPixel: 0,
     };
   }
 
@@ -89,6 +90,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
     <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
     <li>{this.state.recordAtIndex < this.state.stages.length ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"` : `Record has finished all stages`}</li>
+    <li><label>Progress bar 0th segement width</label><input style={{width: '64px'}} type="number" value={this.state.leadingProgressBarWidthInPixel} onChange={e => this.setState({leadingProgressBarWidthInPixel: e.target.value})}/>px</li>
     </StyledSection>
   }
 }
@@ -109,13 +111,10 @@ const StyledSection = styled.section`
   padding: 24px;
 `;
 
-const StyledNav = styled.nav`
+const StyledNav: any = styled.nav`
   --brand-primary: #2266E3;
   --brand-primary-darken: #1B52B6;
   --light-grey: #F8F8F9;
-  --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-  --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-  --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
 
   --ms-depth-4: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
   --ms-depth-8: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
