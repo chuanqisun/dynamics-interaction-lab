@@ -34,6 +34,7 @@
 }
 
 .lab-link {
+  white-space: nowrap;
   text-decoration: none;
   color: var(--lab-link-rest-color);
 }
@@ -98,4 +99,9 @@
 }
 .lab-s100 {
   height: 1rem;
+}
+
+/* util */
+.lab-nowrap {
+  white-space: nowrap;
 }
