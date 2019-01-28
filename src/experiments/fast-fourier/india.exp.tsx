@@ -30,7 +30,8 @@ export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowPro
       index < props.recordAtIndex ? ' node--record-past' : ''
     ].join('')}>
       <button onClick={() => props.onSelectStage(index)} className="accordion-trigger">
-        <span className="checkmark mdl2">{index < props.recordAtIndex ? FullMdl2.CheckMark : null}</span>
+        {index < props.recordAtIndex ? <span className="icon mdl2">{FullMdl2.CheckMark}</span> : null}
+        {index === props.recordAtIndex ? <span className="icon mdl2">{FullMdl2.POI}</span> : null}
         <span className="name-with-chevron">
           <span className="stage-name">{stage.name}</span>
           <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
@@ -47,9 +48,9 @@ export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowPro
     </div>
     {index < props.stages.length - 1 ? <div className={[
       `progress-bar`,
-      index < props.recordAtIndex ? ' progress-bar--filled' : '',
-      index === props.recordAtIndex ? ' progress-bar--filled' : '',
-      index > props.recordAtIndex ? ' progress-bar--empty' : '',
+      index < props.recordAtIndex - 1 ? ' progress-bar--filled' : '',
+      index === props.recordAtIndex - 1 ? ' progress-bar--filled' : '',
+      index > props.recordAtIndex - 1 ? ' progress-bar--empty' : '',
     ].join('')}></div> : null}
   </React.Fragment>)}
 </StyledNav>
@@ -128,6 +129,11 @@ const StyledNav = styled.nav`
   --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+
+  --ms-depth-4: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+  --ms-depth-8: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+  --ms-depth-16: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+
   --accordion-trigger-z: 200;
   
   display: flex;
@@ -166,10 +172,6 @@ const StyledNav = styled.nav`
     height: 24px;
   }
 
-  .node--record-at::before {
-    border-color: var(--brand-primary);
-  }
-
   .accordion-trigger {
     cursor: pointer;
     background: none;
@@ -183,15 +185,17 @@ const StyledNav = styled.nav`
     justify-content: flex-start;
     outline: none; /* TODO replace with focus-visible */
     position: relative;
-    transition: color 200ms;
+    transition: color 200ms, box-shadow 200ms;
     z-index: var(--accordion-trigger-z);
     appearance: none; /* unset the native button styles */
     -webkit-appearance: none;
     -moz-appearance: none;
 
+    box-shadow: var(--ms-depth-4);
+  }
 
-
-    box-shadow: var(--material-shadow-d3);
+  .accordion-trigger:hover {
+    box-shadow: var(--ms-depth-16);
   }
 
   .progress-bar {
@@ -209,16 +213,13 @@ const StyledNav = styled.nav`
   }
 
   .node--record-past {
-    .checkmark {
+    .icon {
       color: white;
     }
 
     .accordion-trigger::before {
       background-color: var(--brand-primary);
     }
-  }
-
-  .node--record-at {
   }
 
   .node--user-at {
@@ -231,6 +232,7 @@ const StyledNav = styled.nav`
 
     .accordion-trigger {
       color: var(--brand-primary);
+      box-shadow: var(--ms-depth-8);
     }
   }
 
@@ -240,7 +242,8 @@ const StyledNav = styled.nav`
     }
   }
 
-  .checkmark {
+  .icon {
+    color: var(--brand-primary);
     display: inline-flex;
     box-sizing: border-box;
     width: 24px;
@@ -249,6 +252,8 @@ const StyledNav = styled.nav`
     align-items: center;
     justify-content: center;
     position: relative;
+
+    transition: color 200ms;
   }
 
   .chevron {
@@ -265,13 +270,13 @@ const StyledNav = styled.nav`
 
   .stage-content {
     position: relative;
-    top: -2px;
-    box-shadow: var(--material-shadow-d3);
+    top: -4px;
+    box-shadow: var(--ms-depth-4);
     bottom: 0;
     border-radius: 0 2px 2px 2px;
     background-color: white;
     margin: 0 4px;
-    padding: 4px 0;
+    padding: 6px 0;
     animation: ${slideIn} 200ms 150ms cubic-bezier(0.32, 1.49, 0.93, 0.87) both;
   }
 
@@ -305,7 +310,7 @@ const StyledNav = styled.nav`
     background-color: var(--btn-primary-bg-rest);
     letter-spacing: var(--btn-letter-spacing);
     padding: 0 var(--btn-padding-side);
-    box-shadow: var(--material-shadow-d2);
+    box-shadow: var(--ms-depth-4);
     outline: none;
   }
 
