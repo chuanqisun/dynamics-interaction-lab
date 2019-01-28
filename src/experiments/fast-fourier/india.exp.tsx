@@ -111,13 +111,11 @@ const StyledSection = styled.section`
 
 const slideIn = keyframes`
   0% {
-    transform: translateY(-24px) scaleY(0.5) scaleX(1);
-    transform-origin: 50% 0%;
+    transform: translateY(-24px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0) scaleY(1) scaleX(1);
-    transform-origin: 50% 0%;
+    transform: translateY(0);
     opacity: 1;
   }
 `;
@@ -277,7 +275,7 @@ const StyledNav = styled.nav`
     background-color: white;
     margin: 0 4px;
     padding: 6px 0;
-    animation: ${slideIn} 200ms 150ms cubic-bezier(0.32, 1.49, 0.93, 0.87) both;
+    animation: ${slideIn} 200ms 150ms both;
   }
 
 
@@ -296,7 +294,7 @@ const StyledNav = styled.nav`
 
   .stage-content {
     .stage-cta {
-      margin: 0 0 8px 32px;
+      margin: 0 0 8px 20px;
     }
   }
 
