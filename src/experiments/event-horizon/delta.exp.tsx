@@ -208,13 +208,13 @@ const StyledNav: any = styled.nav`
     min-width: 20px;
     flex: 1 0 20px;
     height: 2px;
-    margin: 0 -2px;
+    margin: 0 -2px; /* offset 2px so the bar joins the curved node without a gap */
   }
 
   .progress-bar--start {
-    min-width: var(--leading-progress-bar-width);
-    max-width: var(--leading-progress-bar-width);
-    margin: 0;
+    min-width: calc(2px + var(--leading-progress-bar-width));
+    max-width: calc(2px + var(--leading-progress-bar-width));
+    margin: 0 -2px 0 0;
   }
 
   .progress-bar--filled {
