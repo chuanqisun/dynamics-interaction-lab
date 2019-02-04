@@ -78,7 +78,7 @@ export class App extends React.Component<any, any> {
           <Route exact path="/" component={() => <main>
             <h1 className="lab-h1">Dynamics 365 Interaction Lab</h1>
             <div className="lab-s50"></div>
-            <h2 className="lab-h2">Demos</h2>
+            <h2 className="lab-h2">Stablizing</h2>
             <div className="lab-s50"></div>
             <section className="lab-index-section">
               <h3 className='lab-h3 lab-nowrap'>Styles</h3><wbr/>{demos.filter(demo => demo.type==="style").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}<wbr/></NavLink>)}
@@ -86,7 +86,7 @@ export class App extends React.Component<any, any> {
               <h3 className='lab-h3 lab-nowrap'>Components</h3><wbr/>{demos.filter(demo => demo.type==="component").map(demo => <NavLink key={demo.route} className="lab-link lab-link--horizontal-list" activeClassName="lab-link--active" to={demo.route}>{demo.name}<wbr/></NavLink>)}
               <div className="lab-s100"></div>
             </section>
-            <h2 className="lab-h2">Experiments</h2>
+            <h2 className="lab-h2">Experimental</h2>
             <div className="lab-s50"></div>
             <section className="lab-index-section">
             {experiments.map(experiment => <div title={`${experiment.started}: ${experiment.description}`} key={experiment.series}>
