@@ -1,8 +1,6 @@
 import * as React from 'React';
 import styled from 'styled-components';
-import { FullMdl2 } from '../../styles/icon/full-mdl2';
 import { dl } from './pcf-dl';
-import ButtonDemo from '../../components/button/button.demo';
 
 export class DesignLanguageExperiment extends React.Component<any, any> {
   render() {
