@@ -38,6 +38,9 @@ interface Iteration {
 
 /* Please keep new experiements on top */
 export const experiments: Experiment[] = [
+  { series: 'babel-ascend', baseRoute: '/experiments/babel-ascend', description: 'PowerApps Control Framework design language', started: '2019-01-04', iterations: [
+    { subRoute: 'alpha', component: lazy(() => import('../experiments/babel-ascend/alpha.exp'))},
+  ]},
   { series: 'event-horizon', baseRoute: '/experiments/event-horizon', description: 'Business process flow horizontal', started: '2019-01-04', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/event-horizon/alpha.exp'))},
     { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp')), notes: 'baseline'},

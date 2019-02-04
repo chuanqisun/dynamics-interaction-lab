@@ -1,0 +1,6 @@
+Notes:
+1. We use font shorthand to make sure the correct font-weight, font-size, and line-height are used together. [Learn more on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/font#live_sample);
+2. We use [lower_snake_case](https://en.wikipedia.org/wiki/Snake_case) naming convention so variable can be used in javascript without quotation marks. We avoid camelCase because the name may contain two adjacent numbers such as `landing_48_600`, which would be ambiguously spelt as `landing48600` in camelCase.
+3. We use `px14` insteald `14px` to make dereference legal in JavaScript. Otherwise, user needs to switch to array notation. 
+4. The design system expose properties for very possible state. Applying the properties to the corresponding state is an implementation detail outside the scope of the design system. e.g. the design system has no opinion on whether to use css `:hover` selector or to add/remove a styles on DOM `mouseenter` and `mouseleave` events, as long as the correct properties are applied to the correct state.
+5. We use sigular form for naming objects
