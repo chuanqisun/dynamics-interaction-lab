@@ -130,7 +130,7 @@ const StyledNav: any = styled.nav`
     --checkmark-fg: white;
     --checkmark-bg: var(--brand-primary);
     --full-bg: white;
-    --stage-name-padding: 0 8px;
+    --stage-name-padding: 0 6px; /* 8px padding with 2px border width */
     --text-color: var(--brand-primary);
     --box-shadow: var(--ms-depth-4);
 
@@ -159,7 +159,8 @@ const StyledNav: any = styled.nav`
       background-color: var(--checkmark-bg);
     }
     .node__stage-name {
-      margin-left: -2px;
+      margin-left: -2px; /* offset to tuck the border under the left icon area */
+      padding-left: 8px; /* increase from 6 to 8 to accommondate the offset above */
       border-radius: 0 12px 12px 0;
     }
   }
