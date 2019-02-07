@@ -1,6 +1,6 @@
 {
   "name": "dynamics-interaction-lab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "experiments and documentation from Cloud + AI studios at Microsoft",
   "private": true,
   "scripts": {
