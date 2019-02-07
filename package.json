@@ -1,7 +1,7 @@
 {
   "name": "dynamics-interaction-lab",
   "version": "1.0.0",
-  "description": "",
+  "description": "experiments and documentation from Cloud + AI studios at Microsoft",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.config.dev.js",
