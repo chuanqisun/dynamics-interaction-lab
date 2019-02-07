@@ -46,6 +46,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'bravo', component: lazy(() => import('../experiments/event-horizon/bravo.exp')), notes: 'baseline'},
     { subRoute: 'charlie', component: lazy(() => import('../experiments/event-horizon/charlie.exp'))},
     { subRoute: 'delta', component: lazy(() => import('../experiments/event-horizon/delta.exp')), notes: 'visual polish'},
+    { subRoute: 'echo', component: lazy(() => import('../experiments/event-horizon/echo.exp')), notes: 'color scheme change'},
   ]},
   { series: 'fast-fourier', baseRoute: '/experiments/fast-fourier', description: 'Business process flow vertical', started: '2018-12-19', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/fast-fourier/alpha.exp'))},
@@ -69,6 +70,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'hotel', component: lazy(() => import('../experiments/markov-chain/hotel.exp')), notes: 'vertical v1'},
     { subRoute: 'india', component: lazy(() => import('../experiments/markov-chain/india.exp')), notes: 'horizontal v2'},
     { subRoute: 'juliet', component: lazy(() => import('../experiments/markov-chain/juliet.exp')), notes: 'responsive studies'},
+    { subRoute: 'kilo', component: lazy(() => import('../experiments/markov-chain/kilo.exp')), notes: 'green color scheme'},
   ]},
 ];
 
