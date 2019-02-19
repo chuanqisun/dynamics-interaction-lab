@@ -212,6 +212,7 @@ const StyledNav: any = styled.nav`
     justify-content: center;
     border-radius: 12px 0 0 12px;
     transition: background-color 200ms, border-color 200ms;
+    font-size: 16px;
   }
 
   .node__stage-name {
