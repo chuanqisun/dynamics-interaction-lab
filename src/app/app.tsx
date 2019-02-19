@@ -47,6 +47,7 @@ export const experiments: Experiment[] = [
     { subRoute: 'charlie', component: lazy(() => import('../experiments/event-horizon/charlie.exp'))},
     { subRoute: 'delta', component: lazy(() => import('../experiments/event-horizon/delta.exp')), notes: 'visual polish'},
     { subRoute: 'echo', component: lazy(() => import('../experiments/event-horizon/echo.exp')), notes: 'color scheme change'},
+    { subRoute: 'foxtrot', component: lazy(() => import('../experiments/event-horizon/foxtrot.exp')), notes: 'record-at-stage invert color'},
   ]},
   { series: 'fast-fourier', baseRoute: '/experiments/fast-fourier', description: 'Business process flow vertical', started: '2018-12-19', iterations: [
     { subRoute: 'alpha', component: lazy(() => import('../experiments/fast-fourier/alpha.exp'))},

@@ -5,7 +5,7 @@ import {AppShell} from '../../components/app-shell/app-shell';
 import {appShellDemoProps} from '../../components/app-shell/app-shell.demo';
 import {SideNav} from '../../components/side-nav/side-nav';
 import {ProcessHeader} from './FormHeader/process-header';
-import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/echo.exp';
+import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/foxtrot.exp';
 import Scrollbars  from 'react-custom-scrollbars';
 
 /* dialog */
@@ -82,7 +82,7 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
         {name: 'Qualify'},
         {name: 'Develop'},
         {name: 'Propose'},
-        {name: 'Close'},
+        {name: 'Wrap up'},
       ],
       userSelectedIndex: 0,
       recordAtIndex: 0,
