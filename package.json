@@ -8,6 +8,9 @@
     "build": "webpack --config webpack.config.prod.js",
     "build:dev": "webpack --config webpack.config.dev.js"
   },
+  "engines": {
+    "node": ">=8 <9"
+  },
   "keywords": [],
   "author": "Cloud + AI Design Studio",
   "license": "MIT",

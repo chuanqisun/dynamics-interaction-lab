@@ -1,8 +1,7 @@
-import * as React from 'React';
-import styled, {keyframes} from 'styled-components';
-import { FullMdl2 } from '../../styles/icon/full-mdl2';
-import '../../components/button/button.css';
-
+import * as React from "react";
+import styled, { keyframes } from "styled-components";
+import "../../components/button/button.css";
+import { FullMdl2 } from "../../styles/icon/full-mdl2";
 
 export interface Stage {
   name: string;
@@ -20,44 +19,46 @@ export interface BusinessProcessFlowProps {
 }
 
 export const BusinessProcessFlow: React.FunctionComponent<BusinessProcessFlowProps> = (props) => {
-  return <StyledNav className={props.className} leadingProgressBarWidthInPixel={props.leadingProgressBarWidthInPixel}>
-  {props.stages.map((stage: any, index: number) => 
-  <React.Fragment key={index}>
-    {index < props.stages.length ? <div className={[
-      `progress-bar`,
-      index === 0 ? ' progress-bar--start' : '',
-      index < props.recordAtIndex ? ' progress-bar--filled' : '',
-      index === props.recordAtIndex ? ' progress-bar--filled' : '',
-      index > props.recordAtIndex ? ' progress-bar--empty' : '',
-    ].join('')}></div> : null}
-    <button onClick={() => props.onSelectStage(index)} className={[
-        `node`,
-        index === props.userSelectedIndex ? ' node--user-selected' : '',
-        index === props.recordAtIndex ? ' node--record-at' : '',
-        index < props.recordAtIndex ? ' node--record-competed' : ''
-      ].join('')}>
-      {index < props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.CheckMark}</span>}
-      {index === props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.POI}</span>}
-      <span className="node__stage-name">{stage.name}</span>
-    </button>      
-  </React.Fragment>)}
-</StyledNav>
-}
+  return (
+    <StyledNav className={props.className} leadingProgressBarWidthInPixel={props.leadingProgressBarWidthInPixel}>
+      {props.stages.map((stage: any, index: number) => (
+        <React.Fragment key={index}>
+          {index < props.stages.length ? (
+            <div
+              className={[
+                `progress-bar`,
+                index === 0 ? " progress-bar--start" : "",
+                index < props.recordAtIndex ? " progress-bar--filled" : "",
+                index === props.recordAtIndex ? " progress-bar--filled" : "",
+                index > props.recordAtIndex ? " progress-bar--empty" : "",
+              ].join("")}
+            ></div>
+          ) : null}
+          <button
+            onClick={() => props.onSelectStage(index)}
+            className={[
+              `node`,
+              index === props.userSelectedIndex ? " node--user-selected" : "",
+              index === props.recordAtIndex ? " node--record-at" : "",
+              index < props.recordAtIndex ? " node--record-competed" : "",
+            ].join("")}
+          >
+            {index < props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.CheckMark}</span>}
+            {index === props.recordAtIndex && <span className="node__checkmark mdl2">{FullMdl2.POI}</span>}
+            <span className="node__stage-name">{stage.name}</span>
+          </button>
+        </React.Fragment>
+      ))}
+    </StyledNav>
+  );
+};
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      stages: [
-        {name: 'Screen'},
-        {name: 'Qualify'},
-        {name: 'Develop'},
-        {name: 'Connect'},
-        {name: 'Propose'},
-        {name: 'Close'},
-        {name: 'Archive'},
-      ],
+      stages: [{ name: "Screen" }, { name: "Qualify" }, { name: "Develop" }, { name: "Connect" }, { name: "Propose" }, { name: "Close" }, { name: "Archive" }],
       userSelectedIndex: 2,
       recordAtIndex: 2,
       onSelectStage: this.onSelectStage,
@@ -67,31 +68,50 @@ export class BusinessProcessExperiment extends React.Component<any, any> {
     };
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+  onSelectStage = (index: number) => this.setState({ userSelectedIndex: index === this.state.userSelectedIndex ? null : index });
 
-  rollBackStage = () => this.setState({recordAtIndex: Math.max(0, this.state.recordAtIndex - 1)});
+  rollBackStage = () => this.setState({ recordAtIndex: Math.max(0, this.state.recordAtIndex - 1) });
 
-  advanceStage = () => this.setState({recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1)});
+  advanceStage = () => this.setState({ recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1) });
 
   onCompleteStage = () => {
-    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
+    const recordAtIndex = Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
     const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
-    this.setState({recordAtIndex, userSelectedIndex});
-  }
+    this.setState({ recordAtIndex, userSelectedIndex });
+  };
 
-  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
+  onMoveRecordToStage = (index: number) => this.setState({ recordAtIndex: index });
 
   render() {
-
-    return <StyledSection>
-    <h2>Sample</h2>
-    <BusinessProcessFlow {...this.state as BusinessProcessFlowProps}/>
-    <h2>Design notes</h2>
-    <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
-    <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
-    <li>{this.state.recordAtIndex < this.state.stages.length ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"` : `Record has finished all stages`}</li>
-    <li><label>Progress bar 0th segement width</label><input style={{width: '64px'}} type="number" value={this.state.leadingProgressBarWidthInPixel} onChange={e => this.setState({leadingProgressBarWidthInPixel: e.target.value})}/>px</li>
-    </StyledSection>
+    return (
+      <StyledSection>
+        <h2>Sample</h2>
+        <BusinessProcessFlow {...(this.state as BusinessProcessFlowProps)} />
+        <h2>Design notes</h2>
+        <li>
+          <button onClick={this.rollBackStage}>Roll back stage</button>
+          <button onClick={this.advanceStage}>Advance stage</button>
+        </li>
+        <li>
+          {this.state.userSelectedIndex === null ? "User is not viewing any stage" : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}
+        </li>
+        <li>
+          {this.state.recordAtIndex < this.state.stages.length
+            ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"`
+            : `Record has finished all stages`}
+        </li>
+        <li>
+          <label>Progress bar 0th segement width</label>
+          <input
+            style={{ width: "64px" }}
+            type="number"
+            value={this.state.leadingProgressBarWidthInPixel}
+            onChange={(e) => this.setState({ leadingProgressBarWidthInPixel: e.target.value })}
+          />
+          px
+        </li>
+      </StyledSection>
+    );
   }
 }
 
@@ -120,7 +140,7 @@ const StyledNav: any = styled.nav`
   --ms-depth-8: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
   --ms-depth-16: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
 
-  --leading-progress-bar-width: ${(props: BusinessProcessFlowProps) => `${props.leadingProgressBarWidthInPixel ? props.leadingProgressBarWidthInPixel : '0'}px`}
+  --leading-progress-bar-width: ${(props: BusinessProcessFlowProps) => `${props.leadingProgressBarWidthInPixel ? props.leadingProgressBarWidthInPixel : "0"}px`}
   
   display: flex;
   align-items: center;

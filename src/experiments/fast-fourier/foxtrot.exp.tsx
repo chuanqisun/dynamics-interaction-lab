@@ -1,75 +1,94 @@
-import * as React from 'React';
-import styled from 'styled-components';
-import { FullMdl2 } from '../../styles/icon/full-mdl2';
-import '../../components/button/button.css';
+import * as React from "react";
+import styled from "styled-components";
+import "../../components/button/button.css";
+import { FullMdl2 } from "../../styles/icon/full-mdl2";
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      stages: [
-        {name: 'Screen'},
-        {name: 'Qualify'},
-        {name: 'Develop'},
-        {name: 'Connect'},
-        {name: 'Propose'},
-        {name: 'Close'},
-        {name: 'Archive'},
-      ],
+      stages: [{ name: "Screen" }, { name: "Qualify" }, { name: "Develop" }, { name: "Connect" }, { name: "Propose" }, { name: "Close" }, { name: "Archive" }],
       userSelectedIndex: 2,
       recordAtIndex: 2,
     };
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+  onSelectStage = (index: number) => this.setState({ userSelectedIndex: index === this.state.userSelectedIndex ? null : index });
 
-  rollBackStage = () => this.setState({recordAtIndex: Math.max(0, this.state.recordAtIndex - 1)});
+  rollBackStage = () => this.setState({ recordAtIndex: Math.max(0, this.state.recordAtIndex - 1) });
 
-  advanceStage = () => this.setState({recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1)});
+  advanceStage = () => this.setState({ recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1) });
 
   onCompleteStage = () => {
-    const recordAtIndex =  Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
+    const recordAtIndex = Math.min(this.state.stages.length, this.state.recordAtIndex + 1);
     const userSelectedIndex = recordAtIndex < this.state.stages.length ? recordAtIndex : null;
-    this.setState({recordAtIndex, userSelectedIndex});
-  }
+    this.setState({ recordAtIndex, userSelectedIndex });
+  };
 
-  onMoveRecordToStage = (index: number) => this.setState({recordAtIndex: index});
+  onMoveRecordToStage = (index: number) => this.setState({ recordAtIndex: index });
 
   render() {
-    return <StyledSection>
-    <h2>Sample</h2>
-    <StyledNav>
-      {this.state.stages.map((stage: any, index: number) => 
-      <React.Fragment key={index}>
-        <div className={[
-          `node`,
-          index === this.state.userSelectedIndex ? ' node--expanded' : '',
-          index === this.state.recordAtIndex ? ' node--outlined' : '',
-          index < this.state.recordAtIndex ? ' node--filled' : ''
-        ].join('')}>
-          <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
-            <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
-            <span className="name-with-chevron">
-              <span className="stage-name">{stage.name}</span>
-              <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
-            </span>
-          </button>
-          {index === this.state.userSelectedIndex ? <div className="stage-content">
-            {index < this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Rollback to this stage</button> : null}
-            {index === this.state.recordAtIndex ? <button className="stage-cta" onClick={this.onCompleteStage}>Complete</button> : null}
-            {index > this.state.recordAtIndex ? <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>Skip to this stage</button> : null}
-          </div> : null}
-          
-        </div>
-        {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
-      </React.Fragment>)}
-    </StyledNav>
-    <h2>Design notes</h2>
-    <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
-    <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
-    <li>{this.state.recordAtIndex < this.state.stages.length ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"` : `Record has finished all stages`}</li>
-    </StyledSection>
+    return (
+      <StyledSection>
+        <h2>Sample</h2>
+        <StyledNav>
+          {this.state.stages.map((stage: any, index: number) => (
+            <React.Fragment key={index}>
+              <div
+                className={[
+                  `node`,
+                  index === this.state.userSelectedIndex ? " node--expanded" : "",
+                  index === this.state.recordAtIndex ? " node--outlined" : "",
+                  index < this.state.recordAtIndex ? " node--filled" : "",
+                ].join("")}
+              >
+                <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
+                  <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
+                  <span className="name-with-chevron">
+                    <span className="stage-name">{stage.name}</span>
+                    <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
+                  </span>
+                </button>
+                {index === this.state.userSelectedIndex ? (
+                  <div className="stage-content">
+                    {index < this.state.recordAtIndex ? (
+                      <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>
+                        Rollback to this stage
+                      </button>
+                    ) : null}
+                    {index === this.state.recordAtIndex ? (
+                      <button className="stage-cta" onClick={this.onCompleteStage}>
+                        Complete
+                      </button>
+                    ) : null}
+                    {index > this.state.recordAtIndex ? (
+                      <button className="stage-cta" onClick={() => this.onMoveRecordToStage(index)}>
+                        Skip to this stage
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+              {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
+            </React.Fragment>
+          ))}
+        </StyledNav>
+        <h2>Design notes</h2>
+        <li>
+          <button onClick={this.rollBackStage}>Roll back stage</button>
+          <button onClick={this.advanceStage}>Advance stage</button>
+        </li>
+        <li>
+          {this.state.userSelectedIndex === null ? "User is not viewing any stage" : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}
+        </li>
+        <li>
+          {this.state.recordAtIndex < this.state.stages.length
+            ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"`
+            : `Record has finished all stages`}
+        </li>
+      </StyledSection>
+    );
   }
 }
 
@@ -78,12 +97,12 @@ const StyledSection = styled.section`
 `;
 
 const StyledNav = styled.nav`
-  --brand-primary: #2266E3;
-  --brand-primary-darken: #1B52B6;
-  --material-shadow-d1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-  --material-shadow-d2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-  --material-shadow-d3: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
-  
+  --brand-primary: #2266e3;
+  --brand-primary-darken: #1b52b6;
+  --material-shadow-d1: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  --material-shadow-d2: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --material-shadow-d3: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
   display: flex;
   flex-direction: column;
 
@@ -98,12 +117,12 @@ const StyledNav = styled.nav`
   }
 
   .node::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
     height: 24px;
-  
+
     border: 2px solid transparent;
     background-color: white;
     box-sizing: border-box;
@@ -198,7 +217,7 @@ const StyledNav = styled.nav`
   }
 
   .stage-name {
-    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    font: var(--fw-semibold) var(--scale-14) / var(--scale-20) var(--ff-segoe-ui);
     margin-right: 6px;
   }
 

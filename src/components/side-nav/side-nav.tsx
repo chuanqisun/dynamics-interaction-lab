@@ -1,6 +1,6 @@
-import * as React from 'react';
-import styled, {StyledComponent} from 'styled-components';
-import {FullMdl2} from '../../styles/icon/full-mdl2';
+import * as React from "react";
+import styled, { StyledComponent } from "styled-components";
+import { FullMdl2 } from "../../styles/icon/full-mdl2";
 
 export interface SideNavItem {
   id: string;
@@ -17,48 +17,52 @@ export interface SideNavProps {
   onToggleExpanded: () => any;
 }
 
-export interface StyledNavProps extends Partial<SideNavProps> {};
+export interface StyledNavProps extends Partial<SideNavProps> {}
 
-export const SideNav = (props: SideNavProps) => <StyledNav className={props.className} expanded={props.expanded}>
-  <div className="row">
-    <button className="row__left row-button" onClick={props.onToggleExpanded}>
-      <span className="row-button__icon">{FullMdl2.GlobalNavButton}</span>
-    </button>
-  </div>
-  <div className="row">
-    <button className="row__left row-button">
-      <span className="row-button__icon">{FullMdl2.Home}</span>
-      <span className="row-button__text">Home</span>
-    </button>
-  </div>
-  <div className="row">
-    <button className="row__left row-button">
-      <span className="row-button__icon">{FullMdl2.Recent}</span>
-      <span className="row-button__text">Recent</span>
-      <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
-    </button>
-  </div>
-  <div className="row">
-    <button className="row__left row-button">
-      <span className="row-button__icon">{FullMdl2.Pinned}</span>
-      <span className="row-button__text">Pinned</span>
-      <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
-    </button>
-  </div>
-  {props.items.map(item => <div key={item.id} className={`row${item.id === props.selectedItemId ? ' row--selected':''}`}>
-    <button className="row__left row-button" onClick={() => props.onSelect(item.id)}>
-      <span className="row-button__icon">{item.icon}</span>
-      <span className="row-button__text">{item.name}</span>
-    </button>
-  </div>)}
-</StyledNav>;
+export const SideNav = (props: SideNavProps) => (
+  <StyledNav className={props.className} expanded={props.expanded}>
+    <div className="row">
+      <button className="row__left row-button" onClick={props.onToggleExpanded}>
+        <span className="row-button__icon">{FullMdl2.GlobalNavButton}</span>
+      </button>
+    </div>
+    <div className="row">
+      <button className="row__left row-button">
+        <span className="row-button__icon">{FullMdl2.Home}</span>
+        <span className="row-button__text">Home</span>
+      </button>
+    </div>
+    <div className="row">
+      <button className="row__left row-button">
+        <span className="row-button__icon">{FullMdl2.Recent}</span>
+        <span className="row-button__text">Recent</span>
+        <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
+      </button>
+    </div>
+    <div className="row">
+      <button className="row__left row-button">
+        <span className="row-button__icon">{FullMdl2.Pinned}</span>
+        <span className="row-button__text">Pinned</span>
+        <span className="row-button__chevron">{FullMdl2.ChevronDownSmall}</span>
+      </button>
+    </div>
+    {props.items.map((item) => (
+      <div key={item.id} className={`row${item.id === props.selectedItemId ? " row--selected" : ""}`}>
+        <button className="row__left row-button" onClick={() => props.onSelect(item.id)}>
+          <span className="row-button__icon">{item.icon}</span>
+          <span className="row-button__text">{item.name}</span>
+        </button>
+      </div>
+    ))}
+  </StyledNav>
+);
 
-const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
-  width: ${(props: StyledNavProps) => props.expanded ? 'var(--sn-expanded-width)' : 'var(--sn-collapsed-width)'};
+const StyledNav: StyledComponent<"nav", any, StyledNavProps> = styled.nav`
+  width: ${(props: StyledNavProps) => (props.expanded ? "var(--sn-expanded-width)" : "var(--sn-collapsed-width)")};
   border-right: 1px solid var(--color-grey-30);
   background-color: var(--color-grey-20);
   height: 100%;
-  overflow-y: ${(props: StyledNavProps) => props.expanded ? 'auto' : 'hidden'};
+  overflow-y: ${(props: StyledNavProps) => (props.expanded ? "auto" : "hidden")};
 
   .row {
     display: flex;
@@ -80,7 +84,7 @@ const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
   }
 
   .row--selected::before {
-    content: '';
+    content: "";
     height: var(--sn-select-indicator-height);
     width: var(--sn-select-indicator-width);
     border-radius: calc(var(--sn-select-indicator-width) / 2);
@@ -119,7 +123,7 @@ const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
-    display: ${(props: StyledNavProps) => props.expanded ? 'initial' : 'none'}
+    display: ${(props: StyledNavProps) => (props.expanded ? "initial" : "none")};
   }
 
   .row-button__text:last-child {
@@ -131,6 +135,6 @@ const StyledNav: StyledComponent<'nav', any, StyledNavProps> = styled.nav`
     width: var(--sn-right-slot-width);
     font-family: var(--ff-mdl2);
     font-size: var(--sn-chevron-font-size);
-    display: ${(props: StyledNavProps) => props.expanded ? 'initial' : 'none'}
+    display: ${(props: StyledNavProps) => (props.expanded ? "initial" : "none")};
   }
 `;

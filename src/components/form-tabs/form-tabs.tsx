@@ -1,9 +1,5 @@
-import * as React from 'React';
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const FormTabs = (props: any) => {}
+export const FormTabs = (props: any) => {};
 
-
-const StyledNav = styled.nav`
-
-`;
+const StyledNav = styled.nav``;

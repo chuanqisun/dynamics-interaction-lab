@@ -1,56 +1,63 @@
-import * as React from 'React';
-import styled from 'styled-components';
-import { FullMdl2 } from '../../styles/icon/full-mdl2';
+import * as React from "react";
+import styled from "styled-components";
+import { FullMdl2 } from "../../styles/icon/full-mdl2";
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      stages: [
-        {name: 'Screen'},
-        {name: 'Qualify'},
-        {name: 'Develop'},
-        {name: 'Connect'},
-        {name: 'Propose'},
-        {name: 'Close'},
-        {name: 'Archive'},
-      ],
+      stages: [{ name: "Screen" }, { name: "Qualify" }, { name: "Develop" }, { name: "Connect" }, { name: "Propose" }, { name: "Close" }, { name: "Archive" }],
       userSelectedIndex: 1,
       recordAtIndex: 2,
     };
   }
 
-  onSelectStage = (index: number) => this.setState({userSelectedIndex: index === this.state.userSelectedIndex ? null : index});
+  onSelectStage = (index: number) => this.setState({ userSelectedIndex: index === this.state.userSelectedIndex ? null : index });
 
-  rollBackStage = () => this.setState({recordAtIndex: Math.max(0, this.state.recordAtIndex - 1)});
+  rollBackStage = () => this.setState({ recordAtIndex: Math.max(0, this.state.recordAtIndex - 1) });
 
-  advanceStage = () => this.setState({recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1)});
+  advanceStage = () => this.setState({ recordAtIndex: Math.min(this.state.stages.length, this.state.recordAtIndex + 1) });
 
   render() {
-    return <StyledSection>
-    <h2>Sample</h2>
-    <StyledNav>
-      {this.state.stages.map((stage: any, index: number) => 
-      <React.Fragment key={index}>
-        <div className={`node`+`${index === this.state.userSelectedIndex ? ' node--expanded' : ''}` +
-        `${index < this.state.recordAtIndex ? ' node--filled' : ''}`}>
-          <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
-            <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
-            <span className="name-with-chevron">
-              <span className="stage-name">{stage.name}</span>
-              <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
-            </span>
-          </button>  
-        </div>
-        {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
-      </React.Fragment>)}
-    </StyledNav>
-    <h2>Design notes</h2>
-    <li><button onClick={this.rollBackStage}>Roll back stage</button><button onClick={this.advanceStage}>Advance stage</button></li>
-    <li>{this.state.userSelectedIndex === null ? 'User is not viewing any stage' : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}</li>
-    <li>{this.state.recordAtIndex < this.state.stages.length ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"` : `Record has finished all stages`}</li>
-    </StyledSection>
+    return (
+      <StyledSection>
+        <h2>Sample</h2>
+        <StyledNav>
+          {this.state.stages.map((stage: any, index: number) => (
+            <React.Fragment key={index}>
+              <div
+                className={
+                  `node` + `${index === this.state.userSelectedIndex ? " node--expanded" : ""}` + `${index < this.state.recordAtIndex ? " node--filled" : ""}`
+                }
+              >
+                <button onClick={() => this.onSelectStage(index)} className="accordion-trigger">
+                  <span className="checkmark mdl2">{index < this.state.recordAtIndex ? FullMdl2.CheckMark : null}</span>
+                  <span className="name-with-chevron">
+                    <span className="stage-name">{stage.name}</span>
+                    <span className="chevron mdl2">{FullMdl2.ChevronDownSmall}</span>
+                  </span>
+                </button>
+              </div>
+              {index < this.state.stages.length - 1 ? <div className="progress-bar"></div> : null}
+            </React.Fragment>
+          ))}
+        </StyledNav>
+        <h2>Design notes</h2>
+        <li>
+          <button onClick={this.rollBackStage}>Roll back stage</button>
+          <button onClick={this.advanceStage}>Advance stage</button>
+        </li>
+        <li>
+          {this.state.userSelectedIndex === null ? "User is not viewing any stage" : `User is viewing ${this.state.stages[this.state.userSelectedIndex].name}`}
+        </li>
+        <li>
+          {this.state.recordAtIndex < this.state.stages.length
+            ? `Record is at "${this.state.stages[this.state.recordAtIndex].name}"`
+            : `Record has finished all stages`}
+        </li>
+      </StyledSection>
+    );
   }
 }
 
@@ -59,7 +66,7 @@ const StyledSection = styled.section`
 `;
 
 const StyledNav = styled.nav`
-  --brand-primary: #2266E3;
+  --brand-primary: #2266e3;
 
   display: flex;
   flex-direction: column;
@@ -69,7 +76,7 @@ const StyledNav = styled.nav`
     width: 24px;
     height: 24px;
     border-radius: 12px;
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
     transition: width 200ms, height 200ms;
     position: relative;
   }
@@ -102,7 +109,7 @@ const StyledNav = styled.nav`
   }
 
   .accordion-trigger::before {
-    content: '';
+    content: "";
     box-sizing: border-box;
     height: 100%;
     width: 100%;
@@ -173,7 +180,7 @@ const StyledNav = styled.nav`
   }
 
   .stage-name {
-    font: var(--fw-semibold) var(--scale-14)/var(--scale-20) var(--ff-segoe-ui);
+    font: var(--fw-semibold) var(--scale-14) / var(--scale-20) var(--ff-segoe-ui);
     margin-right: 6px;
   }
 

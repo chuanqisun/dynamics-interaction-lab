@@ -1,22 +1,22 @@
-import * as React from 'React';
+import * as React from 'react';
 import styled from 'styled-components';
 
-import {AppShell} from '../../components/app-shell/app-shell';
-import {appShellDemoProps} from '../../components/app-shell/app-shell.demo';
-import {SideNav} from '../../components/side-nav/side-nav';
-import {FormHeader} from '../../components/form-header/form-header';
-import {formTabsDemoProps} from '../../components/form-tabs/form-tabs.demo';
-import {BusinessProcessFlow, BusinessProcessFlowProps} from '../event-horizon/charlie.exp';
-import Scrollbars  from 'react-custom-scrollbars';
+import Scrollbars from 'react-custom-scrollbars';
+import { AppShell } from '../../components/app-shell/app-shell';
+import { appShellDemoProps } from '../../components/app-shell/app-shell.demo';
+import { FormHeader } from '../../components/form-header/form-header';
+import { formTabsDemoProps } from '../../components/form-tabs/form-tabs.demo';
+import { SideNav } from '../../components/side-nav/side-nav';
+import { BusinessProcessFlow, BusinessProcessFlowProps } from '../event-horizon/charlie.exp';
 
 /* side nav */
-import {FullMdl2} from '../../styles/icon/full-mdl2';
+import { FullMdl2 } from '../../styles/icon/full-mdl2';
 
 /* form sections */
-import Subgrids from '../markov-chain/FormSectionMocks/Subgrids.svg';
-import RelationshipAssistant from '../markov-chain/FormSectionMocks/RelationshipAssistant.svg';
-import Timeline from '../markov-chain/FormSectionMocks/Timeline.svg';
 import Details from '../markov-chain/FormSectionMocks/Details.svg';
+import RelationshipAssistant from '../markov-chain/FormSectionMocks/RelationshipAssistant.svg';
+import Subgrids from '../markov-chain/FormSectionMocks/Subgrids.svg';
+import Timeline from '../markov-chain/FormSectionMocks/Timeline.svg';
 
 /* command */
 import Assign from '../markov-chain/CommandMocks/Assign.svg';
@@ -30,8 +30,8 @@ import RecordSet from '../markov-chain/CommandMocks/RecordSet.svg';
 import Refresh from '../markov-chain/CommandMocks/Refresh.svg';
 
 /* form field */
-import './form-field.css';
 import '../../styles/fluent-for-dynamics.css';
+import './form-field.css';
 
 export class BusinessProcessExperiment extends React.Component<any, any> {
   constructor(props: any) {

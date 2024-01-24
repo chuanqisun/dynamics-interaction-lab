@@ -1,11 +1,11 @@
-import * as React from 'react';
-import styled, {StyledComponent} from 'styled-components';
-import {contentEditable} from '../../../utils/content-editable';
+import * as React from "react";
+import styled, { StyledComponent } from "styled-components";
+import { contentEditable } from "../../../utils/content-editable";
 
 export interface Field {
   key: string;
   value: string;
-  type: string,
+  type: string;
 }
 
 export interface FormHeaderProps {
@@ -25,76 +25,100 @@ export interface FormHeaderProps {
   onFormSwitch?: (index: number) => void;
 }
 
-export const ProcessHeader: React.FunctionComponent<FormHeaderProps> = props => {
-  const recordName = props.recordName || 'Cooking Appliances IOT Capable';
-  const recordInitials = props.recordInitials || 'CA';
+export const ProcessHeader: React.FunctionComponent<FormHeaderProps> = (props) => {
+  const recordName = props.recordName || "Cooking Appliances IOT Capable";
+  const recordInitials = props.recordInitials || "CA";
   const fields = props.fields || [
-    {key: 'Header field key', value: 'Header field value', type: 'text'},
-    {key: 'Header field key', value: 'Header field value'},
-    {key: 'Header field key', value: 'Header field value'},
-    {key: 'Header field key', value: 'Header field value'},
+    { key: "Header field key", value: "Header field value", type: "text" },
+    { key: "Header field key", value: "Header field value" },
+    { key: "Header field key", value: "Header field value" },
+    { key: "Header field key", value: "Header field value" },
   ];
-  const formSwitcherOptions = props.formSwitcherOptions || [
-    'Sales rep form',
-    'Sales manager form',
-    'Executive form',
-  ];
+  const formSwitcherOptions = props.formSwitcherOptions || ["Sales rep form", "Sales manager form", "Executive form"];
   const formSwitcherSelectedIndex = props.formSwitcherSelectedIndex !== undefined ? props.formSwitcherSelectedIndex : 0;
 
-  const entityName = props.entityName || 'Opportunity';
+  const entityName = props.entityName || "Opportunity";
 
   const contentEditableRef = props.isContentEditable ? contentEditable : undefined;
 
-
-  return <StyledHeader className={props.className} inlineModeBreakpoint={props.inlineModeBreakpoint}>
-  <div className="title-assembly">
-    {props.showRecordImage ?  
-      <div className="title-assembly__left">
-        <span className="record-icon" ref={contentEditableRef}>{recordInitials}</span>
+  return (
+    <StyledHeader className={props.className} inlineModeBreakpoint={props.inlineModeBreakpoint}>
+      <div className="title-assembly">
+        {props.showRecordImage ? (
+          <div className="title-assembly__left">
+            <span className="record-icon" ref={contentEditableRef}>
+              {recordInitials}
+            </span>
+          </div>
+        ) : null}
+        <div className="title-assembly__right">
+          <h1 className="form-title" ref={contentEditableRef}>
+            {recordName}
+          </h1>
+          <span className="metas">
+            <span className="metas__field metas__field" ref={contentEditableRef}>
+              {entityName}
+            </span>
+            {props.showFormSwitcher ? (
+              <React.Fragment>
+                <span className="metas__field metas__field--separator">·</span>
+                <span className="metas__field metas__field--select">
+                  <select
+                    className="view-switcher"
+                    value={formSwitcherOptions[formSwitcherSelectedIndex]}
+                    onChange={(e) => (props.onFormSwitch ? props.onFormSwitch(e.target.selectedIndex) : null)}
+                  >
+                    {formSwitcherOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </React.Fragment>
+            ) : null}
+          </span>
+        </div>
       </div>
-    : null}
-    <div className="title-assembly__right">
-      <h1 className="form-title" ref={contentEditableRef}>{recordName}</h1>
-      <span className="metas">
-        <span className="metas__field metas__field" ref={contentEditableRef}>{entityName}</span>
-        {props.showFormSwitcher ?
-        <React.Fragment>
-        <span className="metas__field metas__field--separator">·</span>
-        <span className="metas__field metas__field--select">
-          <select className="view-switcher" value={formSwitcherOptions[formSwitcherSelectedIndex]} onChange={e => props.onFormSwitch ? props.onFormSwitch(e.target.selectedIndex) : null}>
-            {formSwitcherOptions.map(option => <option key={option} value={option}>{option}</option>)}
-          </select>
-        </span>
-        </React.Fragment>
-        : null}
-      </span>
-    </div>
-  </div>
-  <div className="fields-assembly fields-assembly--grid">
-    {fields.map((item, index) => 
-      <React.Fragment key={index}>
-        <div className="field__key" ref={contentEditableRef}>{item.key}</div>
-        <div className={'field__value' + (item.type === 'link' ? ' field__value--link' : '')} ref={contentEditableRef}>{item.value}</div>
-      </React.Fragment>)}
-  </div>
-  <div className="fields-assembly fields-assembly--card">
-    {fields.map((item, index) => 
-    <React.Fragment key={index}>
-      <div className="field" >
-        <div className={'field__value' + (item.type === 'link' ? ' field__value--link' : '')} ref={contentEditableRef}>{item.value}</div>
-        <div className="field__key" ref={contentEditableRef}>{item.key}</div>
+      <div className="fields-assembly fields-assembly--grid">
+        {fields.map((item, index) => (
+          <React.Fragment key={index}>
+            <div className="field__key" ref={contentEditableRef}>
+              {item.key}
+            </div>
+            <div className={"field__value" + (item.type === "link" ? " field__value--link" : "")} ref={contentEditableRef}>
+              {item.value}
+            </div>
+          </React.Fragment>
+        ))}
       </div>
-      {index + 1 < fields.length ? <div className="divider"><div className="divider-line"></div></div> : null}
-    </React.Fragment>
-    )}
-  </div>
-</StyledHeader>
-}
+      <div className="fields-assembly fields-assembly--card">
+        {fields.map((item, index) => (
+          <React.Fragment key={index}>
+            <div className="field">
+              <div className={"field__value" + (item.type === "link" ? " field__value--link" : "")} ref={contentEditableRef}>
+                {item.value}
+              </div>
+              <div className="field__key" ref={contentEditableRef}>
+                {item.key}
+              </div>
+            </div>
+            {index + 1 < fields.length ? (
+              <div className="divider">
+                <div className="divider-line"></div>
+              </div>
+            ) : null}
+          </React.Fragment>
+        ))}
+      </div>
+    </StyledHeader>
+  );
+};
 
-const StyledHeader: StyledComponent<'header', any, any> = styled.header`
+const StyledHeader: StyledComponent<"header", any, any> = styled.header`
   padding: 14px 20px 0 20px;
   background-color: white;
-  --brand-primary: #2266E3;
+  --brand-primary: #2266e3;
 
   .record-icon {
     width: 46px;
@@ -144,7 +168,7 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
   .field {
     width: 100%;
   }
-  
+
   .field__key {
     color: #666666;
     font-size: 12px;
@@ -179,7 +203,7 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
 
   .metas__field {
     align-items: center;
-    color: #3B3A39;
+    color: #3b3a39;
     display: inline-flex;
     font-size: 14px;
     line-height: 20px;
@@ -198,7 +222,7 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
     margin-left: -4px;
     background-color: transparent;
     border: none;
-    color: #3B3A39;
+    color: #3b3a39;
     padding: 0;
     font-size: 14px;
     line-height: 20px;
@@ -206,7 +230,7 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
     font-family: inherit;
   }
 
-  @media (min-width: ${(props: FormHeaderProps) => props.inlineModeBreakpoint || '400px'}) {
+  @media (min-width: ${(props: FormHeaderProps) => props.inlineModeBreakpoint || "400px"}) {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -215,10 +239,10 @@ const StyledHeader: StyledComponent<'header', any, any> = styled.header`
       flex: 0 0 auto;
       margin: 6px 12px;
     }
-    
+
     .divider-line {
       width: 1px;
-      background-color: #DDD;
+      background-color: #ddd;
       height: 100%;
     }
 
