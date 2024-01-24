@@ -3,7 +3,7 @@ import { FullMdl2 } from "../../styles/icon/full-mdl2";
 import { AppShell, AppShellProps } from "./app-shell";
 
 export const appShellDemoProps = {
-  avatarImgUrl: "https://api.adorable.io/avatars/285/abott@adorable.png",
+  avatarImgUrl: "https://api.dicebear.com/7.x/bottts-neutral/svg?backgroundColor=ffd5dc",
   dynamicsDisplayStack: [
     { icon: FullMdl2.TBX, label: "Task flow" },
     { icon: FullMdl2.ToolTip, label: "Relationship Assistant" },
